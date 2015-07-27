@@ -1,0 +1,7 @@
+{
+	"Name": "libs.json",
+	"Projects": [
+		"/sys/src/ape/ap/ap.json",
+		"/sys/src/ape/bsd/bsd.json"
+	]
+}
