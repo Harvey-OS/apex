@@ -92,6 +92,9 @@ typedef long ssize_t;
 extern "C" {
 #endif
 
+//TODO
+typedef signed int	int32_t;
+
 /* process primitives */
 extern int execl(const char *, const char *, ...);
 extern int execv(const char *, const char **);

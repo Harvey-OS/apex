@@ -13,7 +13,7 @@
 #include	<sys/limits.h>
 
 int32_t
-pathconf(const char *, int name)
+pathconf(const char *c, int name)
 {
 	switch(name)
 	{
@@ -53,7 +53,7 @@ pathconf(const char *, int name)
 }
 
 int32_t
-fpathconf(int, int name)
+fpathconf(int _unused, int name)
 {
 	return pathconf(0, name);
 }

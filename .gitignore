@@ -1,0 +1,17 @@
+/386/*
+
+/amd64/bin
+/amd64/lib
+
+
+*.orig
+*_orig
+*.rej
+*~
+*.o
+o.*
+*.a
+*.ao
+*.out
+tests/*.err
+

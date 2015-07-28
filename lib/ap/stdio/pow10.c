@@ -11,6 +11,9 @@
 #include <float.h>
 #include <math.h>
 
+//TODO
+typedef signed int	int32_t;
+
 static	int32_t	tab[] =
 {
 	1L, 10L, 100L, 1000L, 10000L,

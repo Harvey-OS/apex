@@ -11,7 +11,7 @@
 #include <limits.h>
 #include <errno.h>
 
-int32_t
+long
 strtol(const char *nptr, char **endptr, int base)
 {
 	const char *p;

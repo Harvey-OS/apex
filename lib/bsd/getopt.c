@@ -20,7 +20,7 @@ int
 getopt (int argc, char **argv, char *opts)
 {
 	static int sp = 1;
-	register c;
+	register int c;
 	register char *cp;
 
 	if (sp == 1)

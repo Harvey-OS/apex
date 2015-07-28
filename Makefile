@@ -1,0 +1,8 @@
+include Makefile.inc
+
+DIRS=lib
+
+all:
+	mkdir -p $(LIB)
+	@cd $(DIRS) && $(MAKE)
+	@echo "Done!"

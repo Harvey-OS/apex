@@ -17,7 +17,7 @@ abs(int a)
 	return a;
 }
 
-int32_t
+long
 labs(int32_t a)
 {
 	if(a < 0)

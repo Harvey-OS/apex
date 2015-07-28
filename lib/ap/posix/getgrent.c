@@ -41,7 +41,7 @@ endgrent(void)
 }
 
 static char *
-grskip(register char *p, register c)
+grskip( char *p,  int c)
 {
 	while( *p && *p != c ) ++p;
 	if( *p ) *p++ = 0;
@@ -51,7 +51,7 @@ grskip(register char *p, register c)
 struct group *
 getgrent()
 {
-	register char *p, **q;
+	 char *p, **q;
 
 	if( !grf && !(grf = fopen( GROUP, "r" )) )
 		return(NULL);

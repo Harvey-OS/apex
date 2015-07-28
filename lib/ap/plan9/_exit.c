@@ -31,7 +31,7 @@ _finish(int status, char *term)
 	char *cp;
 
 	if(_finishing)
-		_EXITS(exitstatus);
+		exits(exitstatus);
 	_finishing = 1;
 	if(status){
 		cp = _ultoa(exitstatus, status & 0xFF);
@@ -42,13 +42,13 @@ _finish(int status, char *term)
 	}
 	if(_sessleader)
 		kill(0, SIGTERM);
-	_EXITS(exitstatus);
+	exits(exitstatus);
 }
 
 /* emulate: return p+sprintf(p, "%uld", v) */
 #define IDIGIT 15
 char *
-_ultoa(char *p, unsigned long v)
+_ultoa(char *p, uint32_t v)
 {
 	char s[IDIGIT];
 	int n, i;

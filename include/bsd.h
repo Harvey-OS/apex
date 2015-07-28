@@ -45,7 +45,7 @@ extern int	rresvport(int*);
 extern int	rcmd(char**, int, char*, char*, char*, int*);
 extern int	strcasecmp(char*, char*);
 extern int 	putenv(char*);
-extern int	strncasecmp(char*, char*,int);
+extern int	strncasecmp(const char*, const char*,int);
 
 extern int	getopt(int, char**, char*);
 extern int	opterr;
