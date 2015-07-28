@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 
-ldiv_t ldiv(long int numer, long int denom)
+ldiv_t ldiv(int32_t numer, int32_t denom)
 {
 	ldiv_t ans;
 	ans.quot=numer/denom;

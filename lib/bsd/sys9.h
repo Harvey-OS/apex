@@ -7,15 +7,11 @@
  * in the LICENSE file.
  */
 
-
-//TODO
-typedef	long long	int64_t;
-
 typedef
 struct Waitmsg
 {
 	int pid;	/* of loved one */
-	uint32_t time[3];	/* of loved one & descendants */
+	unsigned long time[3];	/* of loved one & descendants */
 	char	*msg;
 } Waitmsg;
 
@@ -87,49 +83,46 @@ enum
 	RFNOMNT		= (1<<14)
 };
 
-//TODO
-// Remove unused functions now from libc
-
-extern	int	await(char*, int);
-//extern	int	alarm(uint32_t);
-extern	int	bind(const char*, const char*, int);
-extern	int	chdir(const char*);
-extern	int	close(int);
-extern	int	create(char*, int, uint32_t);
-//extern	int	dup(int, int);
-extern	int	_errstr(char*, unsigned int);
-extern	int	exec(char*, char*[]);
-extern	void	exits(char *);
-extern	int	fd2path(int, char*, int);
-extern	int	fauth(int, char*);
-extern	int	_fsession(int, char*, int);
-extern	int	_fstat(int, unsigned char*, int);
-extern	int	fwstat(int, unsigned char*, int);
-extern	int	_mount(int, int, const char*, int, const char*);
-extern	int	noted(int);
-extern	int	notify(int(*)(void*, char*));
-//extern	int	open(const char*, int);
-extern	int	pipe(int*);
-extern	int32_t	pread(int, void*, int32_t, int64_t);
-extern	int32_t	pwrite(int, void*, int32_t, int64_t);
-//extern	int32_t	read(int, void*, int32_t);
-extern	int	remove(const char*);
-extern	int	rendezvous(uint32_t, uint32_t);
-extern	int	rfork(int);
-extern	int	segattach(int, char*, void*, uint32_t);
-extern	int	segbrk(void*, void*);
-extern	int	segdetach(void*);
-extern	int	segflush(void*, uint32_t);
-extern	int	segfree(void*, uint32_t);
-extern	int64_t	seek(int, int64_t, int);
-extern	int	semacquire(int32_t*, int);
-extern	int32_t	semrelease(int32_t*, int32_t);
-//extern	int	sleep(int32_t);
-//extern	int	stat(const char*, unsigned char*, int);
-extern	Waitmsg*	_wait(void);
-extern	int	tsemacquire(int32_t*, uint32_t);
-//extern	int32_t	write(int, const void*, int32_t);
-extern	int	_wstat(const char*, unsigned char*, int);
+extern	int	_AWAIT(char*, int);
+extern	int	_ALARM(unsigned long);
+extern	int	_BIND(const char*, const char*, int);
+extern	int	_CHDIR(const char*);
+extern	int	_CLOSE(int);
+extern	int	_CREATE(char*, int, unsigned long);
+extern	int	_DUP(int, int);
+extern	int	_ERRSTR(char*, unsigned int);
+extern	int	_EXEC(char*, char*[]);
+extern	void	_EXITS(char *);
+extern	int	_FD2PATH(int, char*, int);
+extern	int	_FAUTH(int, char*);
+extern	int	_FSESSION(int, char*, int);
+extern	int	_FSTAT(int, unsigned char*, int);
+extern	int	_FWSTAT(int, unsigned char*, int);
+extern	int	_MOUNT(int, int, const char*, int, const char*);
+extern	int	_NOTED(int);
+extern	int	_NOTIFY(int(*)(void*, char*));
+extern	int	_OPEN(const char*, int);
+extern	int	_PIPE(int*);
+extern	long	_PREAD(int, void*, long, long long);
+extern	long	_PWRITE(int, void*, long, long long);
+extern	long	_READ(int, void*, long);
+extern	int	_REMOVE(const char*);
+extern	int	_RENDEZVOUS(unsigned long, unsigned long);
+extern	int	_RFORK(int);
+extern	int	_SEGATTACH(int, char*, void*, unsigned long);
+extern	int	_SEGBRK(void*, void*);
+extern	int	_SEGDETACH(void*);
+extern	int	_SEGFLUSH(void*, unsigned long);
+extern	int	_SEGFREE(void*, unsigned long);
+extern	long long	_SEEK(int, long long, int);
+extern	int	_SEMACQUIRE(long*, int);
+extern	long	_SEMRELEASE(long*, long);
+extern	int	_SLEEP(long);
+extern	int	_STAT(const char*, unsigned char*, int);
+extern	Waitmsg*	_WAIT(void);
+extern	int	_TSEMACQUIRE(long*, unsigned long);
+extern	long	_WRITE(int, const void*, long);
+extern	int	_WSTAT(const char*, unsigned char*, int);
 
 extern	int	__open(char *, int, ...);
 extern	int	__access(char *, int);
@@ -142,8 +135,8 @@ extern	int	__unlink(char *);
 /*
  * atomic
  */
-int32_t	ainc(int32_t*);
-int32_t	adec(int32_t*);
-int	cas32(uint32_t*, uint32_t, uint32_t);
+long	ainc(long*);
+long	adec(long*);
+int	cas32(unsigned long*, unsigned long, unsigned long);
 int	casp(void**, void*, void*);
-int	casl(uint32_t*, uint32_t, uint32_t);
+int	casl(unsigned long*, unsigned long, unsigned long);

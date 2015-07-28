@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include "sys9.h"
 #include <string.h>
+#include <unistd.h>
 
 extern int errno;
 Fdinfo _fdinfo[OPEN_MAX];
@@ -46,30 +47,30 @@ readprocfdinit(void)
 	char *s, *nexts;
 
 	memset(buf, 0, sizeof buf);
-	pfd = _OPEN("#c/pid", 0);
+	pfd = open("#c/pid", 0);
 	if(pfd < 0)
 		return -1;
-	if(_PREAD(pfd, buf, 100, 0) < 0){
-		_CLOSE(pfd);
+	if(pread(pfd, buf, 100, 0) < 0){
+		close(pfd);
 		return -1;
 	}
-	_CLOSE(pfd);
+	close(pfd);
 	pid = strtoul(buf, 0, 10);
 	strcpy(buf, "#p/");
 	_ultoa(buf+3, pid);
 	strcat(buf, "/fd");
-	pfd = _OPEN(buf, 0);
+	pfd = open(buf, 0);
 	if(pfd < 0)
 		return -1;
 	memset(buf, 0, sizeof buf);
 	tot = 0;
 	for(;;){
-		n = _PREAD(pfd, buf+tot, sizeof buf-tot, tot);
+		n = pread(pfd, buf+tot, sizeof buf-tot, tot);
 		if(n <= 0)
 			break;
 		tot += n;
 	}
-	_CLOSE(pfd);
+	close(pfd);
 	if(n < 0)
 		return -1;
 	buf[sizeof buf-1] = '\0';
@@ -156,8 +157,8 @@ _fdinit(char *s, char *se)
 	usedproc = 0;
 	if(readprocfdinit() == 0)
 		usedproc = 1;
-else
-_WRITE(2, "FAILED\n", 7);
+	else
+		write(2, "FAILED\n", 7);
 	if(s)
 		sfdinit(usedproc, s, se);
 	if(!s && !usedproc)

@@ -19,7 +19,7 @@ _isatty(int fd)
 {
 	char buf[64];
 
-	if(_FD2PATH(fd, buf, sizeof buf) < 0)
+	if(fd2path(fd, buf, sizeof buf) < 0)
 		return 0;
 
 	/* might be /mnt/term/dev/cons */

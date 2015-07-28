@@ -15,6 +15,8 @@ typedef	unsigned short	ino_t;
 typedef	unsigned short	dev_t;
 typedef	long long		off_t;
 typedef unsigned short	mode_t;
+typedef	signed short	int16_t;
+typedef signed int	int32_t;
 typedef int16_t		uid_t;
 typedef int16_t		gid_t;
 typedef int16_t		nlink_t;

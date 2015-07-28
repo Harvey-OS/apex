@@ -12,8 +12,6 @@
 #include <fcntl.h>
 #include <ureg.h>
 
-//TODO
-typedef unsigned int	uint32_t;
 typedef struct Ureg Ureg;
 
 /* mux buf for selecting (see _buf.c) */
@@ -37,8 +35,8 @@ typedef struct Muxbuf {
 
 /* be sure to change _fdinfo[] init in _fdinfo if you change this */
 typedef struct Fdinfo{
-	uint32_t	flags;
-	uint32_t	oflags;
+	unsigned long	flags;
+	unsigned long	oflags;
 	uid_t	uid;
 	gid_t	gid;	
 	char		*name;
@@ -64,14 +62,14 @@ extern int	_sessleader;
 extern void	(*_sighdlr[])(int, char*, Ureg*);
 extern char	*_sigstring(int);
 extern int	_stringsig(char *);
-extern int32_t	_psigblocked;
+extern long	_psigblocked;
 extern int	_startbuf(int);
 extern int	_selbuf(int);
 extern void	_closebuf(int);
 extern int _readbuf(int, void*, int, int);
 extern void	_detachbuf(void);
 extern void	_finish(int, char *);
-extern char	*_ultoa(char *, uint32_t);
+extern char	*_ultoa(char *, unsigned long);
 extern int	_notehandler(void *, char *);
 extern void	_notetramp(int, void (*)(int, char*, Ureg*), Ureg*);
 extern void	_syserrno(void);

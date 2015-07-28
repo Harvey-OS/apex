@@ -14,6 +14,8 @@
 #include <string.h>
 #include <setjmp.h>
 
+//TODO
+typedef sigset_t int32_t;
 extern sigset_t	_psigblocked;
 
 static struct {
@@ -80,7 +82,7 @@ sigsetjmp(sigjmp_buf buf, int savemask)
  * BUG: improper handling of process signal mask
  */
 int
-sigaction(int sig, struct sigaction *act, struct sigaction *oact)
+sigaction(int sig, const struct sigaction *act, struct sigaction *oact)
 {
 	if(sig <= 0 || sig > MAXSIG || sig == SIGKILL){
 		errno = EINVAL;
@@ -116,12 +118,12 @@ _notehandler(void *u, char *msg)
 				_notetramp(sigtab[i].num, f, u);
 				/* notetramp is machine-dependent; doesn't return to here */
 			}
-			_NOTED(0); /* NCONT */
+			noted(0); /* NCONT */
 			return 0;
 		}
 	}
 	_doatexits();
-	_NOTED(1); /* NDFLT */
+	noted(1); /* NDFLT */
 	return 0;
 }
 

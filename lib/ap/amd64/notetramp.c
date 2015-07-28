@@ -3,13 +3,16 @@
 #include <signal.h>
 #include <setjmp.h>
 
+//TODO
+typedef	unsigned long long uint64_t;
+
 /* A stack to hold pcs when signals nest */
 #define MAXSIGSTACK 20
 typedef struct Pcstack Pcstack;
 static struct Pcstack {
 	int sig;
 	void (*hdlr)(int, char*, Ureg*);
-	unsigned long long restorepc;
+	uint64_t restorepc;
 	Ureg *u;
 } pcstack[MAXSIGSTACK];
 static int nstack = 0;
@@ -22,15 +25,15 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	Pcstack *p;
 
 	if(nstack >= MAXSIGSTACK)
-		_NOTED(1);	/* nesting too deep; just do system default */
+		noted(1);	/* nesting too deep; just do system default */
 	p = &pcstack[nstack];
 	p->restorepc = u->ip;
 	p->sig = sig;
 	p->hdlr = hdlr;
 	p->u = u;
 	nstack++;
-	u->ip = (unsigned long long) notecont;
-	_NOTED(2);	/* NSAVE: clear note but hold state */
+	u->ip = (uint64_t) notecont;
+	noted(2);	/* NSAVE: clear note but hold state */
 }
 
 static void
@@ -44,7 +47,7 @@ notecont(Ureg *u, char *s)
 	u->ip = p->restorepc;
 	nstack--;
 	(*f)(p->sig, s, u);
-	_NOTED(3);	/* NRSTR */
+	noted(3);	/* NRSTR */
 }
 
 #define JMPBUFPC 1
@@ -55,7 +58,7 @@ extern sigset_t	_psigblocked;
 typedef struct {
 	sigset_t set;
 	sigset_t blocked;
-	unsigned long long jmpbuf[2];
+	uint64_t jmpbuf[2];
 } sigjmp_buf_amd64;
 
 void
@@ -77,5 +80,5 @@ siglongjmp(sigjmp_buf j, int ret)
 		u->ax = 1;
 	u->ip = jb->jmpbuf[JMPBUFPC];
 	u->sp = jb->jmpbuf[JMPBUFSP] + 8;
-	_NOTED(3);	/* NRSTR */
+	noted(3);	/* NRSTR */
 }

@@ -15,7 +15,7 @@
 #define VLONG_MIN	(1LL<<63)
 
 long long
-strtoll(char *nptr, char **endptr, int base)
+strtoll(const char *nptr, char **endptr, int base)
 {
 	char *p;
 	long long n, nn, m;

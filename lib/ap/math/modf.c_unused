@@ -17,6 +17,8 @@
 #define	SHIFT	20
 #define	BIAS	1022L
 
+typedef signed int	int32_t;
+
 typedef	union
 {
 	double	d;

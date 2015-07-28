@@ -11,6 +11,8 @@
 #include <errno.h>
 #include <limits.h>
 
+typedef signed int	int32_t;
+
 double
 pow(double x, double y) /* return x ^ y (exponentiation) */
 {

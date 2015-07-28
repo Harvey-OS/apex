@@ -16,6 +16,7 @@
 #include <unistd.h>
 
 #define TZFILE	"/etc/TZ"
+#define USED(a) /* Plan9 tells the compiler that a is used, for event.c */
 
 static char TZ[128];
 static char std[32] = "GMT0";
