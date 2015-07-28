@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <limits.h>
 
-unsigned long
+uint32_t
 strtoul(const char *nptr, char **endptr, int base)
 {
 	const char *p;
