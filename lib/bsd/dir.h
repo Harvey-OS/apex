@@ -7,21 +7,12 @@
  * in the LICENSE file.
  */
 
-//TODO
-typedef	unsigned short	uint16_t;
-typedef	signed short	int16_t;
-typedef unsigned int	uint32_t;
-typedef unsigned int	uint;
-typedef signed int	int32_t;
-typedef	unsigned long long uint64_t;
-typedef	long long	int64_t;
-
-typedef	int64_t	vlong;
-typedef	uint64_t uvlong;
+typedef	long	long	vlong;
+typedef	unsigned long long uvlong;
 typedef 	unsigned char uchar;
-typedef	uint16_t ushort;
+typedef	unsigned short ushort;
 typedef 	unsigned int uint;
-typedef	uint32_t ulong;
+typedef	unsigned long ulong;
 
 #define	GBIT8(p)	((p)[0])
 #define	GBIT16(p)	((p)[0]|((p)[1]<<8))
@@ -82,14 +73,14 @@ struct Dir {
 } Dir;
 
 void	_dirtostat(struct stat *, Dir*, Fdinfo*);
-uint	_convM2D(unsigned char*, uint, Dir*, char*);
+uint	_convM2D(uchar*, uint, Dir*, char*);
 uint	_convD2M(Dir*, uchar*, uint);
 Dir	*_dirstat(char*);
 int	_dirwstat(char*, Dir*);
 Dir	*_dirfstat(int);
 int	_dirfwstat(int, Dir*);
-int32_t	_dirread(int, Dir**);
-int32_t _dirreadall(int, Dir**);
+long	_dirread(int, Dir**);
+long _dirreadall(int, Dir**);
 void _nulldir(Dir*);
 uint _sizeD2M(Dir*);
 

@@ -28,7 +28,7 @@ static char pbotch[] = "rcmd: protocol botch\n";
 static char lbotch[] = "rcmd: botch starting error stream\n";
 
 static void
-ding(int)
+ding(int i)
 {
 }
 

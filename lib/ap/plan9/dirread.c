@@ -10,13 +10,14 @@
 #include "lib.h"
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
 #include "sys9.h"
 #include "dir.h"
 
 static int
-statcheck(uint8_t *buf, uint nbuf)
+statcheck(char *buf, uint nbuf)
 {
-	uint8_t *ebuf;
+	char *ebuf;
 	int i;
 
 	ebuf = buf + nbuf;
@@ -37,7 +38,7 @@ statcheck(uint8_t *buf, uint nbuf)
 
 static
 int32_t
-dirpackage(uint8_t *buf, int32_t ts, Dir **d)
+dirpackage(char *buf, int32_t ts, Dir **d)
 {
 	char *s;
 	int32_t ss, i, n, nn, m;
@@ -73,7 +74,7 @@ dirpackage(uint8_t *buf, int32_t ts, Dir **d)
 	s = (char*)*d + n * sizeof(Dir);
 	nn = 0;
 	for(i = 0; i < ts; i += m){
-		m = BIT16SZ + GBIT16((uint8_t*)&buf[i]);
+		m = BIT16SZ + GBIT16((char*)&buf[i]);
 		if(nn >= n || _convM2D(&buf[i], m, *d + nn, s) != m){
 			free(*d);
 			return -1;
@@ -88,13 +89,13 @@ dirpackage(uint8_t *buf, int32_t ts, Dir **d)
 int32_t
 _dirread(int fd, Dir **d)
 {
-	uint8_t *buf;
+	char *buf;
 	int32_t ts;
 
 	buf = malloc(DIRMAX);
 	if(buf == nil)
 		return -1;
-	ts = _READ(fd, buf, DIRMAX);
+	ts = read(fd, buf, DIRMAX);
 	if(ts >= 0)
 		ts = dirpackage(buf, ts, d);
 	free(buf);
@@ -104,7 +105,7 @@ _dirread(int fd, Dir **d)
 int32_t
 _dirreadall(int fd, Dir **d)
 {
-	uint8_t *buf, *nbuf;
+	char *buf, *nbuf;
 	int32_t n, ts;
 
 	buf = nil;
@@ -116,7 +117,7 @@ _dirreadall(int fd, Dir **d)
 			return -1;
 		}
 		buf = nbuf;
-		n = _READ(fd, buf+ts, DIRMAX);
+		n = read(fd, buf+ts, DIRMAX);
 		if(n <= 0)
 			break;
 		ts += n;

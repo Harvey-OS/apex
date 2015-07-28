@@ -12,6 +12,7 @@
 #pragma lib "/$M/lib/ape/libap.a"
 
 typedef int sig_atomic_t;
+typedef signed int int32_t;
 
 /*
  * We don't give arg types for signal handlers, in spite of ANSI requirement

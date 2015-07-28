@@ -11,6 +11,8 @@
 #include	<limits.h>
 #include	<string.h>
 
+typedef	signed short	int16_t;
+
 static struct lconv Clocale = {
 	".",		/* decimal_point */
 	"",		/* thousands_sep */

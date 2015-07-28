@@ -12,7 +12,7 @@
 #include	<errno.h>
 
 int
-mkfifo(char *, mode_t)
+mkfifo(const char *c, mode_t m)
 {
 	errno = 0;
 	return -1;
