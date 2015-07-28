@@ -31,4 +31,7 @@ typedef unsigned long size_t;
 typedef unsigned short wchar_t;
 #endif
 
+typedef signed int	int32_t;
+typedef unsigned int	uint32_t;
+
 #endif /* __STDDEF_H */

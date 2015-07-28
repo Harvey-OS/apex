@@ -34,7 +34,7 @@ enum
  *  for inet addresses only
  */
 struct servent*
-getservbyname(char *name, char *proto)
+getservbyname(const char *name, const char *proto)
 {
 	int i, fd, m, num;
 	char *p, *bp;

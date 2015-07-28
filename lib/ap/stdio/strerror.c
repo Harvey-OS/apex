@@ -59,7 +59,7 @@ char *sys_errlist[] = {
 	/* bsd networking software */
 	"Not a socket",
 	"Protocol not supported",	/* EPROTONOSUPPORT, EPROTOTYPE */
-/*	"Protocol wrong type for socket",	/* EPROTOTYPE */
+/*	"Protocol wrong type for socket",	*//* EPROTOTYPE */
 	"Connection refused",
 	"Address family not supported",
 	"No buffers",
