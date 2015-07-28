@@ -48,7 +48,9 @@ extern double rnd_prod(double, double), rnd_quot(double, double);
 #define rounded_quotient(a,b) a /= b
 #endif
 
- static double
+typedef signed char	int8_t;
+
+static double
 ulp(double xarg)
 {
 	register int32_t L;
@@ -84,7 +86,7 @@ ulp(double xarg)
 	}
 
  static Bigint *
-s2b(CONST int8_t *s, int nd0, int nd, unsigned long y9)
+s2b(const char *s, int nd0, int nd, unsigned long y9)
 {
 	Bigint *b;
 	int i, k;
@@ -218,11 +220,11 @@ ratio(Bigint *a, Bigint *b)
 	}
 
  double
-strtod(CONST int8_t *s00, int8_t **se)
+strtod(const char *s00, char **se)
 {
 	int bb2, bb5, bbe, bd2, bd5, bbbits, bs2, c, dsign,
 		 e, e1, esign, i, j, k, nd, nd0, nf, nz, nz0, sign;
-	CONST int8_t *s, *s0, *s1;
+	const char *s, *s0, *s1;
 	double aadj, aadj1, adj;
 	Dul rv, rv0;
 	int32_t L;
@@ -735,6 +737,6 @@ strtod(CONST int8_t *s00, int8_t **se)
 	Bfree(delta);
  ret:
 	if (se)
-		*se = (int8_t *)s;
+		*se = (char *)s;
 	return sign ? -rv.d : rv.d;
 	}

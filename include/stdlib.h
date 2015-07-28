@@ -27,11 +27,11 @@ extern "C" {
 
 extern double atof(const char *);
 extern int atoi(const char *);
-extern long int atol(const char *);
+extern int32_t atol(const char *);
 extern long long atoll(const char *);
 extern double strtod(const char *, char **);
-extern long int strtol(const char *, char **, int);
-extern unsigned long int strtoul(const char *, char **, int);
+extern int32_t strtol(const char *, char **, int);
+extern uint32_t strtoul(const char *, char **, int);
 extern long long int strtoll(const char *, char **, int);
 extern unsigned long long int strtoull(const char *, char **, int);
 extern int rand(void);
@@ -49,8 +49,8 @@ extern void *bsearch(const void *, const void *, size_t, size_t, int (*)(const v
 extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
 extern int abs(int);
 extern div_t div(int, int);
-extern long int labs(long int);
-extern ldiv_t ldiv(long int, long int);
+extern int32_t labs(int32_t);
+extern ldiv_t ldiv(int32_t, int32_t);
 extern int mblen(const char *, size_t);
 extern int mbtowc(wchar_t *, const char *, size_t);
 extern int wctomb(char *, wchar_t);
