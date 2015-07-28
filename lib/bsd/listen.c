@@ -102,7 +102,7 @@ listenproc(Rock *r, int fd)
 
 /*	for(fd = 0; fd < 30; fd++)
 		if(fd != nfd && fd != pfd[1])
-			close(fd);/**/
+			close(fd); */
 
 	for(;;){
 		cfd = open(listen, O_RDWR);
@@ -125,7 +125,7 @@ listenproc(Rock *r, int fd)
 }
 
 int
-listen(int fd, int)
+listen(int fd, int i)
 {
 	Rock *r;
 	int n, cfd;
