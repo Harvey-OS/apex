@@ -20,7 +20,7 @@ _convM2D(unsigned char *buf, uint nbuf, Dir *d, char *strs)
 {
 	unsigned char *p, *ebuf;
 	char *sv[4];
-	int i, ns, nsv[4];
+	int i, ns /*, nsv[4] unused? */;
 
 	p = buf;
 	ebuf = buf + nbuf;
@@ -58,7 +58,7 @@ _convM2D(unsigned char *buf, uint nbuf, Dir *d, char *strs)
 		if(p + ns > ebuf)
 			return 0;
 		if(strs){
-			nsv[i] = ns;
+			/* nsv[i] = ns; */ /* unused? */
 			sv[i] = strs;
 			memmove(strs, p, ns);
 			strs += ns;

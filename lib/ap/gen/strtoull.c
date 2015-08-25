@@ -16,7 +16,7 @@
 unsigned long long
 strtoull(const char *nptr, char **endptr, int base)
 {
-	char *p;
+	const char *p;
 	unsigned long long n, nn, m;
 	int c, ovfl, v, neg, ndig;
 
@@ -98,7 +98,7 @@ Return:
 	if(ndig == 0)
 		p = nptr;
 	if(endptr)
-		*endptr = p;
+		*endptr = (char *)p;
 	if(ovfl){
 		errno = ERANGE;
 		return UVLONG_MAX;

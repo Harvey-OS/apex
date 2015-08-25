@@ -12,16 +12,10 @@
 char*
 strchr(const char *s, int c)
 {
-	char c1;
+	const char c1 = c;
 
-	if(c == 0) {
-		while(*s++)
-			;
-		return s-1;
-	}
-
-	while(c1 = *s++)
-		if(c1 == c)
-			return s-1;
-	return 0;
+	for ( ; *s != c1; s++)
+        if (*s == '\0')
+            return 0;
+    return (char *)s;
 }

@@ -136,7 +136,6 @@ extern	int	__access(char *, int);
 extern	int	__chdir(char *);
 extern	int	__creat(char *, int);
 extern	int	__link(char *, int);
-extern	int	__stat(char *, struct stat *);
 extern	int	__unlink(char *);
 
 /*

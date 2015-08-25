@@ -31,7 +31,7 @@ connect(int fd, void *a, int alen)
 	Rock *r;
 	int n, cfd, nfd;
 	char msg[8+256+1], file[8+256+1];
-	struct sockaddr_in *lip, *rip;
+	Sockaddr_in *lip, *rip;
 	struct sockaddr_un *runix;
 	static int vers;
 
@@ -55,7 +55,7 @@ connect(int fd, void *a, int alen)
 			return -1;
 		}
 		rip = a;
-		lip = (struct sockaddr_in*)&r->addr;
+		lip = (Sockaddr_in*)&r->addr;
 		if(lip->sin_port)
 			snprintf(msg, sizeof msg, "connect %s!%d%s %d",
 				inet_ntoa(rip->sin_addr), ntohs(rip->sin_port),

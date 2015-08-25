@@ -44,7 +44,7 @@ listenproc(Rock *r, int fd)
 	char *net;
 	int cfd, nfd, dfd;
 	int pfd[2];
-	struct stat d;
+	Stat d;
 	char *p;
 	char listen[Ctlsize];
 	char name[Ctlsize];
@@ -86,15 +86,15 @@ listenproc(Rock *r, int fd)
 		return -1;
 	case 0:
 		if(_muxsid == -1) {
-			_RFORK(RFNOTEG);
+			rfork(RFNOTEG);
 			_muxsid = getpgrp();
 		} else
 			setpgid(getpid(), _muxsid);
-		_RENDEZVOUS(2, _muxsid);
+		rendezvous(2, _muxsid);
 		break;
 	default:
 		atexit(_killmuxsid);
-		_muxsid = _RENDEZVOUS(2, 0);
+		_muxsid = rendezvous(2, 0);
 		close(pfd[1]);
 		close(nfd);
 		return 0;
@@ -130,7 +130,7 @@ listen(int fd, int i)
 	Rock *r;
 	int n, cfd;
 	char msg[128];
-	struct sockaddr_in *lip;
+	Sockaddr_in *lip;
 	struct sockaddr_un *lunix;
 
 	r = _sock_findrock(fd, 0);
@@ -146,7 +146,7 @@ listen(int fd, int i)
 			errno = EBADF;
 			return -1;
 		}
-		lip = (struct sockaddr_in*)&r->addr;
+		lip = (Sockaddr_in*)&r->addr;
 		if(1 || lip->sin_port >= 0) {	/* sin_port is unsigned */
 			if(write(cfd, "bind 0", 6) < 0) {
 				errno = EGREG;

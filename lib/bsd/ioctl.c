@@ -25,7 +25,7 @@
 int
 ioctl(int fd, unsigned long request, void* arg)
 {
-	struct stat d;
+	Stat d;
 
 	if(request == FIONREAD) {
 		if(fstat(fd, &d) < 0) {

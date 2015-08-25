@@ -36,7 +36,7 @@ bind(int fd, void *a, int alen)
 	int n, len, cfd;
 	Rock *r;
 	char msg[128];
-	struct sockaddr_in *lip;
+	Sockaddr_in *lip;
 
 	/* assign the address */
 	r = _sock_findrock(fd, 0);
@@ -59,7 +59,7 @@ bind(int fd, void *a, int alen)
 		errno = EBADF;
 		return -1;
 	}
-	lip = (struct sockaddr_in*)&r->addr;
+	lip = (Sockaddr_in*)&r->addr;
 	if(lip->sin_port > 0)
 		snprintf(msg, sizeof msg, "bind %d", ntohs(lip->sin_port));
 	else

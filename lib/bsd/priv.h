@@ -44,12 +44,14 @@ struct Rock
 	int		other;		/* fd of the remote end for Unix domain */
 };
 
-extern Rock*	_sock_findrock(int, struct stat*);
+#include <sys/stat.h> /* For _sock_findrock */
+#include <netinet/in.h> /* For _sock_ingetaddr */
+extern Rock*	_sock_findrock(int, Stat*);
 extern Rock*	_sock_newrock(int);
 extern void	_sock_srvname(char*, char*);
 extern int	_sock_srv(char*, int);
 extern int	_sock_data(int, char*, int, int, int, Rock**);
-extern int	_sock_ipattr(char*);
-extern void	_sock_ingetaddr(Rock*, struct sockaddr_in*, int*, char*);
+extern int	_sock_ipattr(const char*);
+extern void	_sock_ingetaddr(Rock*, Sockaddr_in*, int*, char*);
 
 extern void	_syserrno(void);
