@@ -32,6 +32,9 @@
 #define	PTR	256		/*     convert a void * (%p) */
 #define	VLONG	512		/* 'll' convert a long long integer */
 
+//TODO
+typedef	long long	int64_t;
+
 static int lflag[] = {	/* leading flags */
 0,	0,	0,	0,	0,	0,	0,	0,	/* ^@ ^A ^B ^C ^D ^E ^F ^G */
 0,	0,	0,	0,	0,	0,	0,	0,	/* ^H ^I ^J ^K ^L ^M ^N ^O */
@@ -161,6 +164,9 @@ int
 vfprintf(FILE *f, const char *s, va_list args)
 {
 	int tfl, flags, width, precision;
+	va_list arg;
+
+	va_copy(args, arg);
 
 	nprint = 0;
 	while(*s){
@@ -173,7 +179,7 @@ vfprintf(FILE *f, const char *s, va_list args)
 		flags = 0;
 		while(lflag[*s&_IO_CHMASK]) flags |= lflag[*s++&_IO_CHMASK];
 		if(*s == '*'){
-			width = va_arg(args, int);
+			width = va_arg(arg, int);
 			s++;
 			if(width<0){
 				flags |= LEFT;
@@ -187,7 +193,7 @@ vfprintf(FILE *f, const char *s, va_list args)
 		if(*s == '.'){
 			s++;
 			if(*s == '*'){
-				precision = va_arg(args, int);
+				precision = va_arg(arg, int);
 				s++;
 			}
 			else{
@@ -205,11 +211,12 @@ vfprintf(FILE *f, const char *s, va_list args)
 			flags |= tfl;
 			s++;
 		}
-		if(ocvt[*s]) nprint += (*ocvt[*s++])(f, &args, flags, width, precision);
+		if(ocvt[*s]) nprint += (*ocvt[*s++])(f, &arg, flags, width, precision);
 		else if(*s){
 			putc(*s++, f);
 			nprint++;
 		}
+		va_end(arg);
 	}
 	return ferror(f)? -1: nprint;;
 }
@@ -304,7 +311,7 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 	int nout, npad, nlzero;
 
 	if(sgned){
-		if(flags&PTR) snum = (int32_t)va_arg(*args, void *);
+		if(flags&PTR) snum = (int64_t)va_arg(*args, void *);
 		else if(flags&SHORT) snum = va_arg(*args, int);
 		else if(flags&LONG) snum = va_arg(*args, int32_t);
 		else if(flags&VLONG) snum = va_arg(*args, long long);
@@ -320,7 +327,7 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 		}
 	} else {
 		sign = "";
-		if(flags&PTR) num = (int32_t)va_arg(*args, void *);
+		if(flags&PTR) num = (int64_t)va_arg(*args, void *);
 		else if(flags&SHORT) num = va_arg(*args, unsigned int);
 		else if(flags&LONG) num = va_arg(*args, unsigned long);
 		else if(flags&VLONG) num = va_arg(*args, unsigned long long);

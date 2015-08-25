@@ -11,9 +11,10 @@
 #define	N	10000
 
 static void*
-pmemccpy(void *a1, void *a2, int c, size_t n)
+pmemccpy(void *a1, const char *a2, int c, size_t n)
 {
-	char *s1, *s2;
+	char *s1;
+	const char *s2;
 
 	s1 = a1;
 	s2 = a2;

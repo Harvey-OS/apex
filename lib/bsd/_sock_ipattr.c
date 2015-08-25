@@ -23,9 +23,9 @@
  *  return ndb attribute type of an ip name
  */
 int
-_sock_ipattr(char *name)
+_sock_ipattr(const char *name)
 {
-	char *p;
+	const char *p;
 	int dot = 0;
 	int alpha = 0;
 

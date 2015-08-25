@@ -478,7 +478,7 @@ _diff(Bigint *a, Bigint *b)
 _d2b(double darg, int *e, int *bits)
 {
 	Bigint *b;
-	int de, i, k;
+	int de, k;
 	unsigned long *x, y, z;
 	Dul d;
 #ifdef VAX
@@ -518,7 +518,7 @@ _d2b(double darg, int *e, int *bits)
 			}
 		else
 			x[0] = y;
-		i = b->wds = (x[1] = z) ? 2 : 1;
+		/* i = b->wds = (x[1] = z) ? 2 : 1; unused (?)*/
 		}
 	else {
 #ifdef DEBUG
@@ -527,7 +527,7 @@ _d2b(double darg, int *e, int *bits)
 #endif
 		k = lo0bits(&z);
 		x[0] = z;
-		i = b->wds = 1;
+		/* i = b->wds = 1; unused? */
 		k += 32;
 		}
 #else

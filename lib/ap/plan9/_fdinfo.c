@@ -152,7 +152,7 @@ _fdinit(char *s, char *se)
 {
 	int i, usedproc;
 	Fdinfo *fi;
-	struct stat sbuf;
+	Stat sbuf;
 
 	usedproc = 0;
 	if(readprocfdinit() == 0)

@@ -69,8 +69,8 @@ mkserver(void)
 	int fd, i;
 	char *argv[3];
 
-	fd = _OPEN(fssrv, O_RDWR);
-	if(_MOUNT(fd, -1, "/dev", MAFTER, "") < 0) {
+	fd = open(fssrv, O_RDWR);
+	if(_mount(fd, -1, "/dev", MAFTER, "") < 0) {
 		/*
 		 * remove fssrv here, if it exists, to avoid a race
 		 * between the loop in the default case below and the
@@ -79,28 +79,28 @@ mkserver(void)
 		 * (hung channel) fssrv before ptyfs removes it and break
 		 * out of the loop with an open fd to a hung channel?
 		 */
-		_CLOSE(fd);
-		_REMOVE(fssrv);
-		switch(_RFORK(RFPROC|RFFDG)) {
+		close(fd);
+		remove(fssrv);
+		switch(rfork(RFPROC|RFFDG)) {
 		case -1:
 			return;
 		case 0:
 			argv[0] = "ptyfs";
 			argv[1] = 0;
-			_EXEC("/bin/ape/ptyfs", argv);
-			_EXITS(0);
+			exec("/bin/ape/ptyfs", argv);
+			exits(0);
 		default:
 			for(i = 0; i < 3; i++) {
-				fd = _OPEN(fssrv, O_RDWR);
+				fd = open(fssrv, O_RDWR);
 				if(fd >= 0)
 					break;
-				_SLEEP(1000);
+				sleep(1000);
 			}
 		}
 		if(fd < 0)
 			return;
-		if(_MOUNT(fd, -1, "/dev", MAFTER, "") < 0)
-			_CLOSE(fd);
+		if(_mount(fd, -1, "/dev", MAFTER, "") < 0)
+			close(fd);
 	}
 	/* successful _MOUNT closes fd */
 }
@@ -111,7 +111,7 @@ mkserver(void)
 int
 _getpty(void)
 {
-	struct stat sb;
+	Stat sb;
 
 	if(stat(ptycl, &sb) < 0)
 		mkserver();

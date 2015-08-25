@@ -37,7 +37,7 @@ struct protoent *getprotobyname(const char *name) {
 	int fd, i, m;
 	char *p, *bp;
 	int nn, na;
-	static char buf[1024], proto[1024];
+	static char buf[1024];
 	static char *nptr[Nname+1];
 
 	/* connect to server */

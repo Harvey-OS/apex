@@ -25,7 +25,7 @@ rresvport(int *p)
 {
 	int fd;
 	int16_t i;
-	struct	sockaddr_in in;
+	Sockaddr_in in;
 	static int next;
 
 	fd = socket(PF_INET, SOCK_STREAM, 0);

@@ -37,7 +37,8 @@ struct servent*
 getservbyname(const char *name, const char *proto)
 {
 	int i, fd, m, num;
-	char *p, *bp;
+	const char *p;
+	char *bp;
 	int nn, na;
 	static struct servent s;
 	static char buf[1024];
@@ -84,18 +85,18 @@ getservbyname(const char *name, const char *proto)
 		p = strchr(bp, '=');
 		if(p == 0)
 			break;
-		*p++ = 0;
+		/* *p++ = 0; not sure */
 		if(strcmp(bp, proto) == 0){
 			if(nn < Nname)
-				nptr[nn++] = p;
+				nptr[nn++] = (char *)p;
 		} else if(strcmp(bp, "port") == 0){
 			s.s_port = htons(atoi(p));
 		}
 		while(*p && *p != ' ')
 			p++;
-		if(*p)
-			*p++ = 0;
-		bp = p;
+		/* if(*p)
+			*p++ = 0; realy I can't understand this */
+		bp = (char *)p;
 	}
 	if(nn+na == 0)
 		return 0;

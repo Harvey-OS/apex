@@ -7,6 +7,8 @@
  * in the LICENSE file.
  */
 
+#include <sys/stat.h> /* for dirtostat */
+
 //TODO
 typedef	unsigned short	uint16_t;
 typedef	signed short	int16_t;
@@ -81,7 +83,7 @@ struct Dir {
 	char	*muid;	/* last modifier name */
 } Dir;
 
-void	_dirtostat(struct stat *, Dir*, Fdinfo*);
+void	_dirtostat(Stat *, Dir*, Fdinfo*);
 uint	_convM2D(unsigned char*, uint, Dir*, char*);
 uint	_convD2M(Dir*, uchar*, uint);
 Dir	*_dirstat(char*);
