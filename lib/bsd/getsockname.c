@@ -30,7 +30,7 @@ getsockname(int fd, void *addr, int *alen)
 {
 	Rock *r;
 	int i;
-	struct sockaddr_in *lip;
+	Sockaddr_in *lip;
 	struct sockaddr_un *lunix;
 
 	r = _sock_findrock(fd, 0);
@@ -41,7 +41,7 @@ getsockname(int fd, void *addr, int *alen)
 
 	switch(r->domain){
 	case PF_INET:
-		lip = (struct sockaddr_in*)addr;
+		lip = (Sockaddr_in*)addr;
 		_sock_ingetaddr(r, lip, alen, "local");
 		break;
 	case PF_UNIX:

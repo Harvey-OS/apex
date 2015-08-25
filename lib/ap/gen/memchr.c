@@ -12,13 +12,12 @@
 void*
 memchr(const void *ap, int c, size_t n)
 {
-	unsigned char *sp;
+	const unsigned char *sp = ap;
 
-	sp = ap;
 	c &= 0xFF;
 	while(n > 0) {
 		if(*sp++ == c)
-			return sp-1;
+			return ((void *)(sp - 1));
 		n--;
 	}
 	return 0;

@@ -71,6 +71,10 @@ static const char *fmtp;
 
 int vfscanf(FILE *f, const char *s, va_list args){
 	int c, width, type, store;
+	va_list arg;
+
+	va_copy(args, arg);
+
 	nread=0;
 	ncvt=0;
 	fmtp=s;
@@ -107,8 +111,9 @@ int vfscanf(FILE *f, const char *s, va_list args){
 			width=-1;
 		type=*fmtp=='h' || *fmtp=='l' || *fmtp=='L'?*fmtp++:'n';
 		if(!icvt[*fmtp]) goto NonSpecial;
-		if(!(*icvt[*fmtp])(f, &args, store, width, type))
+		if(!(*icvt[*fmtp])(f, &arg, store, width, type))
 			return ncvt?ncvt:EOF;
+		va_end(arg);
 		if(*fmtp=='\0') break;
 		if(store) ncvt++;
 	}

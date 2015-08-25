@@ -12,7 +12,7 @@
 #include <errno.h>
 
 int
-lstat(char *name, struct stat *ans)
+lstat(char *name, Stat *ans)
 {
 	return stat(name, ans);
 }

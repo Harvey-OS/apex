@@ -16,11 +16,9 @@
 unsigned long long
 strtoull(const char *nptr, char **endptr, int base)
 {
-	char *p;
 	unsigned long long n, nn, m;
 	int c, ovfl, v, neg, ndig;
 
-	p = nptr;
 	neg = 0;
 	n = 0;
 	ndig = 0;
@@ -29,8 +27,8 @@ strtoull(const char *nptr, char **endptr, int base)
 	/*
 	 * White space
 	 */
-	for(;; p++) {
-		switch(*p) {
+	for(;; nptr++) {
+		switch(*nptr) {
 		case ' ':
 		case '\t':
 		case '\n':
@@ -45,8 +43,8 @@ strtoull(const char *nptr, char **endptr, int base)
 	/*
 	 * Sign
 	 */
-	if(*p == '-' || *p == '+')
-		if(*p++ == '-')
+	if(*nptr == '-' || *nptr == '+')
+		if(*nptr++ == '-')
 			neg = 1;
 
 	/*
@@ -54,17 +52,17 @@ strtoull(const char *nptr, char **endptr, int base)
 	 */
 	if(base == 0) {
 		base = 10;
-		if(*p == '0') {
+		if(*nptr == '0') {
 			base = 8;
-			if(p[1] == 'x' || p[1] == 'X'){
-				p += 2;
+			if(nptr[1] == 'x' || nptr[1] == 'X'){
+				nptr += 2;
 				base = 16;
 			}
 		}
 	} else
-	if(base == 16 && *p == '0') {
-		if(p[1] == 'x' || p[1] == 'X')
-			p += 2;
+	if(base == 16 && *nptr == '0') {
+		if(nptr[1] == 'x' || nptr[1] == 'X')
+			nptr += 2;
 	} else
 	if(base < 0 || 36 < base)
 		goto Return;
@@ -73,8 +71,8 @@ strtoull(const char *nptr, char **endptr, int base)
 	 * Non-empty sequence of digits
 	 */
 	m = UVLONG_MAX/base;
-	for(;; p++,ndig++) {
-		c = *p;
+	for(;; nptr++,ndig++) {
+		c = *nptr;
 		v = base;
 		if('0' <= c && c <= '9')
 			v = c - '0';
@@ -95,10 +93,6 @@ strtoull(const char *nptr, char **endptr, int base)
 	}
 
 Return:
-	if(ndig == 0)
-		p = nptr;
-	if(endptr)
-		*endptr = p;
 	if(ovfl){
 		errno = ERANGE;
 		return UVLONG_MAX;

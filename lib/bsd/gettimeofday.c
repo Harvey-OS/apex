@@ -11,6 +11,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <string.h>
+#include <fcntl.h>
 #include "sys9.h"
 
 typedef unsigned long long uvlong;
@@ -45,12 +46,12 @@ gettimeofday(struct timeval *tp, struct timezone *tzp)
 	for(;;) {
 		if(fd < 0)
 			if(opened++ ||
-			    (fd = _OPEN("/dev/bintime", OREAD|OCEXEC)) < 0)
+			    (fd = open("/dev/bintime", OREAD|OCEXEC)) < 0)
 				return 0;
-		if(_PREAD(fd, b, sizeof b, 0) == sizeof b)
+		if(pread(fd, b, sizeof b, 0) == sizeof b)
 			break;		/* leave fd open for future use */
 		/* short read, perhaps try again */
-		_CLOSE(fd);
+		close(fd);
 		fd = -1;
 	}
 	be2vlong(&t, b);

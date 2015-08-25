@@ -24,7 +24,7 @@ gethostbyaddr(const void *addr, int len, int type)
 {
 	unsigned long y;
 	struct in_addr x;
-	unsigned char *p = addr;
+	const unsigned char *p = addr;
 
 	if(type != AF_INET || len != 4){
 		h_errno = NO_RECOVERY;

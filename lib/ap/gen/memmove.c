@@ -12,7 +12,8 @@
 void*
 memmove(void *a1, const void *a2, size_t n)
 {
-	char *s1, *s2;
+	char *s1;
+	const char *s2;
 	extern void abort(void);
 
 	if((int32_t)n < 0)
