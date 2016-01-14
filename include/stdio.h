@@ -35,19 +35,54 @@
  *				(f)->wp>=(f)->rp || (f)->flags&LINEBUF && _IO_ctmp=='\n'\
  *					?_IO_putc(_IO_ctmp, f)\
  *					:*(f)->wp++=_IO_ctmp)
- *				
+ *
  */
-typedef struct{
+
+typedef struct FILE FILE;
+
+struct FILE {
 	int fd;		/* UNIX file pointer */
 	char flags;	/* bits for must free buffer on close, line-buffered */
 	char state;	/* last operation was read, write, position, error, eof */
+#ifdef __C99
+	unsigned char *buf;
+#else
 	char *buf;	/* pointer to i/o buffer */
+#endif
 	char *rp;	/* read pointer (or write end-of-buffer) */
 	char *wp;	/* write pointer (or read end-of-buffer) */
 	char *lp;	/* actual write pointer used when line-buffering */
 	size_t bufl;	/* actual length of buffer */
 	char unbuf[1];	/* tiny buffer for unbuffered io (used for ungetc?) */
-}FILE;
+#ifdef __C99
+	unsigned char *rpos, *rend;
+	int (*close)(FILE *);
+	unsigned char *wend, *wpos;
+	unsigned char *mustbezero_1;
+	unsigned char *wbase;
+	size_t (*read)(FILE *, unsigned char *, size_t);
+	size_t (*write)(FILE *, const unsigned char *, size_t);
+	off_t (*seek)(FILE *, off_t, int);
+	size_t buf_size;
+	FILE *prev, *next;
+	int pipe_pid;
+	long lockcount;
+	short dummy3;
+	signed char mode;
+	signed char lbf;
+	volatile int lock;
+	volatile int waiters;
+	void *cookie;
+	off_t off;
+	char *getln_buf;
+	void *mustbezero_2;
+	unsigned char *shend;
+	off_t shlim, shcnt;
+	FILE *prev_locked, *next_locked;
+	struct __locale_struct *locale;
+#endif
+};
+
 typedef long long fpos_t;
 #ifndef NULL
 #ifdef __cplusplus

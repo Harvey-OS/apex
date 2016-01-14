@@ -87,6 +87,13 @@
 /*#define TIMER_MAX _POSIX_TIMER_MAX */
 #define TZNAME_MAX _POSIX_TZNAME_MAX
 
+/* C99 */
+/* Some universal constants... */
+#define LLONG_MAX  0x7fffffffffffffffLL
+#define LLONG_MIN (-LLONG_MAX-1)
+#define ULLONG_MAX (2ULL*LLONG_MAX+1)
+
+
 #ifdef _LIMITS_EXTENSION
 /* some things are just too big for pedagogy (X!) */
 #include <sys/limits.h>

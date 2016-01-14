@@ -17,6 +17,7 @@ typedef char *va_list;
 */
 
 typedef __builtin_va_list va_list;
+typedef va_list __isoc_va_list; /* wchar.h */
 
 #define va_start(v,l)	__builtin_va_start(v,l)
 #define va_end(v)	__builtin_va_end(v)

@@ -90,6 +90,9 @@ extern int errno;
 /* from research unix */
 #define ETXTBSY		63
 
+/* C99 */
+#define EILSEQ	123
+
 #endif /* _POSIX_SOURCE */
 
 #endif /* __ERRNO */

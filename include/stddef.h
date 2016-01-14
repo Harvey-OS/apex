@@ -30,6 +30,22 @@ typedef unsigned long size_t;
 #define _WCHAR_T
 typedef unsigned short wchar_t;
 #endif
+#ifndef _MBSTATE_T
+#define _MBSTATE_T
+typedef int mbstate_t;
+#endif
+#ifndef _WINT_T
+#define _WINT_T
+typedef int	wint_t;
+#endif
+#ifndef _LOCALE_T
+#define _LOCALE_T
+typedef long long locale_t;
+#endif
+#ifndef _WCTYPE_T
+#define _WCTYPE_T
+typedef int	wctype_t;
+#endif
 
 typedef signed int	int32_t;
 typedef unsigned int	uint32_t;
