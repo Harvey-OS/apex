@@ -25,11 +25,11 @@ mkdir(const char *name, mode_t mode)
 		errno = EEXIST;
 		return -1;
 	}
-	n = _CREATE(name, 0, 0x80000000|(mode&0777));
+	n = create(name, 0, 0x80000000|(mode&0777));
 	if(n < 0)
 		_syserrno();
 	else{
-		_CLOSE(n);
+		close(n);
 		n = 0;
 	}
 	return n;

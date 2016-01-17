@@ -10,7 +10,7 @@
 #include <unistd.h>
 
 int
-execle(const char *name, const char *arg0, const char *, ...)
+execle(const char *name, const char *arg0, const char *c, ...)
 {
 	char *p;
 

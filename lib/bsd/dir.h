@@ -83,7 +83,7 @@ struct Dir {
 	char	*muid;	/* last modifier name */
 } Dir;
 
-void	_dirtostat(Stat *, Dir*, Fdinfo*);
+void	_dirtostat(struct stat *, Dir*, Fdinfo*);
 uint	_convM2D(unsigned char*, uint, Dir*, char*);
 uint	_convD2M(Dir*, uchar*, uint);
 Dir	*_dirstat(char*);

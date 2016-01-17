@@ -12,10 +12,10 @@
 #include "sys9.h"
 #include "dir.h"
 
-uint
-_convD2M(Dir *d, uint8_t *buf, uint nbuf)
+unsigned int
+_convD2M(Dir *d, unsigned char *buf, uint nbuf)
 {
-	uint8_t *p, *ebuf;
+	unsigned char *p, *ebuf;
 	char *sv[4];
 	int i, ns, nsv[4], ss;
 

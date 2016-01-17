@@ -11,6 +11,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <fmt.h>
+#include <unistd.h>
 #include "sys9.h"
 #include "dir.h"
 
@@ -61,11 +62,11 @@ _IOUNIT(int fd)
 	char buf[128], *args[10];
 
 	snprint(buf, sizeof buf, "#d/%dctl", fd);
-	cfd = _OPEN(buf, OREAD);
+	cfd = open(buf, OREAD);
 	if(cfd < 0)
 		return 0;
-	i = _READ(cfd, buf, sizeof buf-1);
-	_CLOSE(cfd);
+	i = read(cfd, buf, sizeof buf-1);
+	close(cfd);
 	if(i <= 0)
 		return 0;
 	buf[i] = '\0';

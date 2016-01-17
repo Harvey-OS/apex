@@ -12,7 +12,7 @@
 #include <errno.h>
 
 int
-fsync(int)
+fsync(int i)
 {
 	errno = EINVAL;
 	return -1;

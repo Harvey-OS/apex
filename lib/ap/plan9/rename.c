@@ -24,7 +24,7 @@ rename(const char *from, const char *to)
 	Dir *d, nd;
 
 	if(access(to, 0) >= 0){
-		if(_REMOVE(to) < 0){
+		if(remove(to) < 0){
 			_syserrno();
 			return -1;
 		}
@@ -57,23 +57,23 @@ rename(const char *from, const char *to)
 		char buf[8192];
 
 		tfd = -1;
-		if((ffd = _OPEN(from, 0)) < 0 ||
-		   (tfd = _CREATE(to, 1, d->mode)) < 0){
-			_CLOSE(ffd);
+		if((ffd = open(from, 0)) < 0 ||
+		   (tfd = create(to, 1, d->mode)) < 0){
+			close(ffd);
 			_syserrno();
 			n = -1;
 		}
-		while(n>=0 && (n = _READ(ffd, buf, 8192)) > 0)
-			if(_WRITE(tfd, buf, n) != n){
+		while(n>=0 && (n = read(ffd, buf, 8192)) > 0)
+			if(write(tfd, buf, n) != n){
 				_syserrno();
 				n = -1;
 			}
-		_CLOSE(ffd);
-		_CLOSE(tfd);
+		close(ffd);
+		close(tfd);
 		if(n>0)
 			n = 0;
 		if(n == 0) {
-			if(_REMOVE(from) < 0){
+			if(remove(from) < 0){
 				_syserrno();
 				return -1;
 			}
