@@ -6,14 +6,14 @@ SRCS =\
 
 OBJ = ${SRCS:.c=.o}
 
-PCFLAGS= $(CFLAGS) -D_PLAN9_SOURCE
+CFLAGS += -I../internal -D_PLAN9_SOURCE
 
 .PHONY: clean all
 
 all: clean $(TARGET)
 
 %.o: %.c
-	$(CC) $(PCFLAGS) -c $(SRCS) || exit 1
+	$(CC) $(CFLAGS) -c $(SRCS) || exit 1
 
 $(TARGET): $(OBJ)
 	ar rcs ${LIB}/$@ $^
