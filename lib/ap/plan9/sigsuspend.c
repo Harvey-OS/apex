@@ -15,7 +15,7 @@
  */
 
 int
-sigsuspend(sigset_t *)
+sigsuspend(const sigset_t *c)
 {
 	errno = EINVAL;
 	return -1;

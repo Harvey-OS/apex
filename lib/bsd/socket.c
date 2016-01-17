@@ -26,10 +26,10 @@
 Rock *_sock_rock;
 
 Rock*
-_sock_findrock(int fd, Stat *dp)
+_sock_findrock(int fd, struct stat *dp)
 {
 	Rock *r;
-	Stat d;
+	struct stat d;
 
 	if(dp == 0)
 		dp = &d;
@@ -46,7 +46,7 @@ Rock*
 _sock_newrock(int fd)
 {
 	Rock *r;
-	Stat d;
+	struct stat d;
 
 	r = _sock_findrock(fd, &d);
 	if(r == 0){

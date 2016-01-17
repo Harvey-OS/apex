@@ -18,6 +18,7 @@
 
 #ifndef __TYPES_H
 #include <sys/types.h>
+#include <string.h>
 #endif
 
 #ifdef __cplusplus
@@ -43,9 +44,7 @@ extern int	ffs(unsigned int);
 extern void	bhappy(void*);
 extern int	rresvport(int*);
 extern int	rcmd(char**, int, char*, char*, char*, int*);
-extern int	strcasecmp(char*, char*);
 extern int 	putenv(char*);
-extern int	strncasecmp(const char*, const char*,int);
 
 extern int	getopt(int, char**, char*);
 extern int	opterr;

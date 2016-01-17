@@ -71,12 +71,12 @@ tcgetattr(int fd, struct termios *t)
 			return -1;
 		}
 	}
-	if(_SEEK(fd, -2, 0) != -2) {
+	if(seek(fd, -2, 0) != -2) {
 		_syserrno();
 		return -1;
 	}
 
-	n = _READ(fd, buf, 57);
+	n = read(fd, buf, 57);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -96,7 +96,7 @@ tcgetattr(int fd, struct termios *t)
 /* BUG: ignores optional actions */
 
 int
-tcsetattr(int fd, int, const struct termios *t)
+tcsetattr(int fd, int j, const struct termios *t)
 {
 	int n, i;
 	char buf[100];
@@ -114,12 +114,12 @@ tcsetattr(int fd, int, const struct termios *t)
 	for(i = 0; i < NCCS; i++)
 		n += sprintf(buf+n, "%2.2x ", t->c_cc[i]);
 
-	if(_SEEK(fd, -2, 0) != -2) {
+	if(seek(fd, -2, 0) != -2) {
 		_syserrno();
 		return -1;
 	}
 
-	n = _WRITE(fd, buf, n);
+	n = write(fd, buf, n);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -143,12 +143,12 @@ tcsetpgrp(int fd, pid_t pgrpid)
 	}
 	n = sprintf(buf, "IOW note %d", pgrpid);
 
-	if(_SEEK(fd, -2, 0) != -2) {
+	if(seek(fd, -2, 0) != -2) {
 		_syserrno();
 		return -1;
 	}
 
-	n = _WRITE(fd, buf, n);
+	n = write(fd, buf, n);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -167,11 +167,11 @@ tcgetpgrp(int fd)
 		errno = ENOTTY;
 		return -1;
 	}
-	if(_SEEK(fd, -2, 0) != -2) {
+	if(seek(fd, -2, 0) != -2) {
 		_syserrno();
 		return -1;
 	}
-	n = _READ(fd, buf, sizeof(buf));
+	n = read(fd, buf, sizeof(buf));
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -183,28 +183,28 @@ tcgetpgrp(int fd)
 /* should do a better job here */
 
 int
-tcdrain(int)
+tcdrain(int i)
 {
 	errno = ENOTTY;
 	return -1;
 }
 
 int
-tcflush(int, int)
+tcflush(int i, int n)
 {
 	errno = ENOTTY;
 	return -1;
 }
 
 int
-tcflow(int, int)
+tcflow(int i, int n)
 {
 	errno = ENOTTY;
 	return -1;
 }
 
 int
-tcsendbreak(int)
+tcsendbreak(int i)
 {
 	errno = ENOTTY;
 	return -1;

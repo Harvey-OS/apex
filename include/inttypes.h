@@ -15,10 +15,10 @@
 #define _INTTYPES_H_ 1
 
 typedef int _intptr_t;
-typedef unsigned int _uintptr_t;
+typedef unsigned long long _uintptr_t;
 
 
-typedef char int8_t;
+typedef signed char int8_t;
 typedef int int32_t;
 typedef long long int64_t;
 typedef unsigned char uint8_t;

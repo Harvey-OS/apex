@@ -74,6 +74,7 @@ int vfscanf(FILE *f, const char *s, va_list args){
 	va_list arg;
 
 	va_copy(args, arg);
+	va_end(arg);
 
 	nread=0;
 	ncvt=0;
@@ -113,11 +114,10 @@ int vfscanf(FILE *f, const char *s, va_list args){
 		if(!icvt[*fmtp]) goto NonSpecial;
 		if(!(*icvt[*fmtp])(f, &arg, store, width, type))
 			return ncvt?ncvt:EOF;
-		va_end(arg);
 		if(*fmtp=='\0') break;
 		if(store) ncvt++;
 	}
-	return ncvt;	
+	return ncvt;
 }
 static int icvt_n(FILE *f, va_list *args, int store, int width, int type){
 #pragma ref f
@@ -295,8 +295,8 @@ Done:
 static int icvt_s(FILE *f, va_list *args, int store, int width, int type){
 #pragma ref type
 	int c, nn;
-	register char *s;
-	if(store) s=va_arg(*args, char *);
+	char *s;
+	if(store) s = va_arg(*args, char *);
 	do
 		c=ngetc(f);
 	while(isspace(c));
@@ -323,8 +323,8 @@ Done:
 static int icvt_c(FILE *f, va_list *args, int store, int width, int type){
 #pragma ref type
 	int c;
-	register char *s;
-	if(store) s=va_arg(*args, char *);
+	char *s;
+	if(store) s = va_arg(*args, char *);
 	if(width<0) width=1;
 	for(;;){
 		wgetc(c, f, Done);
@@ -355,8 +355,8 @@ static int match(int c, const char *pat){
 static int icvt_sq(FILE *f, va_list *args, int store, int width, int type){
 #pragma ref type
 	int c, nn;
-	register char *s;
-	register const char *pat;
+	char *s;
+	const char *pat;
 	pat=++fmtp;
 	if(*fmtp=='^') fmtp++;
 	if(*fmtp!='\0') fmtp++;

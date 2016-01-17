@@ -121,13 +121,13 @@ _syserrno(void)
 {
 	int i;
 
-	if(_errstr(_plan9err, sizeof _plan9err) < 0)
+	if(errstr(_plan9err, sizeof _plan9err) < 0)
 		errno = EINVAL;
 	else{
 		for(i = 0; i < NERRMAP; i++)
 			if(strstr(_plan9err, map[i].ename) != 0)
 				break;
-		_errstr(_plan9err, sizeof _plan9err);
+		errstr(_plan9err, sizeof _plan9err);
 		errno = (i < NERRMAP)? map[i].errno : EINVAL;
 	}
 }

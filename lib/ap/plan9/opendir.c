@@ -84,7 +84,7 @@ rewinddir(DIR *d)
 	d->dirloc = 0;
 	free(d->dirs);
 	d->dirs = nil;
-	if(_SEEK(d->dd_fd, 0, 0) < 0){
+	if(seek(d->dd_fd, 0, 0) < 0){
 		_syserrno();
 		return;
 	}

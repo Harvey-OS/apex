@@ -14,6 +14,7 @@
 #include	"fcall.h"
 
 typedef unsigned char uchar;
+typedef unsigned char uint8_t;
 
 #define	CHAR(x)		*p++ = f->x
 #define	SHORT(x)	p[0] = f->x; p[1] = f->x>>8; p += 2

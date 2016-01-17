@@ -111,7 +111,7 @@ mkserver(void)
 int
 _getpty(void)
 {
-	Stat sb;
+	struct stat sb;
 
 	if(stat(ptycl, &sb) < 0)
 		mkserver();

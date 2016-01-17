@@ -17,7 +17,7 @@
 /*
  * stat structure, used by stat(2) and fstat(2)
  */
-typedef struct	Stat {
+struct	stat {
 	dev_t	st_dev;
 	ino_t	st_ino;
 	mode_t 	st_mode;
@@ -28,7 +28,7 @@ typedef struct	Stat {
 	time_t	st_atime;
 	time_t	st_mtime;
 	time_t	st_ctime;
-} Stat;
+};
 
 #define	S__MASK		     0170000
 #ifdef _RESEARCH_SOURCE
@@ -73,13 +73,13 @@ extern "C" {
 extern mode_t umask(mode_t);
 extern int mkdir(const char *, mode_t);
 extern int mkfifo(const char *, mode_t);
-extern int stat(const char *, Stat *);
-extern	int	__stat(char *, Stat *);
-extern int fstat(int, Stat *);
+extern int stat(const char *, struct stat *);
+extern	int	__stat(char *, struct stat *);
+extern int fstat(int, struct stat *);
 extern int chmod(const char *, mode_t);
 
 #ifdef _BSD_EXTENSION
-extern int	lstat(char *, Stat *);
+extern int	lstat(char *, struct stat *);
 extern int	symlink(char *, char *);
 extern int	readlink(char *, char*, int);
 #endif

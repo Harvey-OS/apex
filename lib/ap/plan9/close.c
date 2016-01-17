@@ -29,7 +29,7 @@ close(int d)
 				_closebuf(d);
 			f->flags &= ~FD_BUFFERED;
 		}
-		n = _CLOSE(d);
+		n = close(d);
 		if(n < 0)
 			_syserrno();
 		_fdinfo[d].flags = 0;

@@ -4,18 +4,24 @@ TARGET = libap.a
 SRCS =\
 	notetramp.c \
 
-OBJ = ${SRCS:.c=.o}
+SRCSS =\
+	_dup.s \
+	_pipe.s \
 
-PCFLAGS= $(CFLAGS) -D_PLAN9_SOURCE
+OBJ = ${SRCS:.c=.o}
+OBJS = ${SRCSS:.s=.o}
+
+CFLAGS += -I../internal -D_PLAN9_SOURCE
 
 .PHONY: clean all
 
 all: clean $(TARGET)
 
 %.o: %.c
-	$(CC) $(PCFLAGS) -c $(SRCS) || exit 1
+	$(CC) $(CFLAGS) -c $(SRCS) || exit 1
+	$(CC) $(CFLAGS) -c $(SRCSS) || exit 1
 
-$(TARGET): $(OBJ)
+$(TARGET): $(OBJ) $(OBJS)
 	ar rcs ${LIB}/$@ $^
 
 clean:
