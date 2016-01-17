@@ -18,7 +18,7 @@ rmdir(const char *path)
 	int n;
 
 	n = 0;
-	if(_REMOVE(path) < 0) {
+	if(remove(path) < 0) {
 		_syserrno();
 		n = -1;
 	}

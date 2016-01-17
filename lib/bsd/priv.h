@@ -46,7 +46,7 @@ struct Rock
 
 #include <sys/stat.h> /* For _sock_findrock */
 #include <netinet/in.h> /* For _sock_ingetaddr */
-extern Rock*	_sock_findrock(int, Stat*);
+extern Rock*	_sock_findrock(int, struct stat*);
 extern Rock*	_sock_newrock(int);
 extern void	_sock_srvname(char*, char*);
 extern int	_sock_srv(char*, int);

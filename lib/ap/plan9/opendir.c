@@ -84,7 +84,7 @@ rewinddir(DIR *d)
 	d->dirloc = 0;
 	free(d->dirs);
 	d->dirs = nil;
-	if(_SEEK(d->dd_fd, 0, 0) < 0){
+	if(seek(d->dd_fd, 0, 0) < 0){
 		_syserrno();
 		return;
 	}
@@ -105,7 +105,7 @@ readdir(DIR *d)
 		if(d->dirloc >= d->dirsize){
 			free(d->dirs);
 			d->dirs = NULL;
-			d->dirsize = _dirread(d->dd_fd, &d->dirs);
+			d->dirsize = _dirread(d->dd_fd, (Dir **)&d->dirs);
 			d->dirloc = 0;
 		}
 		if(d->dirsize < 0) {	/* malloc or read failed in _dirread? */

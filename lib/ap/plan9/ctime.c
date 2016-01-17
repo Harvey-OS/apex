@@ -218,7 +218,7 @@ asctime(const struct tm *t)
 	return asctime_r(t, cbuf);
 }
 
-static
+static int
 dysize(int y)
 {
 	if((y%4) == 0)
@@ -272,7 +272,7 @@ error:
 	timezone.dlpairs[0] = 0;
 }
 
-static
+static int
 rd_name(char **f, char *p)
 {
 	int c, i;
@@ -294,7 +294,7 @@ rd_name(char **f, char *p)
 	return 0;
 }
 
-static
+static int
 rd_long(char **f, int32_t *p)
 {
 	int c, s;

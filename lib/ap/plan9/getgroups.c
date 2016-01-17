@@ -12,7 +12,7 @@
 #include <errno.h>
 
 int
-getgroups(int, gid_t [])
+getgroups(int i, gid_t g[])
 {
 	errno = EINVAL;
 	return -1;

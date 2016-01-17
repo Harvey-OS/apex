@@ -13,7 +13,7 @@
 
 char	end[];
 static	char	*bloc = { end };
-extern	int	_BRK_(void*);
+extern	int	brk_(void*);
 
 char *
 brk(char *p)
@@ -23,7 +23,7 @@ brk(char *p)
 	n = (unsigned long)p;
 	n += 3;
 	n &= ~3;
-	if(_BRK_((void*)n) < 0){
+	if(brk_((void*)n) < 0){
 		errno = ENOMEM;
 		return (char *)-1;
 	}
@@ -36,7 +36,7 @@ sbrk(unsigned long n)
 {
 	n += 3;
 	n &= ~3;
-	if(_BRK_((void *)(bloc+n)) < 0){
+	if(brk_((void *)(bloc+n)) < 0){
 		errno = ENOMEM;
 		return (void *)-1;
 	}

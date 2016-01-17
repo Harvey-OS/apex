@@ -27,7 +27,7 @@
  * Also, register the note handler.
  */
 
-char **environ;
+const char **environ;
 int errno;
 unsigned long _clock;
 
@@ -42,10 +42,10 @@ _envsetup(void)
 {
 	int dfd, fdinited, n, nd, m, i, j, f, nohandle, psize, cnt;
 	char *ps, *p;
-	char **pp;
+	const char **pp;
 	char name[NAME_MAX+5];
 	Dir *d9, *d9a;
-	static char **emptyenvp = 0;
+	static const char **emptyenvp = 0;
 
 	environ = emptyenvp;		/* pessimism */
 	nohandle = 0;

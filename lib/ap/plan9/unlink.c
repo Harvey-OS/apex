@@ -60,17 +60,17 @@ unlink(const char *path)
 					}
 				}
 				/* reopen remove on close */
-				fd = _OPEN(p, 64|(f->oflags)); 
+				fd = open(p, 64|(f->oflags)); 
 				if(fd < 0){
 					free(db2);
 					continue;
 				}
-				nn = _SEEK(i, 0, 1);
+				nn = seek(i, 0, 1);
 				if(nn < 0)
 					nn = 0;
-				_SEEK(fd, nn, 0);
+				seek(fd, nn, 0);
 				_DUP(fd, i);
-				_CLOSE(fd);
+				close(fd);
 				free(db1);
 				return 0;
 			}
@@ -79,7 +79,7 @@ unlink(const char *path)
 	}
 	n = 0;
 	if(fd == -1)
-		if((n=_REMOVE(path)) < 0)
+		if((n=remove(path)) < 0)
 			_syserrno();
 	free(db1);
 	return n;

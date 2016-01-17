@@ -43,7 +43,7 @@ open(const char *path, int flags, ...)
 			va_start(va, flags);
 			mode = va_arg(va, int);
 			va_end(va);
-			n = _CREATE(path, f, mode&0777);
+			n = create(path, f, mode&0777);
 		}
 		if(n < 0)
 			_syserrno();
@@ -64,7 +64,7 @@ open(const char *path, int flags, ...)
 		if(fi->name)
 			strcpy(fi->name, path);
 		if(fi->oflags&O_APPEND)
-			_SEEK(n, 0, 2);
+			seek(n, 0, 2);
 	}
 	return n;
 }

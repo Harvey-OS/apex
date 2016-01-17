@@ -11,7 +11,7 @@
 #include <sys/limits.h>
 #include <string.h>
 
-extern char **environ;
+extern const char **environ;
 
 /*
  * BUG: instead of looking at PATH env variable,

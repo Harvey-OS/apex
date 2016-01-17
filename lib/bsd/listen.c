@@ -44,7 +44,7 @@ listenproc(Rock *r, int fd)
 	char *net;
 	int cfd, nfd, dfd;
 	int pfd[2];
-	Stat d;
+	struct stat d;
 	char *p;
 	char listen[Ctlsize];
 	char name[Ctlsize];

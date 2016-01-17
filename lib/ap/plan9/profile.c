@@ -13,6 +13,7 @@
 #include	<unistd.h>
 #include	<errno.h>
 #include	<sys/types.h>
+#include	<stdint.h>
 #include	<fcntl.h>
 #include	"sys9.h"
 
@@ -28,7 +29,7 @@ typedef long long vlong;
 typedef unsigned long ulong;
 typedef unsigned long long uvlong;
 
-#include	"/sys/include/tos.h"
+#include	"tos.h"
 
 extern	void*	sbrk(uint32_t);
 extern	int32_t	_callpc(void**);

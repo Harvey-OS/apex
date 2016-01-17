@@ -16,7 +16,7 @@ chdir(const char *f)
 {
 	int n;
 
-	n = _CHDIR(f);
+	n = chdir(f);
 	if(n < 0)
 		_syserrno();
 	return n;

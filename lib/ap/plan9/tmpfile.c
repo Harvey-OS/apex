@@ -12,7 +12,7 @@
 #include <string.h>
 #include "sys9.h"
 #undef OPEN
-#include "../stdio/iolib.h"
+#include "iolib.h"
 #include "lib.h"
 #include "dir.h"
 
@@ -35,7 +35,7 @@ tmpfile(void){
 			return NULL;
 		++*p;
 	}
-	n = _CREATE(name, 64|2, 0777); /* remove-on-close */
+	n = create(name, 64|2, 0777); /* remove-on-close */
 	if(n==-1){
 		_syserrno();
 		return NULL;

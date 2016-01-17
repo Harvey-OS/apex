@@ -9,7 +9,7 @@
 
 #include <unistd.h>
 
-extern char **environ;
+extern const char **environ;
 
 int
 execl(const char *name, const char *arg0, ...)

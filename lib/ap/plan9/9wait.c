@@ -78,13 +78,13 @@ _WAIT(void)
 	char buf[512], *fld[5];
 	Waitmsg *w;
 
-	n = _AWAIT(buf, sizeof buf-1);
+	n = await(buf, sizeof buf-1);
 	if(n < 0)
 		return nil;
 	buf[n] = '\0';
 	if(tokenize(buf, fld, 5) != 5){
 		strcpy(buf, "couldn't parse wait message");
-		_ERRSTR(buf, sizeof buf);
+		errstr(buf, sizeof buf);
 		return nil;
 	}
 	l = strlen(fld[4])+1;

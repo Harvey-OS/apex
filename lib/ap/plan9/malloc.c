@@ -33,11 +33,11 @@ struct Bucket
 typedef struct Arena Arena;
 struct Arena
 {
-	Bucket	*btab[MAX2SIZE];	
+	Bucket	*btab[MAX2SIZE];
 };
 static Arena arena;
 
-#define datoff		((int)((Bucket*)0)->data)
+#define datoff		((int64_t)((Bucket*)0)->data)
 #define nil		((void*)0)
 
 extern	void	*sbrk(unsigned long);
@@ -45,7 +45,7 @@ extern	void	*sbrk(unsigned long);
 void*
 malloc(size_t size)
 {
-	uint next;
+	uint64_t next;
 	int pow, n;
 	Bucket *bp, *nbp;
 
@@ -74,15 +74,15 @@ good:
 	if(pow < CUTOFF) {
 		n = (CUTOFF-pow)+2;
 		bp = sbrk(size*n);
-		if((intptr_t)bp == -1)
+		if((int64_t)bp == -1)
 			return nil;
 
-		next = (uint)bp+size;
-		nbp = (Bucket*)next;
+		next = (uint64_t)bp+size;
+		nbp = (Bucket*)(uint64_t)next;
 		arena.btab[pow] = nbp;
 		for(n -= 2; n; n--) {
-			next = (uint)nbp+size;
-			nbp->next = (Bucket*)next;
+			next = (uint64_t)nbp+size;
+			nbp->next = (Bucket*)(uint64_t)next;
 			nbp->size = pow;
 			nbp = nbp->next;
 		}
@@ -90,10 +90,10 @@ good:
 	}
 	else {
 		bp = sbrk(size);
-		if((intptr_t)bp == -1)
+		if((int64_t)bp == -1)
 			return nil;
 	}
-		
+
 	bp->size = pow;
 	bp->magic = MAGIC;
 
@@ -109,7 +109,7 @@ free(void *ptr)
 		return;
 
 	/* Find the start of the structure */
-	bp = (Bucket*)((uint)ptr - datoff);
+	bp = (Bucket*)((uint64_t)ptr - datoff);
 
 	if(bp->magic != MAGIC)
 		abort();
@@ -131,7 +131,7 @@ realloc(void *ptr, size_t n)
 		return malloc(n);
 
 	/* Find the start of the structure */
-	bp = (Bucket*)((uint)ptr - datoff);
+	bp = (Bucket*)((uint64_t)ptr - datoff);
 
 	if(bp->magic != MAGIC)
 		abort();

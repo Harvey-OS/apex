@@ -16,7 +16,7 @@
  * just try prepending /bin/ if name fails...
  */
 
-extern char **environ;
+extern const char **environ;
 
 int
 execlp(const char *name, const char *arg0, ...)
