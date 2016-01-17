@@ -1,0 +1,10 @@
+fwprintf.c
+vswprintf.c
+fgetwc.c
+fgetws.c
+fputwc.c
+fputws.c
+fwide.c
+getwc.c
+putwc.c
+ungetwc.c

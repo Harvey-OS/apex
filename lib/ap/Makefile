@@ -1,6 +1,6 @@
 
 TARGET = libap.a
-DIRS = amd64 gen math plan9 posix stdio
+DIRS = amd64 crt gen locale math multibyte plan9 posix stdio stdlib string
 
 .PHONY: all
 
