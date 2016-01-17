@@ -17,6 +17,7 @@ extern "C" {
 
 extern int isalnum(int);
 extern int isalpha(int);
+extern int isblank(int);
 extern int iscntrl(int);
 extern int isdigit(int);
 extern int isgraph(int);

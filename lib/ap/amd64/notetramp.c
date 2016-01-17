@@ -1,5 +1,5 @@
-#include "../plan9/lib.h"
-#include "../plan9/sys9.h"
+#include "lib.h"
+#include "sys9.h"
 #include <signal.h>
 #include <setjmp.h>
 

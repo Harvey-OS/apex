@@ -10,13 +10,20 @@
 #ifndef __STDDEF_H
 #define __STDDEF_H
 
-#ifndef NULL
-#ifdef __cplusplus
+#if defined (__STDDEF_H) || defined (__need_NULL)
+#undef NULL		/* in case <stdio.h> has defined it. */
+#ifdef __GNUG__
+#define NULL __null
+#else   /* G++ */
+#ifndef __cplusplus
+#define NULL ((void *)0)
+#else   /* C++ */
 #define NULL 0
-#else
-#define NULL ((void*)0)
-#endif
-#endif
+#endif  /* C++ */
+#endif  /* G++ */
+#endif	/* NULL not defined and <stddef.h> or need NULL.  */
+#undef	__need_NULL
+
 #ifndef offsetof
 #define offsetof(ty,mem) ((size_t) &(((ty *)0)->mem))
 #endif
@@ -45,6 +52,14 @@ typedef long long locale_t;
 #ifndef _WCTYPE_T
 #define _WCTYPE_T
 typedef int	wctype_t;
+#endif
+#ifndef _FLOAT_T
+#define _FLOAT_T
+typedef long double float_t;
+#endif
+#ifndef _DOUBLE_T
+#define _DOUBLE_T
+typedef long double double_t;
 #endif
 
 typedef signed int	int32_t;
