@@ -18,7 +18,9 @@ CFLAGS=-nostdinc \
 	-I$(APE_PATH)/sys/include
 
 LDFLAGS=-nostdlib \
-	-e _main \
+	$(APE_PATH)/$(ARCH)/lib/crt1.o \
+	$(APE_PATH)/$(ARCH)/lib/crti.o \
+	$(APE_PATH)/$(ARCH)/lib/crtn.o \
 	-L $(APE_PATH)/$(ARCH)/lib \
 	-L $(HARVEY)/$(ARCH)/lib \
 	-lbsd -lap -lc

@@ -74,7 +74,6 @@ int vfscanf(FILE *f, const char *s, va_list args){
 	va_list arg;
 
 	va_copy(args, arg);
-	va_end(arg);
 
 	nread=0;
 	ncvt=0;
