@@ -94,7 +94,7 @@ extern	int	await(char*, int);
 //extern	int	alarm(uint32_t);
 extern	int	bind(const char*, const char*, int);
 extern	int	chdir(const char*);
-extern	int	close(int);
+extern	int	_CLOSE(int);
 extern	int	create(const char*, int, uint32_t);
 extern	int	_DUP(int, int);
 extern	int	errstr(char*, unsigned int);
