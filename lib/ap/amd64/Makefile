@@ -3,7 +3,6 @@ include ../../../Makefile.inc
 TARGET = libap.a
 SRCS =\
 	notetramp.c \
-	argv0.c \
 
 SRCSS =\
 	_dup.s \
@@ -13,6 +12,7 @@ SRCSS =\
 	_wstat.s \
 	_open.s \
 	_close.s \
+	sigsetjmp.s \
 
 OBJ = ${SRCS:.c=.o}
 OBJS = ${SRCSS:.s=.o}
@@ -31,4 +31,4 @@ $(TARGET): $(OBJ) $(OBJS)
 	ar rcs ${LIB}/$@ $^
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(OBJS)

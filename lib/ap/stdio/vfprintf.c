@@ -217,6 +217,7 @@ vfprintf(FILE *f, const char *s, va_list args)
 			nprint++;
 		}
 	}
+	va_end(arg);
 	return ferror(f)? -1: nprint;;
 }
 
