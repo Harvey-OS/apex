@@ -166,7 +166,7 @@ vfprintf(FILE *f, const char *s, va_list args)
 	int tfl, flags, width, precision;
 	va_list arg;
 
-	va_copy(args, arg);
+	va_copy(arg, args);
 
 	nprint = 0;
 	while(*s){

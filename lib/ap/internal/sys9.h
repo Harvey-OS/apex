@@ -92,7 +92,9 @@ enum
 
 extern	int	await(char*, int);
 //extern	int	alarm(uint32_t);
+#ifndef __SYS_SOCKET_H__
 extern	int	bind(const char*, const char*, int);
+#endif
 extern	int	chdir(const char*);
 extern	int	_CLOSE(int);
 extern	int	create(const char*, int, uint32_t);

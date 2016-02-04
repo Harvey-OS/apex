@@ -21,10 +21,13 @@ struct Ureg {
 	unsigned long long	r14;
 	unsigned long long	r15;
 
-	unsigned short		ds;
-	unsigned short		es;
-	unsigned short		fs;
-	unsigned short		gs;
+	// these are pointless and I don't want to waste a second on them.
+	// I'm sure it will break something but let's see.
+	// Not pushing them simplifies the interrupt handler a lot.
+	//	unsigned short	ds;
+	//	unsigned short	es;
+	//	unsigned short	fs;
+	//	unsigned short	gs;
 
 	unsigned long long	type;
 	unsigned long long	error;		/* error code (or zero) */

@@ -73,7 +73,7 @@ int vfscanf(FILE *f, const char *s, va_list args){
 	int c, width, type, store;
 	va_list arg;
 
-	va_copy(args, arg);
+	va_copy(arg, args);
 
 	nread=0;
 	ncvt=0;

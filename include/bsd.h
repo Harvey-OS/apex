@@ -46,7 +46,7 @@ extern int	rresvport(int*);
 extern int	rcmd(char**, int, char*, char*, char*, int*);
 extern int 	putenv(char*);
 
-extern int	getopt(int, char**, char*);
+extern int	getopt(int, char* const*, const char*);
 extern int	opterr;
 extern int	optind;
 extern int	optopt;

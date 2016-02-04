@@ -30,6 +30,3 @@ wint_t fputwc(wchar_t c, FILE *f)
 	c = __fputwc_unlocked(c, f);
 	return c;
 }
-
-weak_alias(__fputwc_unlocked, fputwc_unlocked);
-weak_alias(__fputwc_unlocked, putwc_unlocked);

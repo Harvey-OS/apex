@@ -27,7 +27,6 @@
 /* plan 9 */
 #include "lib.h"
 #include "sys9.h"
-
 #include "priv.h"
 
 extern int	_muxsid;
