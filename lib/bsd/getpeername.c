@@ -30,7 +30,7 @@ getpeername(int fd, void *addr, int *alen)
 {
 	Rock *r;
 	int i;
-	Sockaddr_in *rip;
+	struct sockaddr_in *rip;
 	struct sockaddr_un *runix;
 
 	r = _sock_findrock(fd, 0);
@@ -41,9 +41,9 @@ getpeername(int fd, void *addr, int *alen)
 
 	switch(r->domain){
 	case PF_INET:
-		rip = (Sockaddr_in*)&r->raddr;
-		memmove(addr, rip, sizeof(Sockaddr_in));
-		*alen = sizeof(Sockaddr_in);
+		rip = (struct sockaddr_in*)&r->raddr;
+		memmove(addr, rip, sizeof(struct sockaddr_in));
+		*alen = sizeof(struct sockaddr_in);
 		break;
 	case PF_UNIX:
 		runix = (struct sockaddr_un*)&r->raddr;

@@ -30,7 +30,7 @@ accept(int fd, void *a, int *alen)
 {
 	int n, nfd, cfd;
 	Rock *r, *nr;
-	Sockaddr_in *ip;
+	struct sockaddr_in *ip;
 	char name[Ctlsize];
 	char file[8+Ctlsize+1];
 	char *net;
@@ -81,11 +81,11 @@ accept(int fd, void *a, int *alen)
 		}
 
 		/* get remote address */
-		ip = (Sockaddr_in*)&nr->raddr;
+		ip = (struct sockaddr_in*)&nr->raddr;
 		_sock_ingetaddr(nr, ip, &n, "remote");
 		if(a){
-			memmove(a, ip, sizeof(Sockaddr_in));
-			*alen = sizeof(Sockaddr_in);
+			memmove(a, ip, sizeof(struct sockaddr_in));
+			*alen = sizeof(struct sockaddr_in);
 		}
 
 		return nfd;

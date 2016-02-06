@@ -112,12 +112,12 @@ struct in_addr {
 /*
  * Socket address, internet style.
  */
-typedef struct Sockaddr_in {
+typedef struct sockaddr_in {
 	int16_t	sin_family;
 	unsigned short	sin_port;
 	struct	in_addr sin_addr;
 	char	sin_zero[8];
-} Sockaddr_in;
+} sockaddr_in;
 
 /*
  * Structure used to describe IP options.

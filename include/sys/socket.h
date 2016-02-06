@@ -32,6 +32,8 @@ extern "C" {
  * Definitions related to sockets: types, address families, options.
  */
 
+typedef int socklen_t;
+
 /*
  * Types
  */

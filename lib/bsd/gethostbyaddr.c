@@ -20,7 +20,7 @@
 int h_errno;
 
 struct hostent*
-gethostbyaddr(const void *addr, int len, int type)
+gethostbyaddr(const void *addr, socklen_t len, int type)
 {
 	unsigned long y;
 	struct in_addr x;

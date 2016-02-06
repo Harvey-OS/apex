@@ -12,6 +12,7 @@
 #include <sys/time.h>
 #include <string.h>
 #include <fcntl.h>
+#include <unistd.h>
 #include "sys9.h"
 
 typedef unsigned long long uvlong;

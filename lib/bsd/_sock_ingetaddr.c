@@ -25,7 +25,7 @@
 #include "priv.h"
 
 void
-_sock_ingetaddr(Rock *r, Sockaddr_in *ip, int *alen, char *a)
+_sock_ingetaddr(Rock *r, struct sockaddr_in *ip, int *alen, char *a)
 {
 	int n, fd;
 	char *p;
@@ -47,7 +47,7 @@ _sock_ingetaddr(Rock *r, Sockaddr_in *ip, int *alen, char *a)
 				ip->sin_port = htons(atoi(p));
 				ip->sin_addr.s_addr = inet_addr(name);
 				if(alen)
-					*alen = sizeof(Sockaddr_in);
+					*alen = sizeof(struct sockaddr_in);
 			}
 		}
 		close(fd);

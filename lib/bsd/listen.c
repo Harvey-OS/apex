@@ -129,7 +129,7 @@ listen(int fd, int i)
 	Rock *r;
 	int n, cfd;
 	char msg[128];
-	Sockaddr_in *lip;
+	struct sockaddr_in *lip;
 	struct sockaddr_un *lunix;
 
 	r = _sock_findrock(fd, 0);
@@ -145,7 +145,7 @@ listen(int fd, int i)
 			errno = EBADF;
 			return -1;
 		}
-		lip = (Sockaddr_in*)&r->addr;
+		lip = (struct sockaddr_in*)&r->addr;
 		if(1 || lip->sin_port >= 0) {	/* sin_port is unsigned */
 			if(write(cfd, "bind 0", 6) < 0) {
 				errno = EGREG;

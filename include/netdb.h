@@ -1,130 +1,155 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
-
-#ifndef __NETDB_H__
-#define __NETDB_H__
-
-#ifndef _BSD_EXTENSION
-    This header file is an extension to ANSI/POSIX
-#endif
-
-#pragma lib "/$M/lib/ape/libbsd.a"
-
-/*-
- * Copyright (c) 1980, 1983, 1988 Regents of the University of California.
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms are permitted
- * provided that: (1) source distributions retain this entire copyright
- * notice and comment, and (2) distributions including binaries display
- * the following acknowledgement:  ``This product includes software
- * developed by the University of California, Berkeley and its contributors''
- * in the documentation or other materials provided with the distribution
- * and in all advertising materials mentioning features or use of this
- * software. Neither the name of the University nor the names of its
- * contributors may be used to endorse or promote products derived
- * from this software without specific prior written permission.
- * THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
- * IMPLIED WARRANTIES, INCLUDING, WITHOUT LIMITATION, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
- *
- *	@(#)netdb.h	5.11 (Berkeley) 5/21/90
- */
+#ifndef	_NETDB_H
+#define	_NETDB_H
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/*
- * Structures returned by network data base library.  All addresses are
- * supplied in host order, and returned in network order (suitable for
- * use in system calls).
- */
-struct	hostent {
-	char	*h_name;	/* official name of host */
-	char	**h_aliases;	/* alias list */
-	int	h_addrtype;	/* host address type */
-	int	h_length;	/* length of address */
-	char	**h_addr_list;	/* list of addresses from name server */
-#define	h_addr	h_addr_list[0]	/* address, for backward compatiblity */
+#include <features.h>
+#include <netinet/in.h>
+
+struct addrinfo
+{
+	int ai_flags;
+	int ai_family;
+	int ai_socktype;
+	int ai_protocol;
+	socklen_t ai_addrlen;
+	struct sockaddr *ai_addr;
+	char *ai_canonname;
+	struct addrinfo *ai_next;
 };
 
-/*
- * Assumption here is that a network number
- * fits in 32 bits -- probably a poor one.
- */
-struct	netent {
-	char		*n_name;	/* official name of net */
-	char		**n_aliases;	/* alias list */
-	int		n_addrtype;	/* net address type */
-	unsigned long	n_net;		/* network # */
+#define IPPORT_RESERVED 1024
+
+#define AI_PASSIVE      0x01
+#define AI_CANONNAME    0x02
+#define AI_NUMERICHOST  0x04
+#define AI_V4MAPPED     0x08
+#define AI_ALL          0x10
+#define AI_ADDRCONFIG   0x20
+#define AI_NUMERICSERV  0x400
+
+
+#define NI_NUMERICHOST  0x01
+#define NI_NUMERICSERV  0x02
+#define NI_NOFQDN       0x04
+#define NI_NAMEREQD     0x08
+#define NI_DGRAM        0x10
+#define NI_NUMERICSCOPE 0x100
+
+#define EAI_BADFLAGS   -1
+#define EAI_NONAME     -2
+#define EAI_AGAIN      -3
+#define EAI_FAIL       -4
+#define EAI_FAMILY     -6
+#define EAI_SOCKTYPE   -7
+#define EAI_SERVICE    -8
+#define EAI_MEMORY     -10
+#define EAI_SYSTEM     -11
+#define EAI_OVERFLOW   -12
+
+int getaddrinfo (const char *__restrict, const char *__restrict, const struct addrinfo *__restrict, struct addrinfo **__restrict);
+void freeaddrinfo (struct addrinfo *);
+int getnameinfo (const struct sockaddr *__restrict, socklen_t, char *__restrict, socklen_t, char *__restrict, socklen_t, int);
+const char *gai_strerror(int);
+
+
+/* Legacy functions follow (marked OBsolete in SUS) */
+
+struct netent
+{
+	char *n_name;
+	char **n_aliases;
+	int n_addrtype;
+	uint32_t n_net;
 };
 
-struct	servent {
-	char	*s_name;	/* official service name */
-	char	**s_aliases;	/* alias list */
-	int	s_port;		/* port # */
-	char	*s_proto;	/* protocol to use */
+struct hostent
+{
+	char *h_name;
+	char **h_aliases;
+	int h_addrtype;
+	int h_length;
+	char **h_addr_list;
+};
+#define h_addr h_addr_list[0]
+
+struct servent
+{
+	char *s_name;
+	char **s_aliases;
+	int s_port;
+	char *s_proto;
 };
 
-struct	protoent {
-	char	*p_name;	/* official protocol name */
-	char	**p_aliases;	/* alias list */
-	int	p_proto;	/* protocol # */
+struct protoent
+{
+	char *p_name;
+	char **p_aliases;
+	int p_proto;
 };
 
-/* from 4.0 RPCSRC */
-struct rpcent {
-	char	*r_name;	/* name of server for this rpc program */
-	char	**r_aliases;	/* alias list */
-	int	r_number;	/* rpc program number */
-};
+void sethostent (int);
+void endhostent (void);
+struct hostent *gethostent (void);
 
-extern struct hostent	*gethostbyname(const char *),
-			*gethostbyaddr(const void *, int, int),
-			*gethostent(void);
-extern struct netent	*getnetbyname(const char *),
-			*getnetbyaddr(int32_t, int),
-			*getnetent(void);
-extern struct servent	*getservbyname(const char *, const char *),
-			*getservbyport(int, const char *),
-			*getservent(void);
-extern struct protoent	*getprotobyname(const char *),
-			*getprotobynumber(int),
-			*getprotoent(void);
-extern struct rpcent	*getrpcbyname(const char *), 
-			*getrpcbynumber(int), 
-			*getrpcent(void);
-extern void sethostent(int),  endhostent(void),
-	    setnetent(int),   endnetent(void),
-	    setservent(int),  endservent(void),
-	    setprotoent(int), endprotoent(void),
-	    setrpcent(int),   endrpcent(void);
+void setnetent (int);
+void endnetent (void);
+struct netent *getnetent (void);
+struct netent *getnetbyaddr (uint32_t, int);
+struct netent *getnetbyname (const char *);
 
-/*
- * Error return codes from gethostbyname() and gethostbyaddr()
- * (left in extern int h_errno).
- */
-extern int h_errno;
-extern void herror(const char *);
-extern char *hstrerror(int);
+void setservent (int);
+void endservent (void);
+struct servent *getservent (void);
+struct servent *getservbyname (const char *, const char *);
+struct servent *getservbyport (int, const char *);
 
-#define	HOST_NOT_FOUND	1 /* Authoritative Answer Host not found */
-#define	TRY_AGAIN	2 /* Non-Authoritive Host not found, or SERVERFAIL */
-#define	NO_RECOVERY	3 /* Non recoverable errors, FORMERR, REFUSED, NOTIMP */
-#define	NO_DATA		4 /* Valid name, no data record of requested type */
-#define	NO_ADDRESS	NO_DATA		/* no address, look for MX record */
+void setprotoent (int);
+void endprotoent (void);
+struct protoent *getprotoent (void);
+struct protoent *getprotobyname (const char *);
+struct protoent *getprotobynumber (int);
 
-#define __HOST_SVC_NOT_AVAIL 99		/* libc internal use only */
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE) || defined(_POSIX_SOURCE) \
+ || (defined(_POSIX_C_SOURCE) && _POSIX_C_SOURCE+0 < 200809L) \
+ || (defined(_XOPEN_SOURCE) && _XOPEN_SOURCE+0 < 700)
+struct hostent *gethostbyname (const char *);
+struct hostent *gethostbyaddr (const void *, socklen_t, int);
+int *__h_errno_location(void);
+#define h_errno (*__h_errno_location())
+#define HOST_NOT_FOUND 1
+#define TRY_AGAIN      2
+#define NO_RECOVERY    3
+#define NO_DATA        4
+#define NO_ADDRESS     NO_DATA
+#endif
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+void herror(const char *);
+const char *hstrerror(int);
+int gethostbyname_r(const char *, struct hostent *, char *, size_t, struct hostent **, int *);
+int gethostbyname2_r(const char *, int, struct hostent *, char *, size_t, struct hostent **, int *);
+struct hostent *gethostbyname2(const char *, int);
+int gethostbyaddr_r(const void *, socklen_t, int, struct hostent *, char *, size_t, struct hostent **, int *);
+int getservbyport_r(int, const char *, struct servent *, char *, size_t, struct servent **);
+int getservbyname_r(const char *, const char *, struct servent *, char *, size_t, struct servent **);
+#define EAI_NODATA     -5
+#define EAI_ADDRFAMILY -9
+#define EAI_INPROGRESS -100
+#define EAI_CANCELED   -101
+#define EAI_NOTCANCELED -102
+#define EAI_ALLDONE    -103
+#define EAI_INTR       -104
+#define EAI_IDN_ENCODE -105
+#define NI_MAXHOST 255
+#define NI_MAXSERV 32
+#endif
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* !__NETDB_H__ */
+#endif
