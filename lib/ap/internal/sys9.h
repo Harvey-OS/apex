@@ -114,7 +114,7 @@ extern	int	_OPEN(const char*, int);
 extern	int	_PIPE(int*);
 extern	int32_t	pread(int, void*, int32_t, int64_t);
 extern	int32_t	pwrite(int, const void*, int32_t, int64_t);
-//extern	int32_t	read(int, void*, int32_t);
+//extern	int32_t	_READ(int, void*, int32_t);
 extern	int	remove(const char*);
 extern	int	rendezvous(uint32_t, uint32_t);
 extern	int	rfork(int);
@@ -130,7 +130,7 @@ extern	int32_t	semrelease(int32_t*, int32_t);
 extern	int	_STAT(const char*, unsigned char*, int);
 extern	Waitmsg*	_wait(void);
 extern	int	tsemacquire(int32_t*, uint32_t);
-//extern	int32_t	write(int, const void*, int32_t);
+//extern	int32_t	_WRITE(int, const void*, int32_t);
 extern	int	_WSTAT(const char*, unsigned char*, int);
 
 extern	int	__open(char *, int, ...);

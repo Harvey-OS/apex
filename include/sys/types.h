@@ -33,7 +33,7 @@ typedef long ssize_t;
 
 #ifndef _TIME_T
 #define _TIME_T
-typedef int32_t time_t;
+typedef long int time_t;
 #endif
 
 #ifdef _BSD_EXTENSION

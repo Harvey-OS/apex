@@ -73,6 +73,7 @@
 /*#define MQ_PRIO_MAX _POSIX_MQ_PRIO_MAX */
 /*#define NAME_MAX _POSIX_NAME_MAX */
 #define NGROUPS_MAX 10
+#define NL_ARGMAX 9
 /*#define OPEN_MAX _POSIX_OPEN_MAX */
 /*#define PAGESIZE 1 */
 #define PASS_MAX	64

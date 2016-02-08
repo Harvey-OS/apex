@@ -38,7 +38,7 @@ _dirstat(const char *name)
 		}
 		nd = GBIT16((unsigned char*)buf);	/* size needed to store whole stat buffer */
 		if(nd <= n){
-			_convM2D(buf, n, d, (char*)&d[1]);
+			convM2D(buf, n, d, (char*)&d[1]);
 			return d;
 		}
 		/* else sizeof(Dir)+BIT16SZ+nd is plenty */
@@ -53,11 +53,11 @@ _dirwstat(const char *name, Dir *d)
 	unsigned char *buf;
 	int r;
 
-	r = _sizeD2M(d);
+	r = sizeD2M(d);
 	buf = malloc(r);
 	if(buf == nil)
 		return -1;
-	_convD2M(d, buf, r);
+	convD2M(d, buf, r);
 	r = _WSTAT(name, buf, r);
 	free(buf);
 	return r;
@@ -83,7 +83,7 @@ _dirfstat(int fd)
 		}
 		nd = GBIT16(buf);	/* size needed to store whole stat buffer */
 		if(nd <= n){
-			_convM2D(buf, n, d, (char*)&d[1]);
+			convM2D(buf, n, d, (char*)&d[1]);
 			return d;
 		}
 		/* else sizeof(Dir)+nd is plenty */
@@ -98,11 +98,11 @@ _dirfwstat(int fd, Dir *d)
 	unsigned char *buf;
 	int r;
 
-	r = _sizeD2M(d);
+	r = sizeD2M(d);
 	buf = malloc(r);
 	if(buf == nil)
 		return -1;
-	_convD2M(d, buf, r);
+	convD2M(d, buf, r);
 	r = fwstat(fd, buf, r);
 	free(buf);
 	return r;

@@ -7,6 +7,7 @@
  * in the LICENSE file.
  */
 
+#include <stdio.h> //For printf warning
 #include "lib.h"
 #include "sys9.h"
 #include <signal.h>
@@ -105,7 +106,7 @@ _notehandler(void *u, char *msg)
 {
 	int i;
 	void(*f)(int, char*, Ureg*);
-	extern void _doatexits(void);	/* in stdio/exit.c */
+	//extern void _doatexits(void);	/* in stdio/exit.c */
 
 	if(_finishing)
 		_finish(0, 0);
@@ -122,7 +123,8 @@ _notehandler(void *u, char *msg)
 			return 0;
 		}
 	}
-	_doatexits();
+	printf("NOTE: RUNNING WITH ATEXITS DISABLED\n");
+	//_doatexits();
 	noted(1); /* NDFLT */
 	return 0;
 }

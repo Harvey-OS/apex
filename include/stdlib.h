@@ -56,6 +56,7 @@ extern int mbtowc(wchar_t *, const char *, size_t);
 extern int wctomb(char *, wchar_t);
 extern size_t mbstowcs(wchar_t *, const char *, size_t);
 extern size_t wcstombs(char *, const wchar_t *, size_t);
+extern int mkstemp(char *template);
 
 #ifdef __cplusplus
 }

@@ -125,7 +125,7 @@ enum
 int	convM2S(char*, Fcall*, int);
 int	convS2M(Fcall*, char*);
 
-int	convM2D(char*, Dir*);
-int	convD2M(Dir*, char*);
+//int	convM2D(char*, Dir*);
+//int	convD2M(Dir*, char*);
 
 char*	getS(int, char*, Fcall*, long*);

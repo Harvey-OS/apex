@@ -84,8 +84,8 @@ struct Dir {
 } Dir;
 
 void	_dirtostat(struct stat *, Dir*, Fdinfo*);
-uint	_convM2D(unsigned char*, uint, Dir*, char*);
-uint	_convD2M(Dir*, uchar*, uint);
+uint	convM2D(unsigned char*, uint, Dir*, char*);
+uint	convD2M(Dir*, uchar*, uint);
 Dir	*_dirstat(const char*);
 int	_dirwstat(const char*, Dir*);
 Dir	*_dirfstat(int);
@@ -93,7 +93,7 @@ int	_dirfwstat(int, Dir*);
 int32_t	_dirread(int, Dir**);
 int32_t _dirreadall(int, Dir**);
 void _nulldir(Dir*);
-uint _sizeD2M(Dir*);
+uint sizeD2M(Dir*);
 
 #ifndef nil
 #define nil ((void*)0)

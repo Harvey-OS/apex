@@ -75,7 +75,7 @@ dirpackage(char *buf, int32_t ts, Dir **d)
 	nn = 0;
 	for(i = 0; i < ts; i += m){
 		m = BIT16SZ + GBIT16((char*)&buf[i]);
-		if(nn >= n || _convM2D((unsigned char *)&buf[i], m, *d + nn, s) != m){
+		if(nn >= n || convM2D((unsigned char *)&buf[i], m, *d + nn, s) != m){
 			free(*d);
 			return -1;
 		}

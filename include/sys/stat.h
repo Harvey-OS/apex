@@ -79,9 +79,9 @@ extern int fstat(int, struct stat *);
 extern int chmod(const char *, mode_t);
 
 #ifdef _BSD_EXTENSION
-extern int	lstat(char *, struct stat *);
-extern int	symlink(char *, char *);
-extern int	readlink(char *, char*, int);
+extern int	lstat(const char *, struct stat *);
+extern int	symlink(const char *, const char *);
+extern int	readlink(const char *, char*, int);
 #endif
 
 #ifdef __cplusplus

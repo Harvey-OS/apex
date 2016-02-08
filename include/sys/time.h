@@ -11,11 +11,13 @@
 #define __SYSTIME_H
 #pragma lib "/$M/lib/ape/libap.a"
 
+#include <sys/types.h>
+
 #ifndef __TIMEVAL__
 #define __TIMEVAL__
 struct timeval {
-	int32_t	tv_sec;
-	int32_t	tv_usec;
+	time_t	tv_sec;
+	long int	tv_usec;
 };
 
 #ifdef _BSD_EXTENSION
@@ -23,9 +25,10 @@ struct timezone {
 	int	tz_minuteswest;
 	int	tz_dsttime;
 };
-#endif
-#endif /* __TIMEVAL__ */
 
 extern int gettimeofday(struct timeval *, struct timezone *);
+
+#endif
+#endif /* __TIMEVAL__ */
 
 #endif /* __SYSTIME_H */

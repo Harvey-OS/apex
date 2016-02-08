@@ -35,7 +35,7 @@ typedef unsigned long size_t;
 #endif
 #ifndef _WCHAR_T
 #define _WCHAR_T
-typedef unsigned short wchar_t;
+typedef int wchar_t;
 #endif
 #ifndef _MBSTATE_T
 #define _MBSTATE_T

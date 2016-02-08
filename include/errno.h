@@ -91,7 +91,9 @@ extern int errno;
 #define ETXTBSY		63
 
 /* C99 */
+#define EOVERFLOW       75
 #define EILSEQ	123
+#define ENOTSUP         EOPNOTSUPP
 
 #endif /* _POSIX_SOURCE */
 
