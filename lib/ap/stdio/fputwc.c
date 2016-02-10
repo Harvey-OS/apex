@@ -7,7 +7,7 @@
 wint_t __fputwc_unlocked(wchar_t c, FILE *f)
 {
 	char mbc[MB_LEN_MAX];
-	int l;
+	int l, i, n;
 
 	if (f->mode <= 0) fwide(f, 1);
 
@@ -19,7 +19,9 @@ wint_t __fputwc_unlocked(wchar_t c, FILE *f)
 		else f->wpos += l;
 	} else {
 		l = wctomb(mbc, c);
-		if (l < 0 || __fwritex((void *)mbc, l, f) < l) c = WEOF;
+		for (i = 0; i < l; i++)
+			n += i;
+		if (l < 0 || fwrite((void *)mbc, l/n, n, f) < l) c = WEOF;
 	}
 	if (c==WEOF) f->flags |= F_ERR;
 	return c;

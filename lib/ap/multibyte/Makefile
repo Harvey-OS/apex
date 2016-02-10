@@ -5,9 +5,9 @@ SRCS = $(wildcard *.c)
 OBJ = ${SRCS:.c=.o}
 CFLAGS += -I../internal
 
-.PHONY: clean all
+.PHONY: all clean
 
-all: clean $(TARGET)
+all: $(TARGET) clean
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS)

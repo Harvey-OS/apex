@@ -3,11 +3,11 @@ include ../../../Makefile.inc
 TARGET = libap.a
 SRCS = $(wildcard *.c)
 OBJ = ${SRCS:.c=.o}
-CFLAGS += -I../internal -D_BSD_EXTENSION
+CFLAGS += -I../internal -D_BSD_EXTENSION -D_BSD_SOURCE
 
-.PHONY: clean all
+.PHONY: all clean
 
-all: clean $(TARGET)
+all: $(TARGET) clean
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS)
