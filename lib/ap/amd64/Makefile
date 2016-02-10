@@ -19,9 +19,9 @@ OBJS = ${SRCSS:.s=.o}
 
 CFLAGS += -I../internal -D_PLAN9_SOURCE
 
-.PHONY: clean all
+.PHONY: all clean
 
-all: clean $(TARGET)
+all: $(TARGET) clean
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS) || exit 1

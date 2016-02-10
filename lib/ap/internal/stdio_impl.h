@@ -3,7 +3,6 @@
 
 #ifndef __C99
 #define __C99
-#endif
 
 #include <stdio.h>
 
@@ -60,4 +59,5 @@ void __ofl_unlock(void);
 FILE *__fopen_rb_ca(const char *, FILE *, unsigned char *, size_t);
 int __fclose_ca(FILE *);
 
+#endif
 #endif

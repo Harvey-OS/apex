@@ -1,33 +1,64 @@
-#include "stdio_impl.h"
+/*
+ * This file is part of the UCB release of Plan 9. It is subject to the license
+ * terms in the LICENSE file found in the top-level directory of this
+ * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
+ * part of the UCB release of Plan 9, including this file, may be copied,
+ * modified, propagated, or distributed except according to the terms contained
+ * in the LICENSE file.
+ */
+
+/*
+ * pANS stdio -- fwrite
+ */
+#include "iolib.h"
 #include <string.h>
 
-size_t __fwritex(const unsigned char *restrict s, size_t l, FILE *restrict f)
-{
-	size_t i=0;
+#define BIGN (BUFSIZ/2)
 
-	if (!f->wend && __towrite(f)) return 0;
+size_t fwrite(const void *p, size_t recl, size_t nrec, FILE *f){
+	char *s;
+	int n, d;
 
-	if (l > f->wend - f->wpos) return f->write(f, s, l);
-
-	if (f->lbf >= 0) {
-		/* Match /^(.*\n|)/ */
-		for (i=l; i && s[i-1] != '\n'; i--);
-		if (i) {
-			if (f->write(f, s, i) < i)
-				return i;
-			s += i;
-			l -= i;
+	s=(char *)p;
+	n=recl*nrec;
+	while(n>0){
+		d=f->rp-f->wp;
+		if(d>0){
+			if(d>n)
+				d=n;
+			memcpy(f->wp, s, d);
+			f->wp+=d;
+		}else{
+			if(n>=BIGN && f->state==WR && !(f->flags&(STRING|LINEBUF)) && f->buf!=f->unbuf){
+				d=f->wp-f->buf;
+				if(d>0){
+					if(f->flags&APPEND)
+						lseek(f->fd, 0L, SEEK_END);
+					if(write(f->fd, f->buf, d)!=d){
+						f->state=ERR;
+						goto ret;
+					}
+					f->wp=f->rp=f->buf;
+				}
+				if(f->flags&APPEND)
+					lseek(f->fd, 0L, SEEK_END);
+				d=write(f->fd, s, n);
+				if(d<=0){
+					f->state=ERR;
+					goto ret;
+				}
+			}else{
+				if(_IO_putc(*s, f)==EOF)
+					goto ret;
+				d=1;
+			}
 		}
+		s+=d;
+		n-=d;
 	}
-
-	memcpy(f->wpos, s, l);
-	f->wpos += l;
-	return l+i;
-}
-
-size_t fwrite(const void *restrict src, size_t size, size_t nmemb, FILE *restrict f)
-{
-	size_t k, l = size*nmemb;
-	k = __fwritex(src, l, f);
-	return k==l ? nmemb : k/size;
+    ret:
+	if(recl)
+		return (s-(char*)p)/recl;
+	else
+		return s-(char*)p;
 }

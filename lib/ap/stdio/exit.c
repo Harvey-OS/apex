@@ -23,7 +23,6 @@ void _doatexits(void){
 }
 void exit(int status)
 {
-	printf("NOTE: RUNNING WITH ATEXITS DISABLED\n");
-	//_doatexits(f);
+	_doatexits();
 	_exit(status);
 }
