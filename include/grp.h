@@ -15,10 +15,12 @@
 #pragma lib "/$M/lib/ape/libap.a"
 #include <sys/types.h>
 
-struct	group {
-	char	*gr_name;
-	gid_t	gr_gid;
-	char	**gr_mem;
+struct group
+{
+	char *gr_name;
+	char *gr_passwd;
+	gid_t gr_gid;
+	char **gr_mem;
 };
 
 #ifdef __cplusplus
@@ -27,6 +29,9 @@ extern "C" {
 
 extern struct group *getgrgid(gid_t);
 extern struct group *getgrnam(const char *);
+extern struct group  *getgrent(void);
+extern void endgrent(void);
+extern void setgrent(void);
 
 #ifdef __cplusplus
 }
