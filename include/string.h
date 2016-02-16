@@ -9,7 +9,6 @@
 
 #ifndef __STRING_H_
 #define __STRING_H_
-#pragma lib "/$M/lib/ape/libap.a"
 
 #include <stddef.h>
 
@@ -27,7 +26,7 @@ extern char *strncat(char *, const char *, size_t);
 extern int memcmp(const void *, const void *, size_t);
 extern int strcmp(const char *, const char *);
 extern int strcoll(const char *, const char *);
-extern char* strdup(char*);
+extern char* strdup(const char*);
 extern int strncmp(const char *, const char *, size_t);
 extern size_t strxfrm(char *, const char *, size_t);
 extern void *memchr(const void *, int, size_t);

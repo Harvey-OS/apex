@@ -9,7 +9,6 @@
 
 #ifndef __SYSTIME_H
 #define __SYSTIME_H
-#pragma lib "/$M/lib/ape/libap.a"
 
 #include <sys/types.h>
 

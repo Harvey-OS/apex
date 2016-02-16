@@ -17,7 +17,6 @@
     This header file is an extension to ANSI/POSIX
 #endif
 
-#pragma lib "/$M/lib/ape/libbsd.a"
 
 char*	ptsname(int);
 char*	ptmname(int);

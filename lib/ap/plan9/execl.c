@@ -12,7 +12,7 @@
 extern const char **environ;
 
 int
-execl(const char *name, const char *arg0, ...)
+execl(const char *name, char * const arg0, ...)
 {
 	return execve(name, &arg0, environ);
 }

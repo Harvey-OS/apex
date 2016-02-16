@@ -19,7 +19,7 @@
 extern const char **environ;
 
 int
-execlp(const char *name, const char *arg0, ...)
+execlp(char * const name, char * const arg0, ...)
 {
 	int n;
 	char buf[PATH_MAX];

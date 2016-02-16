@@ -13,7 +13,6 @@
 
 #ifndef __LOCK_H
 #define __LOCK_H
-#pragma lib "/$M/lib/ape/libap.a"
 
 #include <u.h>
 

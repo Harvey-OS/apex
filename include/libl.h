@@ -12,7 +12,6 @@
 #ifndef _RESEARCH_SOURCE
    This header file is not defined in ANSI or POSIX
 #endif
-#pragma lib "/$M/lib/ape/libl.a"
 
 extern int printable(int);
 extern void allprint(int8_t);

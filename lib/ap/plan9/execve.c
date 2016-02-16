@@ -17,7 +17,7 @@
 extern const char **environ;
 
 int
-execve(const char *name, const char *argv[], const char *envp[])
+execve(const char *name, char * const argv[], const char *envp[])
 {
 	int n, f, i;
 	char **e, *ss, *se;

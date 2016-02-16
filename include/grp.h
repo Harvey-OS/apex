@@ -12,7 +12,6 @@
 #ifndef _POSIX_SOURCE
    This header file is not defined in pure ANSI
 #endif
-#pragma lib "/$M/lib/ape/libap.a"
 #include <sys/types.h>
 
 struct group

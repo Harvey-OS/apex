@@ -18,7 +18,6 @@
 extern "C" {
 #endif
 
-#pragma lib "/$M/lib/ape/libbsd.a"
 
 /*
  * Copyright (c) 1982, 1986 Regents of the University of California.

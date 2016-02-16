@@ -9,7 +9,6 @@
 
 #ifndef __TIME_H
 #define __TIME_H
-#pragma lib "/$M/lib/ape/libap.a"
 
 #include <stddef.h>
 

@@ -7,7 +7,6 @@
  * in the LICENSE file.
  */
 
-#pragma lib "/$M/lib/ape/libap.a"
 
 #undef assert
 #ifdef NDEBUG

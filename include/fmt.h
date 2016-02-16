@@ -13,8 +13,6 @@
 
 #ifndef __FMT_H_
 #define __FMT_H_
-#pragma src "/sys/src/ape/lib/fmt"
-#pragma lib "/$M/lib/ape/libfmt.a"
 
 #include <u.h>
 

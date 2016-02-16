@@ -12,7 +12,6 @@
 #ifndef _POSIX_SOURCE
    This header file is not defined in pure ANSI
 #endif
-#pragma lib "/$M/lib/ape/libap.a"
 
 #define _POSIX_VERSION	199309L
 #define _POSIX_ASYNC_IO -1
@@ -96,12 +95,12 @@ extern "C" {
 typedef signed int	int32_t;
 
 /* process primitives */
-extern int execl(const char *, const char *, ...);
-extern int execv(const char *, const char **);
-extern int execle(const char *, const char *, const char *,  ...);
-extern int execve(const char *, const char **, const char **);
-extern int execlp(const char *, const char *, ...);
-extern int execvp(const char *, const char **);
+extern int execl(const char *, char * const , ...);
+extern int execv(const char *, char * const *);
+extern int execle(const char *, char * const, const char *,  ...);
+extern int execve(const char *, char * const *, const char **);
+extern int execlp(char * const, char * const , ...);
+extern int execvp(const char *, char * const *);
 extern void _exit(int);
 extern unsigned int alarm(unsigned int);
 extern int pause(void);

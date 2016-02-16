@@ -14,8 +14,6 @@
 #ifndef __LIBMP_H_
 #define __LIBMP_H_
 
-#pragma	src	"/sys/src/ape/lib/mp"
-#pragma	lib	"/$M/lib/ape/libmp.a"
 
 typedef unsigned int	mpdigit;	/* from /$objtype/include/u.h */
 
@@ -143,7 +141,6 @@ typedef struct CRTpre	CRTpre;		/* precomputed values for converting */
 					/*  twixt residues and mpint */
 typedef struct CRTres	CRTres;		/* residue form of an mpint */
 
-#pragma incomplete CRTpre
 
 struct CRTres
 {
@@ -158,5 +155,4 @@ void	crtprefree(CRTpre*);
 void	crtresfree(CRTres*);
 
 
-#pragma	varargck	type	"B"	mpint*
 #endif

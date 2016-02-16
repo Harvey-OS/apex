@@ -9,7 +9,6 @@
 
 #ifndef __TIMES_H
 #define __TIMES_H
-#pragma lib "/$M/lib/ape/libap.a"
 
 #ifndef _CLOCK_T
 #define _CLOCK_T

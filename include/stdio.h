@@ -9,7 +9,6 @@
 
 #ifndef	_STDIO_H_
 #define	_STDIO_H_
-#pragma lib "/$M/lib/ape/libap.a"
 
 /*
  * pANS stdio.h
@@ -185,7 +184,6 @@ extern char *ctermid_r(char *);
 #endif
 
 #ifdef _BSD_EXTENSION
-#pragma lib "/$M/lib/ape/libbsd.a"
 extern FILE *popen(char *, char *);
 extern int	pclose(FILE *);
 #endif

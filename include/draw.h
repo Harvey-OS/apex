@@ -13,8 +13,6 @@
 
 #ifndef	__DRAW_H_
 #define	__DRAW_H_
-#pragma src "/sys/src/ape/lib/draw"
-#pragma lib "/$M/lib/ape/libdraw.a"
 
 #include <u.h>
 #include <fmt.h>
@@ -34,8 +32,6 @@ typedef struct	RGB RGB;
 typedef struct	Screen Screen;
 typedef struct	Subfont Subfont;
 
-#pragma varargck	type	"R"	Rectangle
-#pragma varargck	type	"P"	Point
 extern	int	Rfmt(Fmt*);
 extern	int	Pfmt(Fmt*);
 

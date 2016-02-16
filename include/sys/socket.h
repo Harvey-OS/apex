@@ -14,7 +14,6 @@
     This header file is an extension to ANSI/POSIX
 #endif
 
-#pragma lib "/$M/lib/ape/libbsd.a"
 
 #ifdef __cplusplus
 extern "C" {

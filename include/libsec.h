@@ -13,8 +13,6 @@
 
 #ifndef __LIBSEC_H_
 #define __LIBSEC_H_
-#pragma	src	"/sys/src/ape/lib/sec"
-#pragma	lib	"/$M/lib/ape/libsec.a"
 
 #ifndef _MPINT
 typedef struct mpint mpint;

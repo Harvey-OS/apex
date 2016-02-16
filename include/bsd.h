@@ -13,13 +13,10 @@
 
 #ifndef __BSD_H_
 #define __BSD_H_
-#pragma src "/sys/src/ape/lib/bsd"
-#pragma lib "/$M/lib/ape/libbsd.a"
 
-#ifndef __TYPES_H
 #include <sys/types.h>
 #include <string.h>
-#endif
+#include <strings.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,17 +27,6 @@ extern "C" {
 typedef unsigned long size_t;
 #endif
 
-/* ifndefs because X11 stuff (ugh) */
-#ifndef bcopy
-extern void	bcopy(void*, void*, size_t);
-#endif
-#ifndef bcmp
-extern int	bcmp(void*, void*, size_t);
-#endif
-#ifndef bzero
-extern void	bzero(void*, size_t);
-#endif
-extern int	ffs(unsigned int);
 extern void	bhappy(void*);
 extern int	rresvport(int*);
 extern int	rcmd(char**, int, char*, char*, char*, int*);
