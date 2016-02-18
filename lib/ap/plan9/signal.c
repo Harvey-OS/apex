@@ -123,7 +123,7 @@ _notehandler(void *u, char *msg)
 			return 0;
 		}
 	}
-	_doatexits();
+	//_doatexits();
 	noted(1); /* NDFLT */
 	return 0;
 }
