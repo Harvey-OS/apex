@@ -16,7 +16,7 @@ uname(struct utsname *n)
 {
 	n->sysname = getenv("osname");
 	if(!n->sysname)
-		n->sysname = "Plan9";
+		n->sysname = "Harvey";
 	n->nodename = getenv("sysname");
 	if(!n->nodename){
 		n->nodename = getenv("site");
