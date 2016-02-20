@@ -7,7 +7,6 @@
  * in the LICENSE file.
  */
 
-#include <stdio.h> // for printf warning
 #include <unistd.h>
 #define	NONEXIT	34
 void (*_atexitfns[NONEXIT])(void);
@@ -23,6 +22,6 @@ void _doatexits(void){
 }
 void exit(int status)
 {
-	_doatexits();
+	//_doatexits();
 	_exit(status);
 }
