@@ -59,7 +59,7 @@ int
 chartorune(Rune *rune, char *str)
 {
 	int c, c1, c2, c3;
-	int32_t l;
+	long l;
 
 	/*
 	 * one character sequence
@@ -136,7 +136,7 @@ bad:
 int
 runetochar(char *str, Rune *rune)
 {
-	int32_t c;
+	long c;
 
 	/*
 	 * one character sequence
@@ -191,7 +191,7 @@ runetochar(char *str, Rune *rune)
 }
 
 int
-runelen(int32_t c)
+runelen(long c)
 {
 	Rune rune;
 	char str[10];

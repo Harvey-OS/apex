@@ -22,8 +22,8 @@ typedef	union
 	double	d;
 	struct
 	{
-		int32_t	ms;
-		int32_t	ls;
+		long	ms;
+		long	ls;
 	} i;
 } Cheat;
 

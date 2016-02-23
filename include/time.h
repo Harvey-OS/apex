@@ -11,20 +11,12 @@
 #define __TIME_H
 
 #include <stddef.h>
+#include <sys/types.h>
 
 #define CLOCKS_PER_SEC 1000
 
 /* obsolsecent, but required */
 #define CLK_TCK CLOCKS_PER_SEC
-
-#ifndef _CLOCK_T
-#define _CLOCK_T
-typedef int32_t clock_t;
-#endif
-#ifndef _TIME_T
-#define _TIME_T
-typedef int32_t time_t;
-#endif
 
 struct tm {
 	int	tm_sec;

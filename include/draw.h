@@ -159,9 +159,9 @@ enum {
 	XBGR32	= CHAN4(CIgnore, 8, CBlue, 8, CGreen, 8, CRed, 8),
 };
 
-extern	char*	chantostr(char*, uint32_t);
-extern	uint32_t	strtochan(char*);
-extern	int		chantodepth(uint32_t);
+extern	char*	chantostr(char*, long);
+extern	long	strtochan(char*);
+extern	int		chantodepth(long);
 
 struct	Point
 {
@@ -199,7 +199,7 @@ struct Display
 	char		*devdir;
 	char		*windir;
 	char		oldlabel[64];
-	uint32_t		dataqid;
+	long		dataqid;
 	Image		*white;
 	Image		*black;
 	Image		*opaque;
@@ -222,7 +222,7 @@ struct Image
 	Rectangle	r;		/* rectangle in data area, local coords */
 	Rectangle 	clipr;		/* clipping region */
 	int		depth;		/* number of bits per pixel */
-	uint32_t	chan;
+	long	chan;
 	int		repl;		/* flag: data replicates to tile clipr */
 	Screen		*screen;	/* 0 if not a window */
 	Image		*next;	/* next in list of windows */
@@ -230,9 +230,9 @@ struct Image
 
 struct RGB
 {
-	uint32_t	red;
-	uint32_t	green;
-	uint32_t	blue;
+	long	red;
+	long	green;
+	long	blue;
 };
 
 /*
@@ -304,7 +304,7 @@ struct Cacheinfo
 
 struct Cachesubf
 {
-	uint32_t		age;	/* for replacement */
+	long		age;	/* for replacement */
 	Cachefont	*cf;	/* font info that owns us */
 	Subfont		*f;	/* attached subfont */
 };
@@ -317,7 +317,7 @@ struct Font
 	int16_t		ascent;	/* top of image to baseline */
 	int16_t		width;	/* widest so far; used in caching only */	
 	int16_t		nsub;	/* number of subfonts */
-	uint32_t		age;	/* increasing counter; used for LRU */
+	long		age;	/* increasing counter; used for LRU */
 	int		maxdepth;	/* maximum depth of all loaded subfonts */
 	int		ncache;	/* size of cache */
 	int		nsubf;	/* size of subfont list */
@@ -337,10 +337,10 @@ extern "C" {
 /*
  * Image management
  */
-extern Image*	_allocimage(Image*, Display*, Rectangle, uint32_t, int,
-				 uint32_t, int, int);
-extern Image*	allocimage(Display*, Rectangle, uint32_t, int,
-				uint32_t);
+extern Image*	_allocimage(Image*, Display*, Rectangle, long, int,
+				 long, int, int);
+extern Image*	allocimage(Display*, Rectangle, long, int,
+				long);
 extern uint8_t*	bufimage(Display*, int);
 extern int	bytesperline(Rectangle, int);
 extern void	closedisplay(Display*);
@@ -365,25 +365,25 @@ extern int	wordsperline(Rectangle, int);
 extern int	writeimage(int, Image*, int);
 extern Image*	namedimage(Display*, char*);
 extern int	nameimage(Image*, char*, int);
-extern Image* allocimagemix(Display*, uint32_t, uint32_t);
+extern Image* allocimagemix(Display*, long, long);
 
 /*
  * Colors
  */
 extern	void	readcolmap(Display*, RGB*);
 extern	void	writecolmap(Display*, RGB*);
-extern	uint32_t	setalpha(uint32_t, uint8_t);
+extern	long	setalpha(long, uint8_t);
 
 /*
  * Windows
  */
 extern Screen*	allocscreen(Image*, Image*, int);
-extern Image*	_allocwindow(Image*, Screen*, Rectangle, int, uint32_t);
-extern Image*	allocwindow(Screen*, Rectangle, int, uint32_t);
+extern Image*	_allocwindow(Image*, Screen*, Rectangle, int, long);
+extern Image*	allocwindow(Screen*, Rectangle, int, long);
 extern void	bottomnwindows(Image**, int);
 extern void	bottomwindow(Image*);
 extern int	freescreen(Screen*);
-extern Screen*	publicscreen(Display*, int, uint32_t);
+extern Screen*	publicscreen(Display*, int, long);
 extern void	topnwindows(Image**, int);
 extern void	topwindow(Image*);
 extern int	originwindow(Image*, Point, Point);
@@ -511,7 +511,7 @@ extern Subfont*	_getsubfont(Display*, char*);
 extern Subfont*	getdefont(Display*);
 extern void		lockdisplay(Display*);
 extern void	unlockdisplay(Display*);
-extern int		drawlsetrefresh(uint32_t, int, void*, void*);
+extern int		drawlsetrefresh(long, int, void*, void*);
 
 /*
  * Predefined 
@@ -549,7 +549,7 @@ extern	void	_twiddlecompressed(uint8_t*, int);
 extern	int	_compblocksize(Rectangle, int);
 
 /* XXX backwards helps; should go */
-extern	uint32_t	drawld2chan[];
+extern	long	drawld2chan[];
 extern	void		drawsetdebug(int);
 
 #ifdef	__cplusplus

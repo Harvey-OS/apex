@@ -21,7 +21,7 @@ char*
 mktemp(char *template)
 {
 	int n;
-	int32_t x;
+	long x;
 	char *p;
 	int c;
 	struct stat stbuf;

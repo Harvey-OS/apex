@@ -26,9 +26,9 @@
 #include "utfdef.h"
 
 char*
-utfrune(char *s, int32_t c)
+utfrune(char *s, long c)
 {
-	int32_t c1;
+	long c1;
 	Rune r;
 	int n;
 

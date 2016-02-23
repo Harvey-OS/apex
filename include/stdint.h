@@ -1,21 +1,7 @@
 #ifndef _STDINT_H
 #define _STDINT_H
 
-#define __NEED_int8_t
-#define __NEED_int16_t
-#define __NEED_int32_t
-#define __NEED_int64_t
-
-#define __NEED_uint8_t
-#define __NEED_uint16_t
-#define __NEED_uint32_t
-#define __NEED_uint64_t
-
-#define __NEED_intptr_t
-#define __NEED_uintptr_t
-
-#define __NEED_intmax_t
-#define __NEED_uintmax_t
+#include <inttypes.h>
 
 #define nil		((void*)0)
 typedef	unsigned char	uint8_t;
@@ -27,14 +13,10 @@ typedef unsigned int	uint;
 typedef signed int	int32_t;
 typedef	unsigned long long uint64_t;
 typedef	long long	int64_t;
-typedef uint64_t uintptr;
-typedef uint64_t uintptr_t;
 typedef uint32_t	usize;
 typedef	uint32_t		Rune;
 typedef union FPdbleword FPdbleword;
 typedef int		jmp_buf[10]; // for registers.
-typedef int64_t	intmax_t;
-typedef uint64_t	uintmax_t;
 
 typedef int8_t int_fast8_t;
 typedef int64_t int_fast64_t;
@@ -97,6 +79,24 @@ typedef uint64_t uint_least64_t;
 
 #define WINT_MIN 0U
 #define WINT_MAX UINT32_MAX
+
+/* 64 bit specific */
+
+#define INT_FAST16_MIN  INT32_MIN
+#define INT_FAST32_MIN  INT32_MIN
+
+#define INT_FAST16_MAX  INT32_MAX
+#define INT_FAST32_MAX  INT32_MAX
+
+#define UINT_FAST16_MAX UINT32_MAX
+#define UINT_FAST32_MAX UINT32_MAX
+
+#define INTPTR_MIN      INT64_MIN
+#define INTPTR_MAX      INT64_MAX
+#define UINTPTR_MAX     UINT64_MAX
+#define PTRDIFF_MIN     INT64_MIN
+#define PTRDIFF_MAX     INT64_MAX
+#define SIZE_MAX        UINT64_MAX
 
 #if L'\0'-1 > 0
 #define WCHAR_MAX (0xffffffffu+L'\0')

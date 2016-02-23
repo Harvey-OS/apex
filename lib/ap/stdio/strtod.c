@@ -53,7 +53,7 @@ typedef signed char	int8_t;
 static double
 ulp(double xarg)
 {
-	register int32_t L;
+	register long L;
 	Dul a;
 	Dul x;
 
@@ -90,7 +90,7 @@ s2b(const char *s, int nd0, int nd, unsigned long y9)
 {
 	Bigint *b;
 	int i, k;
-	int32_t x, y;
+	long x, y;
 
 	x = (nd + 8) / 9;
 	for(k = 0, y = 1; x > y; y <<= 1, k++) ;
@@ -227,7 +227,7 @@ strtod(const char *s00, char **se)
 	const char *s, *s0, *s1;
 	double aadj, aadj1, adj;
 	Dul rv, rv0;
-	int32_t L;
+	long L;
 	unsigned long y, z;
 	Bigint *bb, *bb1, *bd, *bd0, *bs, *delta;
 	sign = nz0 = nz = 0;

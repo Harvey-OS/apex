@@ -12,9 +12,9 @@
 #include <math.h>
 
 //TODO
-typedef signed int	int32_t;
+typedef signed int	long;
 
-static	int32_t	tab[] =
+static	long	tab[] =
 {
 	1L, 10L, 100L, 1000L, 10000L,
 	100000L, 1000000L, 10000000L

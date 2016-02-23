@@ -15,8 +15,6 @@
 #include <string.h>
 #include <setjmp.h>
 
-//TODO
-typedef sigset_t int32_t;
 extern sigset_t	_psigblocked;
 
 static struct {

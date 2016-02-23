@@ -67,7 +67,7 @@ static void
 mkserver(void)
 {
 	int fd, i;
-	const char *argv[3];
+	char * const argv[3]={"ptyfs", 0};
 
 	fd = open(fssrv, O_RDWR);
 	if(_mount(fd, -1, "/dev", MAFTER, "") < 0) {
@@ -85,8 +85,6 @@ mkserver(void)
 		case -1:
 			return;
 		case 0:
-			argv[0] = "ptyfs";
-			argv[1] = 0;
 			exec("/bin/ape/ptyfs", argv);
 			exits(0);
 		default:

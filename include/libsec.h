@@ -32,21 +32,21 @@ enum
 typedef struct AESstate AESstate;
 struct AESstate
 {
-	uint32_t	setup;
+	long	setup;
 	int	rounds;
 	int	keybytes;
 	uint	ctrsz;
 	uint8_t	key[AESmaxkey];			/* unexpanded key */
-	uint32_t	ekey[4*(AESmaxrounds + 1)];	/* encryption key */
-	uint32_t	dkey[4*(AESmaxrounds + 1)];	/* decryption key */
+	long	ekey[4*(AESmaxrounds + 1)];	/* encryption key */
+	long	dkey[4*(AESmaxrounds + 1)];	/* decryption key */
 	uint8_t	ivec[AESbsize];			/* initialization vector */
 	uint8_t	mackey[3 * AESbsize];		/* 3 XCBC mac 96 keys */
 };
 
 /* block ciphers */
-void	aes_encrypt(uint32_t rk[], int Nr, uint8_t pt[16],
+void	aes_encrypt(long rk[], int Nr, uint8_t pt[16],
 			uint8_t ct[16]);
-void	aes_decrypt(uint32_t rk[], int Nr, uint8_t ct[16],
+void	aes_decrypt(long rk[], int Nr, uint8_t ct[16],
 			uint8_t pt[16]);
 
 void	setupAESstate(AESstate *s, uint8_t key[], int keybytes,
@@ -73,13 +73,13 @@ enum
 typedef struct BFstate BFstate;
 struct BFstate
 {
-	uint32_t	setup;
+	long	setup;
 
 	uint8_t	key[56];
 	uint8_t	ivec[8];
 
-	uint32_t 	pbox[BFrounds+2];
-	uint32_t	sbox[1024];
+	long 	pbox[BFrounds+2];
+	long	sbox[1024];
 };
 
 void	setupBFstate(BFstate *s, uint8_t key[], int keybytes,
@@ -102,15 +102,15 @@ enum
 typedef struct DESstate DESstate;
 struct DESstate
 {
-	uint32_t	setup;
+	long	setup;
 	uint8_t	key[8];		/* unexpanded key */
-	uint32_t	expanded[32];	/* expanded key */
+	long	expanded[32];	/* expanded key */
 	uint8_t	ivec[8];	/* initialization vector */
 };
 
 void	setupDESstate(DESstate *s, uint8_t key[8], uint8_t *ivec);
-void	des_key_setup(uint8_t[8], uint32_t[32]);
-void	block_cipher(uint32_t*, uint8_t*, int);
+void	des_key_setup(uint8_t[8], long[32]);
+void	block_cipher(long*, uint8_t*, int);
 void	desCBCencrypt(uint8_t*, int, DESstate*);
 void	desCBCdecrypt(uint8_t*, int, DESstate*);
 void	desECBencrypt(uint8_t*, int, DESstate*);
@@ -119,7 +119,7 @@ void	desECBdecrypt(uint8_t*, int, DESstate*);
 /* for backward compatibility with 7-byte DES key format */
 void	des56to64(uint8_t *k56, uint8_t *k64);
 void	des64to56(uint8_t *k64, uint8_t *k56);
-void	key_setup(uint8_t[7], uint32_t[32]);
+void	key_setup(uint8_t[7], long[32]);
 
 /* triple des encrypt/decrypt orderings */
 enum {
@@ -134,14 +134,14 @@ enum {
 typedef struct DES3state DES3state;
 struct DES3state
 {
-	uint32_t	setup;
+	long	setup;
 	uint8_t	key[3][8];		/* unexpanded key */
-	uint32_t	expanded[3][32];	/* expanded key */
+	long	expanded[3][32];	/* expanded key */
 	uint8_t	ivec[8];		/* initialization vector */
 };
 
 void	setupDES3state(DES3state *s, uint8_t key[3][8], uint8_t *ivec);
-void	triple_block_cipher(uint32_t keys[3][32], uint8_t*, int);
+void	triple_block_cipher(long keys[3][32], uint8_t*, int);
 void	des3CBCencrypt(uint8_t*, int, DES3state*);
 void	des3CBCdecrypt(uint8_t*, int, DES3state*);
 void	des3ECBencrypt(uint8_t*, int, DES3state*);
@@ -170,7 +170,7 @@ struct DigestState
 {
 	uint64_t	len;
 	union {
-		uint32_t	state[8];
+		long	state[8];
 		uint64_t	bstate[8];
 	};
 	uint8_t	buf[256];
@@ -188,34 +188,34 @@ typedef struct DigestState MD5state;
 typedef struct DigestState MD4state;
 typedef struct DigestState AEShstate;
 
-DigestState*	md4(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	md5(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	sha1(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	sha2_224(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	sha2_256(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	sha2_384(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	sha2_512(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	aes(uint8_t*, uint32_t, uint8_t*, DigestState*);
-DigestState*	hmac_x(uint8_t *p, uint32_t len, uint8_t *key,
-			   uint32_t klen,
+DigestState*	md4(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	md5(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	sha1(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	sha2_224(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	sha2_256(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	sha2_384(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	sha2_512(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	aes(uint8_t*, long, uint8_t*, DigestState*);
+DigestState*	hmac_x(uint8_t *p, long len, uint8_t *key,
+			   long klen,
 			uint8_t *digest, DigestState *s,
-			DigestState*(*x)(uint8_t*, uint32_t, uint8_t*, DigestState*),
+			DigestState*(*x)(uint8_t*, long, uint8_t*, DigestState*),
 			int xlen);
-DigestState*	hmac_md5(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_md5(uint8_t*, long, uint8_t*, long,
 			     uint8_t*,
 			     DigestState*);
-DigestState*	hmac_sha1(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_sha1(uint8_t*, long, uint8_t*, long,
 			      uint8_t*,
 			      DigestState*);
-DigestState*	hmac_sha2_224(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_sha2_224(uint8_t*, long, uint8_t*, long,
 				  uint8_t*, DigestState*);
-DigestState*	hmac_sha2_256(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_sha2_256(uint8_t*, long, uint8_t*, long,
 				  uint8_t*, DigestState*);
-DigestState*	hmac_sha2_384(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_sha2_384(uint8_t*, long, uint8_t*, long,
 				  uint8_t*, DigestState*);
-DigestState*	hmac_sha2_512(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_sha2_512(uint8_t*, long, uint8_t*, long,
 				  uint8_t*, DigestState*);
-DigestState*	hmac_aes(uint8_t*, uint32_t, uint8_t*, uint32_t,
+DigestState*	hmac_aes(uint8_t*, long, uint8_t*, long,
 			     uint8_t*,
 			     DigestState*);
 char*		md5pickle(MD5state*);
@@ -228,8 +228,8 @@ SHA1state*	sha1unpickle(char*);
  */
 void	genrandom(uint8_t *buf, int nbytes);
 void	prng(uint8_t *buf, int nbytes);
-uint32_t	fastrand(void);
-uint32_t	nfastrand(uint32_t);
+long	fastrand(void);
+long	nfastrand(long);
 
 /*
  * primes
@@ -308,7 +308,7 @@ uint8_t*		decodePEM(char *s, char *type, int *len,
 				  char **new_s);
 PEMChain*	decodepemchain(char *s, char *type);
 uint8_t*		X509gen(RSApriv *priv, char *subj,
-				uint32_t valid[2],
+				long valid[2],
 			      int *certlen);
 uint8_t*		X509req(RSApriv *priv, char *subj, int *certlen);
 char*		X509verify(uint8_t *cert, int ncert, RSApub *pk);

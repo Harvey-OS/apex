@@ -12,7 +12,7 @@
 #include <mp.h>
 #include <libsec.h>
 
-typedef DigestState*(*DigestFun)(uint8_t*,uint32_t,uint8_t*,DigestState*);
+typedef DigestState*(*DigestFun)(uint8_t*,unsigned long,uint8_t*,DigestState*);
 
 /* ANSI offsetof, backwards. */
 #define	OFFSETOF(a, b)	offsetof(b, a)
@@ -2103,7 +2103,7 @@ static void
 digest_certinfo(Bytes *cert, DigestFun digestfun, uint8_t *digest)
 {
 	uint8_t *info, *p, *pend;
-	uint32_t infolen;
+	unsigned long infolen;
 	int isconstr, length;
 	Tag tag;
 	Elem elem;
@@ -2394,7 +2394,7 @@ mkbits(uint8_t *buf, int buflen)
 }
 
 static Elem
-mkutc(int32_t t)
+mkutc(long t)
 {
 	Elem e;
 	char utc[50];
@@ -2523,7 +2523,7 @@ errret:
 }
 
 uint8_t*
-X509gen(RSApriv *priv, char *subj, uint32_t valid[2], int *certlen)
+X509gen(RSApriv *priv, char *subj, unsigned long valid[2], int *certlen)
 {
 	int serial = 0;
 	uint8_t *cert = nil;

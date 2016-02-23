@@ -279,9 +279,9 @@ ocvt_n(FILE *f, va_list *args, int flags, int width, int precision)
 #pragma ref width
 #pragma ref precision
 	if(flags&SHORT)
-		*va_arg(*args, int16_t *) = nprint;
+		*va_arg(*args, short *) = nprint;
 	else if(flags&LONG)
-		*va_arg(*args, int32_t *) = nprint;
+		*va_arg(*args, long *) = nprint;
 	else if(flags&VLONG)
 		*va_arg(*args, long long*) = nprint;
 	else
@@ -313,7 +313,7 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 	if(sgned){
 		if(flags&PTR) snum = (int64_t)va_arg(*args, void *);
 		else if(flags&SHORT) snum = va_arg(*args, int);
-		else if(flags&LONG) snum = va_arg(*args, int32_t);
+		else if(flags&LONG) snum = va_arg(*args, long);
 		else if(flags&VLONG) snum = va_arg(*args, long long);
 		else snum = va_arg(*args, int);
 		if(snum < 0){

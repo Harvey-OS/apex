@@ -88,7 +88,7 @@ char *buttons[] =
 	0
 };
 
-uint32_t
+unsigned long
 grey(int i)
 {
 	if(i < 0)
@@ -120,7 +120,7 @@ main(int argc, char *argv[])
 	char buf[100];
 	char *fmt;
 	Image *dark;
-	uint32_t rgb;
+	unsigned long rgb;
 
 	ramp = 0;
 

@@ -12,13 +12,13 @@
 #include <limits.h>
 
 //TODO
-typedef signed int	int32_t;
+typedef signed int	long;
 
 double
 pow(double x, double y) /* return x ^ y (exponentiation) */
 {
 	double xy, y1, ye;
-	int32_t i;
+	long i;
 	int ex, ey, flip;
 
 	if(y == 0.0)

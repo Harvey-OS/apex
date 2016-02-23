@@ -5,6 +5,7 @@
  */
 
 #include <stdint.h>
+#include <inttypes.h>
 #include <wchar.h>
 #include <errno.h>
 #include <string.h>
@@ -45,7 +46,7 @@ size_t mbsrtowcs(wchar_t *restrict ws, const char **restrict src, size_t wn, mbs
 
 	if (!ws) for (;;) {
 		if (*s-1u < 0x7f && (uintptr_t)s%4 == 0) {
-			while (!(( *(uint32_t*)s | *(uint32_t*)s-0x01010101) & 0x80808080)) {
+			while (!(( *(unsigned long*)s | *(unsigned long*)s-0x01010101) & 0x80808080)) {
 				s += 4;
 				wn -= 4;
 			}
@@ -76,7 +77,7 @@ resume0:
 			return wn0;
 		}
 		if (*s-1u < 0x7f && (uintptr_t)s%4 == 0) {
-			while (wn>=5 && !(( *(uint32_t*)s | *(uint32_t*)s-0x01010101) & 0x80808080)) {
+			while (wn>=5 && !(( *(unsigned long*)s | *(unsigned long*)s-0x01010101) & 0x80808080)) {
 				*ws++ = *s++;
 				*ws++ = *s++;
 				*ws++ = *s++;

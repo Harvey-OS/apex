@@ -18,8 +18,8 @@
 
 typedef struct
 {
-	int32_t	key;
-	int32_t	sem;
+	long	key;
+	long	sem;
 } Lock;
 
 #ifdef __cplusplus

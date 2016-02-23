@@ -9,8 +9,8 @@ extern "C" {
 #include <inttypes.h>
 #include <sys/socket.h>
 
-typedef uint16_t in_port_t;
-typedef uint32_t in_addr_t;
+typedef short in_port_t;
+typedef long in_addr_t;
 typedef unsigned short sa_family_t;
 struct in_addr { in_addr_t s_addr; };
 
@@ -19,15 +19,15 @@ struct sockaddr_in
 	sa_family_t sin_family;
 	in_port_t sin_port;
 	struct in_addr sin_addr;
-	uint8_t sin_zero[8];
+	unsigned char sin_zero[8];
 };
 
 struct in6_addr
 {
 	union {
-		uint8_t __s6_addr[16];
-		uint16_t __s6_addr16[8];
-		uint32_t __s6_addr32[4];
+		unsigned char __s6_addr[16];
+		short __s6_addr16[8];
+		long __s6_addr32[4];
 	} __in6_union;
 };
 #define s6_addr __in6_union.__s6_addr
@@ -38,9 +38,9 @@ struct sockaddr_in6
 {
 	sa_family_t     sin6_family;
 	in_port_t       sin6_port;
-	uint32_t        sin6_flowinfo;
+	long        sin6_flowinfo;
 	struct in6_addr sin6_addr;
-	uint32_t        sin6_scope_id;
+	long        sin6_scope_id;
 };
 
 struct ipv6_mreq
@@ -111,51 +111,51 @@ extern unsigned long	nptohl(void*);
 #define IPPROTO_MAX      256
 
 #define IN6_IS_ADDR_UNSPECIFIED(a) \
-        (((uint32_t *) (a))[0] == 0 && ((uint32_t *) (a))[1] == 0 && \
-         ((uint32_t *) (a))[2] == 0 && ((uint32_t *) (a))[3] == 0)
+        (((long *) (a))[0] == 0 && ((long *) (a))[1] == 0 && \
+         ((long *) (a))[2] == 0 && ((long *) (a))[3] == 0)
 
 #define IN6_IS_ADDR_LOOPBACK(a) \
-        (((uint32_t *) (a))[0] == 0 && ((uint32_t *) (a))[1] == 0 && \
-         ((uint32_t *) (a))[2] == 0 && \
-         ((uint8_t *) (a))[12] == 0 && ((uint8_t *) (a))[13] == 0 && \
-         ((uint8_t *) (a))[14] == 0 && ((uint8_t *) (a))[15] == 1 )
+        (((long *) (a))[0] == 0 && ((long *) (a))[1] == 0 && \
+         ((long *) (a))[2] == 0 && \
+         ((unsigned char *) (a))[12] == 0 && ((unsigned char *) (a))[13] == 0 && \
+         ((unsigned char *) (a))[14] == 0 && ((unsigned char *) (a))[15] == 1 )
 
-#define IN6_IS_ADDR_MULTICAST(a) (((uint8_t *) (a))[0] == 0xff)
+#define IN6_IS_ADDR_MULTICAST(a) (((unsigned char *) (a))[0] == 0xff)
 
 #define IN6_IS_ADDR_LINKLOCAL(a) \
-        ((((uint8_t *) (a))[0]) == 0xfe && (((uint8_t *) (a))[1] & 0xc0) == 0x80)
+        ((((unsigned char *) (a))[0]) == 0xfe && (((unsigned char *) (a))[1] & 0xc0) == 0x80)
 
 #define IN6_IS_ADDR_SITELOCAL(a) \
-        ((((uint8_t *) (a))[0]) == 0xfe && (((uint8_t *) (a))[1] & 0xc0) == 0xc0)
+        ((((unsigned char *) (a))[0]) == 0xfe && (((unsigned char *) (a))[1] & 0xc0) == 0xc0)
 
 #define IN6_IS_ADDR_V4MAPPED(a) \
-        (((uint32_t *) (a))[0] == 0 && ((uint32_t *) (a))[1] == 0 && \
-         ((uint8_t *) (a))[8] == 0 && ((uint8_t *) (a))[9] == 0 && \
-         ((uint8_t *) (a))[10] == 0xff && ((uint8_t *) (a))[11] == 0xff)
+        (((long *) (a))[0] == 0 && ((long *) (a))[1] == 0 && \
+         ((unsigned char *) (a))[8] == 0 && ((unsigned char *) (a))[9] == 0 && \
+         ((unsigned char *) (a))[10] == 0xff && ((unsigned char *) (a))[11] == 0xff)
 
 #define IN6_IS_ADDR_V4COMPAT(a) \
-        (((uint32_t *) (a))[0] == 0 && ((uint32_t *) (a))[1] == 0 && \
-         ((uint32_t *) (a))[2] == 0 && ((uint8_t *) (a))[15] > 1)
+        (((long *) (a))[0] == 0 && ((long *) (a))[1] == 0 && \
+         ((long *) (a))[2] == 0 && ((unsigned char *) (a))[15] > 1)
 
 #define IN6_IS_ADDR_MC_NODELOCAL(a) \
-        (IN6_IS_ADDR_MULTICAST(a) && ((((uint8_t *) (a))[1] & 0xf) == 0x1))
+        (IN6_IS_ADDR_MULTICAST(a) && ((((unsigned char *) (a))[1] & 0xf) == 0x1))
 
 #define IN6_IS_ADDR_MC_LINKLOCAL(a) \
-        (IN6_IS_ADDR_MULTICAST(a) && ((((uint8_t *) (a))[1] & 0xf) == 0x2))
+        (IN6_IS_ADDR_MULTICAST(a) && ((((unsigned char *) (a))[1] & 0xf) == 0x2))
 
 #define IN6_IS_ADDR_MC_SITELOCAL(a) \
-        (IN6_IS_ADDR_MULTICAST(a) && ((((uint8_t *) (a))[1] & 0xf) == 0x5))
+        (IN6_IS_ADDR_MULTICAST(a) && ((((unsigned char *) (a))[1] & 0xf) == 0x5))
 
 #define IN6_IS_ADDR_MC_ORGLOCAL(a) \
-        (IN6_IS_ADDR_MULTICAST(a) && ((((uint8_t *) (a))[1] & 0xf) == 0x8))
+        (IN6_IS_ADDR_MULTICAST(a) && ((((unsigned char *) (a))[1] & 0xf) == 0x8))
 
 #define IN6_IS_ADDR_MC_GLOBAL(a) \
-        (IN6_IS_ADDR_MULTICAST(a) && ((((uint8_t *) (a))[1] & 0xf) == 0xe))
+        (IN6_IS_ADDR_MULTICAST(a) && ((((unsigned char *) (a))[1] & 0xf) == 0xe))
 
 #define __ARE_4_EQUAL(a,b) \
 	(!( (0[a]-0[b]) | (1[a]-1[b]) | (2[a]-2[b]) | (3[a]-3[b]) ))
 #define IN6_ARE_ADDR_EQUAL(a,b) \
-	__ARE_4_EQUAL((const uint32_t *)(a), (const uint32_t *)(b))
+	__ARE_4_EQUAL((const long *)(a), (const long *)(b))
 
 #define	IN_CLASSA(a)		((((in_addr_t)(a)) & 0x80000000) == 0)
 #define	IN_CLASSA_NET		0xff000000
@@ -273,8 +273,8 @@ struct ip_mreq_source {
 struct ip_msfilter {
 	struct in_addr imsf_multiaddr;
 	struct in_addr imsf_interface;
-	uint32_t imsf_fmode;
-	uint32_t imsf_numsrc;
+	long imsf_fmode;
+	long imsf_numsrc;
 	struct in_addr imsf_slist[1];
 };
 #define IP_MSFILTER_SIZE(numsrc) \
@@ -282,21 +282,21 @@ struct ip_msfilter {
 	+ (numsrc) * sizeof(struct in_addr))
 
 struct group_req {
-	uint32_t gr_interface;
+	long gr_interface;
 	struct sockaddr_storage gr_group;
 };
 
 struct group_source_req {
-	uint32_t gsr_interface;
+	long gsr_interface;
 	struct sockaddr_storage gsr_group;
 	struct sockaddr_storage gsr_source;
 };
 
 struct group_filter {
-	uint32_t gf_interface;
+	long gf_interface;
 	struct sockaddr_storage gf_group;
-	uint32_t gf_fmode;
-	uint32_t gf_numsrc;
+	long gf_fmode;
+	long gf_numsrc;
 	struct sockaddr_storage gf_slist[1];
 };
 #define GROUP_FILTER_SIZE(numsrc) \
@@ -319,7 +319,7 @@ struct in6_pktinfo
 struct ip6_mtuinfo
 {
 	struct sockaddr_in6 ip6m_addr;
-	uint32_t ip6m_mtu;
+	long ip6m_mtu;
 };
 #endif
 

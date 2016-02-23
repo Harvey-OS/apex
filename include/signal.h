@@ -11,7 +11,6 @@
 #define __SIGNAL_H
 
 typedef int sig_atomic_t;
-typedef signed int int32_t;
 
 /*
  * We don't give arg types for signal handlers, in spite of ANSI requirement
@@ -55,7 +54,7 @@ typedef signed int int32_t;
 extern "C" {
 #endif
 
-extern void (*signal(int, void (*)()))();
+extern void (*signal(int, void (*)(int)))(void);
 extern int raise(int);
 
 #ifdef __cplusplus
@@ -64,9 +63,9 @@ extern int raise(int);
 
 #ifdef _POSIX_SOURCE
 
-typedef int32_t sigset_t;
+typedef long sigset_t;
 struct sigaction {
-	void		(*sa_handler)();
+	void		(*sa_handler)(void);
 	sigset_t	sa_mask;
 	int		sa_flags;
 };

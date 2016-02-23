@@ -20,5 +20,3 @@ size_t wcsxfrm(wchar_t *restrict dest, const wchar_t *restrict src, size_t n)
 {
 	return __wcsxfrm_l(dest, src, n, 0);
 }
-
-weak_alias(__wcsxfrm_l, wcsxfrm_l);

@@ -22,8 +22,8 @@ struct	Vlong
 	{
 		struct
 		{
-			uint32_t	lo;
-			uint32_t	hi;
+			unsigned long	lo;
+			unsigned long	hi;
 		};
 		struct
 		{
@@ -40,7 +40,7 @@ void	abort(void);
 void
 _subv(Vlong *r, Vlong a, Vlong b)
 {
-	uint32_t lo, hi;
+	unsigned long lo, hi;
 
 	lo = a.lo - b.lo;
 	hi = a.hi - b.hi;
@@ -54,7 +54,7 @@ void
 _d2v(Vlong *y, double d)
 {
 	union { double d; struct Vlong; } x;
-	uint32_t xhi, xlo, ylo, yhi;
+	unsigned long xhi, xlo, ylo, yhi;
 	int sh;
 
 	x.d = d;
@@ -122,9 +122,9 @@ _v2d(Vlong x)
 			x.hi = ~x.hi;
 		} else
 			x.hi = -x.hi;
-		return -((int32_t)x.hi*4294967296. + x.lo);
+		return -((long)x.hi*4294967296. + x.lo);
 	}
-	return (int32_t)x.hi*4294967296. + x.lo;
+	return (long)x.hi*4294967296. + x.lo;
 }
 
 float
@@ -133,13 +133,13 @@ _v2f(Vlong x)
 	return _v2d(x);
 }
 
-uint32_t	_div64by32(Vlong, uint32_t, uint32_t*);
-int	_mul64by32(Vlong*, Vlong, uint32_t);
+unsigned long	_div64by32(Vlong, unsigned long, unsigned long*);
+int	_mul64by32(Vlong*, Vlong, unsigned long);
 
 static void
 dodiv(Vlong num, Vlong den, Vlong *qp, Vlong *rp)
 {
-	uint32_t n;
+	unsigned long n;
 	Vlong x, q, r;
 
 	if(den.hi > num.hi || (den.hi == num.hi && den.lo > num.lo)){
@@ -223,11 +223,11 @@ vneg(Vlong *v)
 void
 _divv(Vlong *q, Vlong n, Vlong d)
 {
-	int32_t nneg, dneg;
+	long nneg, dneg;
 
-	if(n.hi == (((int32_t)n.lo)>>31) && d.hi == (((int32_t)d.lo)>>31)) {
-		q->lo = (int32_t)n.lo / (int32_t)d.lo;
-		q->hi = ((int32_t)q->lo) >> 31;
+	if(n.hi == (((long)n.lo)>>31) && d.hi == (((long)d.lo)>>31)) {
+		q->lo = (long)n.lo / (long)d.lo;
+		q->hi = ((long)q->lo) >> 31;
 		return;
 	}
 	nneg = n.hi >> 31;
@@ -244,11 +244,11 @@ _divv(Vlong *q, Vlong n, Vlong d)
 void
 _modv(Vlong *r, Vlong n, Vlong d)
 {
-	int32_t nneg, dneg;
+	long nneg, dneg;
 
-	if(n.hi == (((int32_t)n.lo)>>31) && d.hi == (((int32_t)d.lo)>>31)) {
-		r->lo = (int32_t)n.lo % (int32_t)d.lo;
-		r->hi = ((int32_t)r->lo) >> 31;
+	if(n.hi == (((long)n.lo)>>31) && d.hi == (((long)d.lo)>>31)) {
+		r->lo = (long)n.lo % (long)d.lo;
+		r->hi = ((long)r->lo) >> 31;
 		return;
 	}
 	nneg = n.hi >> 31;
@@ -265,7 +265,7 @@ _modv(Vlong *r, Vlong n, Vlong d)
 void
 _rshav(Vlong *r, Vlong a, int b)
 {
-	int32_t t;
+	long t;
 
 	t = a.hi;
 	if(b >= 32) {
@@ -290,7 +290,7 @@ _rshav(Vlong *r, Vlong a, int b)
 void
 _rshlv(Vlong *r, Vlong a, int b)
 {
-	uint32_t t;
+	unsigned long t;
 
 	t = a.hi;
 	if(b >= 32) {
@@ -315,7 +315,7 @@ _rshlv(Vlong *r, Vlong a, int b)
 void
 _lshv(Vlong *r, Vlong a, int b)
 {
-	uint32_t t;
+	unsigned long t;
 
 	t = a.lo;
 	if(b >= 32) {
@@ -457,17 +457,17 @@ _vasop(Vlong *ret, void *lv, void fn(Vlong*, Vlong, Vlong), int type, Vlong rv)
 		break;
 
 	case 5:	/* long */
-		t.lo = *(int32_t*)lv;
+		t.lo = *(long*)lv;
 		t.hi = t.lo >> 31;
 		fn(&u, t, rv);
-		*(int32_t*)lv = u.lo;
+		*(long*)lv = u.lo;
 		break;
 
 	case 6:	/* ulong */
-		t.lo = *(uint32_t*)lv;
+		t.lo = *(unsigned long*)lv;
 		t.hi = 0;
 		fn(&u, t, rv);
-		*(uint32_t*)lv = u.lo;
+		*(unsigned long*)lv = u.lo;
 		break;
 
 	case 7:	/* vlong */
@@ -482,17 +482,17 @@ _vasop(Vlong *ret, void *lv, void fn(Vlong*, Vlong, Vlong), int type, Vlong rv)
 void
 _p2v(Vlong *ret, void *p)
 {
-	int32_t t;
+	long t;
 
-	t = (uint32_t)p;
+	t = (unsigned long)p;
 	ret->lo = t;
 	ret->hi = 0;
 }
 
 void
-_sl2v(Vlong *ret, int32_t sl)
+_sl2v(Vlong *ret, long sl)
 {
-	int32_t t;
+	long t;
 
 	t = sl;
 	ret->lo = t;
@@ -500,9 +500,9 @@ _sl2v(Vlong *ret, int32_t sl)
 }
 
 void
-_ul2v(Vlong *ret, uint32_t ul)
+_ul2v(Vlong *ret, unsigned long ul)
 {
-	int32_t t;
+	long t;
 
 	t = ul;
 	ret->lo = t;
@@ -512,7 +512,7 @@ _ul2v(Vlong *ret, uint32_t ul)
 void
 _si2v(Vlong *ret, int si)
 {
-	int32_t t;
+	long t;
 
 	t = si;
 	ret->lo = t;
@@ -522,7 +522,7 @@ _si2v(Vlong *ret, int si)
 void
 _ui2v(Vlong *ret, uint ui)
 {
-	int32_t t;
+	long t;
 
 	t = ui;
 	ret->lo = t;
@@ -530,9 +530,9 @@ _ui2v(Vlong *ret, uint ui)
 }
 
 void
-_sh2v(Vlong *ret, int32_t sh)
+_sh2v(Vlong *ret, long sh)
 {
-	int32_t t;
+	long t;
 
 	t = (sh << 16) >> 16;
 	ret->lo = t;
@@ -540,9 +540,9 @@ _sh2v(Vlong *ret, int32_t sh)
 }
 
 void
-_uh2v(Vlong *ret, uint32_t ul)
+_uh2v(Vlong *ret, unsigned long ul)
 {
-	int32_t t;
+	long t;
 
 	t = ul & 0xffff;
 	ret->lo = t;
@@ -550,9 +550,9 @@ _uh2v(Vlong *ret, uint32_t ul)
 }
 
 void
-_sc2v(Vlong *ret, int32_t uc)
+_sc2v(Vlong *ret, long uc)
 {
-	int32_t t;
+	long t;
 
 	t = (uc << 24) >> 24;
 	ret->lo = t;
@@ -560,69 +560,69 @@ _sc2v(Vlong *ret, int32_t uc)
 }
 
 void
-_uc2v(Vlong *ret, uint32_t ul)
+_uc2v(Vlong *ret, unsigned long ul)
 {
-	int32_t t;
+	long t;
 
 	t = ul & 0xff;
 	ret->lo = t;
 	ret->hi = 0;
 }
 
-int32_t
+long
 _v2sc(Vlong rv)
 {
-	int32_t t;
+	long t;
 
 	t = rv.lo & 0xff;
 	return (t << 24) >> 24;
 }
 
-int32_t
+long
 _v2uc(Vlong rv)
 {
 
 	return rv.lo & 0xff;
 }
 
-int32_t
+long
 _v2sh(Vlong rv)
 {
-	int32_t t;
+	long t;
 
 	t = rv.lo & 0xffff;
 	return (t << 16) >> 16;
 }
 
-int32_t
+long
 _v2uh(Vlong rv)
 {
 
 	return rv.lo & 0xffff;
 }
 
-int32_t
+long
 _v2sl(Vlong rv)
 {
 
 	return rv.lo;
 }
 
-int32_t
+long
 _v2ul(Vlong rv)
 {
 
 	return rv.lo;
 }
 
-int32_t
+long
 _v2si(Vlong rv)
 {
 
 	return rv.lo;
 }
 
-int32_t
+long
 _v2ui(Vlong rv)
 {
 
@@ -650,28 +650,28 @@ _nev(Vlong lv, Vlong rv)
 int
 _ltv(Vlong lv, Vlong rv)
 {
-	return (int32_t)lv.hi < (int32_t)rv.hi || 
+	return (long)lv.hi < (long)rv.hi || 
 		(lv.hi == rv.hi && lv.lo < rv.lo);
 }
 
 int
 _lev(Vlong lv, Vlong rv)
 {
-	return (int32_t)lv.hi < (int32_t)rv.hi || 
+	return (long)lv.hi < (long)rv.hi || 
 		(lv.hi == rv.hi && lv.lo <= rv.lo);
 }
 
 int
 _gtv(Vlong lv, Vlong rv)
 {
-	return (int32_t)lv.hi > (int32_t)rv.hi || 
+	return (long)lv.hi > (long)rv.hi || 
 		(lv.hi == rv.hi && lv.lo > rv.lo);
 }
 
 int
 _gev(Vlong lv, Vlong rv)
 {
-	return (int32_t)lv.hi > (int32_t)rv.hi || 
+	return (long)lv.hi > (long)rv.hi || 
 		(lv.hi == rv.hi && lv.lo >= rv.lo);
 }
 

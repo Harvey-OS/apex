@@ -18,8 +18,8 @@ typedef	signed char	schar;
 typedef	struct	Vlong	Vlong;
 struct	Vlong
 {
-	uint32_t	hi;
-	uint32_t	lo;
+	unsigned long	hi;
+	unsigned long	lo;
 };
 
 void	abort(void);
@@ -29,7 +29,7 @@ void
 _d2v(Vlong *y, double d)
 {
 	union { double d; Vlong; } x;
-	uint32_t xhi, xlo, ylo, yhi;
+	unsigned long xhi, xlo, ylo, yhi;
 	int sh;
 
 	x.d = d;
@@ -97,9 +97,9 @@ _v2d(Vlong x)
 			x.hi = ~x.hi;
 		} else
 			x.hi = -x.hi;
-		return -((int32_t)x.hi*4294967296. + x.lo);
+		return -((long)x.hi*4294967296. + x.lo);
 	}
-	return (int32_t)x.hi*4294967296. + x.lo;
+	return (long)x.hi*4294967296. + x.lo;
 }
 
 float
@@ -147,11 +147,11 @@ vneg(Vlong *v)
 void
 _divv(Vlong *q, Vlong n, Vlong d)
 {
-	int32_t nneg, dneg;
+	long nneg, dneg;
 
-	if(n.hi == (((int32_t)n.lo)>>31) && d.hi == (((int32_t)d.lo)>>31)) {
-		q->lo = (int32_t)n.lo / (int32_t)d.lo;
-		q->hi = ((int32_t)q->lo) >> 31;
+	if(n.hi == (((long)n.lo)>>31) && d.hi == (((long)d.lo)>>31)) {
+		q->lo = (long)n.lo / (long)d.lo;
+		q->hi = ((long)q->lo) >> 31;
 		return;
 	}
 	nneg = n.hi >> 31;
@@ -168,11 +168,11 @@ _divv(Vlong *q, Vlong n, Vlong d)
 void
 _modv(Vlong *r, Vlong n, Vlong d)
 {
-	int32_t nneg, dneg;
+	long nneg, dneg;
 
-	if(n.hi == (((int32_t)n.lo)>>31) && d.hi == (((int32_t)d.lo)>>31)) {
-		r->lo = (int32_t)n.lo % (int32_t)d.lo;
-		r->hi = ((int32_t)r->lo) >> 31;
+	if(n.hi == (((long)n.lo)>>31) && d.hi == (((long)d.lo)>>31)) {
+		r->lo = (long)n.lo % (long)d.lo;
+		r->hi = ((long)r->lo) >> 31;
 		return;
 	}
 	nneg = n.hi >> 31;
@@ -240,17 +240,17 @@ _vasop(Vlong *ret, void *lv, void fn(Vlong*, Vlong, Vlong), int type, Vlong rv)
 		break;
 
 	case 5:	/* long */
-		t.lo = *(int32_t*)lv;
+		t.lo = *(long*)lv;
 		t.hi = t.lo >> 31;
 		fn(&u, t, rv);
-		*(int32_t*)lv = u.lo;
+		*(long*)lv = u.lo;
 		break;
 
 	case 6:	/* ulong */
-		t.lo = *(uint32_t*)lv;
+		t.lo = *(unsigned long*)lv;
 		t.hi = 0;
 		fn(&u, t, rv);
-		*(uint32_t*)lv = u.lo;
+		*(unsigned long*)lv = u.lo;
 		break;
 
 	case 7:	/* vlong */
