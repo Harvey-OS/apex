@@ -36,15 +36,15 @@
 #define ulong _fmtulong
 typedef unsigned long ulong;
 
-static uint32_t
-umuldiv(uint32_t a, uint32_t b, uint32_t c)
+static unsigned long
+umuldiv(unsigned long a, unsigned long b, unsigned long c)
 {
 	double d;
 
 	d = ((double)a * (double)b) / (double)c;
 	if(d >= 4294967295.)
 		d = 4294967295.;
-	return (uint32_t)d;
+	return (unsigned long)d;
 }
 
 /*
@@ -67,8 +67,8 @@ enum
 	Prec	= (Nmant+Nbits+1)/Nbits,	/* words of Nbits each to represent mantissa */
 	Sigbit	= 1<<(Prec*Nbits-Nmant),	/* first significant bit of Prec-th word */
 	Ndig	= 1500,
-	One	= (uint32_t)(1<<Nbits),
-	Half	= (uint32_t)(One>>1),
+	One	= (unsigned long)(1<<Nbits),
+	Half	= (unsigned long)(One>>1),
 	Maxe	= 310,
 
 	Fsign	= 1<<0,		/* found - */
@@ -86,8 +86,8 @@ enum
 };
 
 static	int	xcmp(char*, char*);
-static	int	fpcmp(char*, uint32_t*);
-static	void	frnorm(uint32_t*);
+static	int	fpcmp(char*, unsigned long*);
+static	void	frnorm(unsigned long*);
 static	void	divascii(char*, int*, int*, int*);
 static	void	mulascii(char*, int*, int*, int*);
 
@@ -103,7 +103,7 @@ double
 fmtstrtod(const char *as, char **aas)
 {
 	int na, ex, dp, bp, c, i, flag, state;
-	uint32_t low[Prec], hig[Prec], mid[Prec];
+	unsigned long low[Prec], hig[Prec], mid[Prec];
 	double d;
 	char *s, a[Ndig];
 
@@ -343,7 +343,7 @@ out:
 }
 
 static void
-frnorm(uint32_t *f)
+frnorm(unsigned long *f)
 {
 	int i, c;
 
@@ -357,9 +357,9 @@ frnorm(uint32_t *f)
 }
 
 static int
-fpcmp(char *a, uint32_t* f)
+fpcmp(char *a, unsigned long* f)
 {
-	uint32_t tf[Prec];
+	unsigned long tf[Prec];
 	int i, d, c;
 
 	for(i=0; i<Prec; i++)

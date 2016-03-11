@@ -62,7 +62,7 @@ struct netent
 	char *n_name;
 	char **n_aliases;
 	int n_addrtype;
-	uint32_t n_net;
+	long n_net;
 };
 
 struct hostent
@@ -97,7 +97,7 @@ struct hostent *gethostent (void);
 void setnetent (int);
 void endnetent (void);
 struct netent *getnetent (void);
-struct netent *getnetbyaddr (uint32_t, int);
+struct netent *getnetbyaddr (long, int);
 struct netent *getnetbyname (const char *);
 
 void setservent (int);

@@ -20,7 +20,7 @@
 /* assume 96 fds is sufficient for fdset size */
 
 typedef struct fd_set {
-	int32_t fds_bits[3];
+	long fds_bits[3];
 } fd_set;
 
 #define FD_SET(n,p)	((p)->fds_bits[(n)>>5] |= (1 << ((n) &0x1f)))

@@ -17,18 +17,18 @@ SRCSS =\
 OBJ = ${SRCS:.c=.o}
 OBJS = ${SRCSS:.s=.o}
 
-CFLAGS += -I../internal -D_PLAN9_SOURCE
+CFLAGS += -I../internal -D_PLAN9_SOURCE -D_POSIX_SOURCE
 
 .PHONY: all clean
 
 all: $(TARGET) clean
 
-%.o: %.c
+%.o:
 	$(CC) $(CFLAGS) -c $(SRCS) || exit 1
 	$(CC) $(CFLAGS) -c $(SRCSS) || exit 1
 
-$(TARGET): $(OBJ) $(OBJS)
+$(TARGET): $(OBJ) $(OBJS) $(OBJSS)
 	ar rcs ${LIB}/$@ $^
 
 clean:
-	rm -f $(OBJ) $(OBJS)
+	rm -f *.o

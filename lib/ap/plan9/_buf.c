@@ -60,7 +60,7 @@ static int copynotehandler(void *, char *);
 int
 _startbuf(int fd)
 {
-	int32_t i, slot;
+	long i, slot;
 	int pid;
 	Fdinfo *f;
 	Muxbuf *b;

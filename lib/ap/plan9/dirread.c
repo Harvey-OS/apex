@@ -37,11 +37,11 @@ statcheck(char *buf, uint nbuf)
 }
 
 static
-int32_t
-dirpackage(char *buf, int32_t ts, Dir **d)
+long
+dirpackage(char *buf, long ts, Dir **d)
 {
 	char *s;
-	int32_t ss, i, n, nn, m;
+	long ss, i, n, nn, m;
 
 	if(ts == 0){
 		*d = nil;
@@ -86,11 +86,11 @@ dirpackage(char *buf, int32_t ts, Dir **d)
 	return nn;
 }
 
-int32_t
+long
 _dirread(int fd, Dir **d)
 {
 	char *buf;
-	int32_t ts;
+	long ts;
 
 	buf = malloc(DIRMAX);
 	if(buf == nil)
@@ -102,11 +102,11 @@ _dirread(int fd, Dir **d)
 	return ts;
 }
 
-int32_t
+long
 _dirreadall(int fd, Dir **d)
 {
 	char *buf, *nbuf;
-	int32_t n, ts;
+	long n, ts;
 
 	buf = nil;
 	ts = 0;

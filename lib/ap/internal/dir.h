@@ -9,20 +9,11 @@
 
 #include <sys/stat.h> /* for dirtostat */
 
-//TODO
-typedef	unsigned short	uint16_t;
-typedef	signed short	int16_t;
-typedef unsigned int	uint32_t;
-typedef unsigned int	uint;
-typedef signed int	int32_t;
-typedef	unsigned long long uint64_t;
-typedef	long long	int64_t;
-
-typedef	int64_t	vlong;
-typedef	uint64_t uvlong;
-typedef 	unsigned char uchar;
-typedef	uint16_t ushort;
-typedef 	unsigned int uint;
+typedef	long long	vlong;
+typedef	unsigned long long uvlong;
+typedef unsigned char uchar;
+typedef	unsigned short ushort;
+typedef unsigned int uint;
 typedef	unsigned long ulong;
 
 #define	GBIT8(p)	((p)[0])
@@ -62,7 +53,7 @@ typedef
 struct Qid
 {
 	uvlong	path;
-	uint32_t	vers;
+	unsigned long	vers;
 	uchar	type;
 } Qid;
 
@@ -73,9 +64,9 @@ struct Dir {
 	uint	dev;	/* server subtype */
 	/* file data */
 	Qid	qid;	/* unique id from server */
-	uint32_t	mode;	/* permissions */
-	uint32_t	atime;	/* last read time */
-	uint32_t	mtime;	/* last write time */
+	unsigned long	mode;	/* permissions */
+	unsigned long	atime;	/* last read time */
+	unsigned long	mtime;	/* last write time */
 	vlong	length;	/* file length: see <u.h> */
 	char	*name;	/* last element of path */
 	char	*uid;	/* owner name */
@@ -90,8 +81,8 @@ Dir	*_dirstat(const char*);
 int	_dirwstat(const char*, Dir*);
 Dir	*_dirfstat(int);
 int	_dirfwstat(int, Dir*);
-int32_t	_dirread(int, Dir**);
-int32_t _dirreadall(int, Dir**);
+long	_dirread(int, Dir**);
+long _dirreadall(int, Dir**);
 void _nulldir(Dir*);
 uint sizeD2M(Dir*);
 

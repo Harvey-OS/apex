@@ -11,14 +11,14 @@
 #ifdef __PIC__
 __attribute__((__visibility__("hidden")))
 #endif
-extern const uint32_t bittab[];
+extern const unsigned long bittab[];
 
 /* Upper 6 state bits are a negative integer offset to bound-check next byte */
 /*    equivalent to: ( (b-0x80) | (b+offset) ) & ~0x3f      */
-#define OOB(c,b) (((((b)>>3)-0x10)|(((b)>>3)+((int32_t)(c)>>26))) & ~7)
+#define OOB(c,b) (((((b)>>3)-0x10)|(((b)>>3)+((long)(c)>>26))) & ~7)
 
 /* Interval [a,b). Either a must be 80 or b must be c0, lower 3 bits clear. */
-#define R(a,b) ((uint32_t)((a==0x80 ? 0x40u-b : 0u-a) << 23))
+#define R(a,b) ((unsigned long)((a==0x80 ? 0x40u-b : 0u-a) << 23))
 #define FAILSTATE R(0x80,0x80)
 
 #define SA 0xc2u

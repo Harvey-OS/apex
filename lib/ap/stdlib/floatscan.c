@@ -64,8 +64,8 @@ static long long scanexp(FILE *f, int pok)
 
 static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int pok)
 {
-	uint32_t x[KMAX];
-	static const uint32_t th[] = { LD_B1B_MAX };
+	unsigned long x[KMAX];
+	static const unsigned long th[] = { LD_B1B_MAX };
 	int i, j, k, a, z;
 	long long lrp=0, dc=0;
 	long long e10=0;
@@ -175,9 +175,9 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 	if (rp % 9) {
 		int rpm9 = rp>=0 ? rp%9 : rp%9+9;
 		int p10 = p10s[8-rpm9];
-		uint32_t carry = 0;
+		unsigned long carry = 0;
 		for (k=a; k!=z; k++) {
-			uint32_t tmp = x[k] % p10;
+			unsigned long tmp = x[k] % p10;
 			x[k] = x[k]/p10 + carry;
 			carry = 1000000000/p10 * tmp;
 			if (k==a && !x[k]) {
@@ -191,7 +191,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 
 	/* Upscale until desired number of bits are left of radix point */
 	while (rp < 9*LD_B1B_DIG || (rp == 9*LD_B1B_DIG && x[a]<th[0])) {
-		uint32_t carry = 0;
+		unsigned long carry = 0;
 		e2 -= 29;
 		for (k=(z-1 & MASK); ; k=(k-1 & MASK)) {
 			uint64_t tmp = ((uint64_t)x[k] << 29) + carry;
@@ -218,7 +218,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 
 	/* Downscale until exactly number of bits are left of radix point */
 	for (;;) {
-		uint32_t carry = 0;
+		unsigned long carry = 0;
 		int sh = 1;
 		for (i=0; i<LD_B1B_DIG; i++) {
 			k = (a+i & MASK);
@@ -233,7 +233,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 		if (rp > 9+9*LD_B1B_DIG) sh = 9;
 		e2 += sh;
 		for (k=a; k!=z; k=(k+1 & MASK)) {
-			uint32_t tmp = x[k] & (1<<sh)-1;
+			unsigned long tmp = x[k] & (1<<sh)-1;
 			x[k] = (x[k]>>sh) + carry;
 			carry = (1000000000>>sh) * tmp;
 			if (k==a && !x[k]) {
@@ -275,7 +275,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 
 	/* Process tail of decimal input so it can affect rounding */
 	if ((a+i & MASK) != z) {
-		uint32_t t = x[a+i & MASK];
+		unsigned long t = x[a+i & MASK];
 		if (t < 500000000 && (t || (a+i+1 & MASK) != z))
 			frac += 0.25*sign;
 		else if (t > 500000000)
@@ -309,7 +309,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 
 static long double hexfloat(FILE *f, int bits, int emin, int sign, int pok)
 {
-	uint32_t x = 0;
+	unsigned long x = 0;
 	long double y = 0;
 	long double scale = 1;
 	long double bias = 0;

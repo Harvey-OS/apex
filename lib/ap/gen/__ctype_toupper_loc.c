@@ -1,6 +1,6 @@
 #include <stdint.h>
 
-static const int32_t table[] = {
+static const long table[] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -22,9 +22,9 @@ static const int32_t table[] = {
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
-static const int32_t *const ptable = table+128;
+static const long *const ptable = table+128;
 
-const int32_t **__ctype_toupper_loc(void)
+const long **__ctype_toupper_loc(void)
 {
 	return (void *)&ptable;
 }

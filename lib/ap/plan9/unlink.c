@@ -43,7 +43,7 @@ unlink(const char *path)
 			   db1->type == db2->type &&
 			   db1->dev == db2->dev) {
 				sprintf(newelem, "%8.8lx%8.8lx", (ulong)(db2->qid.path>>32),
-					(uint32_t)db2->qid.path);
+					(unsigned long)db2->qid.path);
 				_nulldir(&nd);
 				nd.name = newelem;
 				if(_dirfwstat(i, &nd) < 0)

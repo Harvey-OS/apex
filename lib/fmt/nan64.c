@@ -41,7 +41,7 @@ __isNaN(double d)
 
 	p = &d;
 	x = *(uint64_t*)p;
-	return (uint32_t)(x>>32)==0x7FF00000 && !__isInf(d, 0);
+	return (unsigned long)(x>>32)==0x7FF00000 && !__isInf(d, 0);
 }
 
 double

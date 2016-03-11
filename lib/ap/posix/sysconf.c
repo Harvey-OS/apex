@@ -14,7 +14,7 @@
 #include	<errno.h>
 #include	<sys/limits.h>
 
-int32_t
+long
 sysconf(int name)
 {
 	switch(name)

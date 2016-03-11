@@ -20,7 +20,7 @@ extern "C" {
 extern void	srand(unsigned int);
 extern int	rand(void);
 extern int	nrand(int);
-extern int32_t	lrand(void);
+extern long	lrand(void);
 extern double	frand(void);
 
 extern char	*getpass(char *);

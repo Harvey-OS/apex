@@ -1,21 +1,7 @@
 #ifndef _STDINT_H
 #define _STDINT_H
 
-#define __NEED_int8_t
-#define __NEED_int16_t
-#define __NEED_int32_t
-#define __NEED_int64_t
-
-#define __NEED_uint8_t
-#define __NEED_uint16_t
-#define __NEED_uint32_t
-#define __NEED_uint64_t
-
-#define __NEED_intptr_t
-#define __NEED_uintptr_t
-
-#define __NEED_intmax_t
-#define __NEED_uintmax_t
+#include <inttypes.h>
 
 #define nil		((void*)0)
 typedef	unsigned char	uint8_t;
@@ -27,14 +13,10 @@ typedef unsigned int	uint;
 typedef signed int	int32_t;
 typedef	unsigned long long uint64_t;
 typedef	long long	int64_t;
-typedef uint64_t uintptr;
-typedef uint64_t uintptr_t;
 typedef uint32_t	usize;
 typedef	uint32_t		Rune;
 typedef union FPdbleword FPdbleword;
 typedef int		jmp_buf[10]; // for registers.
-typedef int64_t	intmax_t;
-typedef uint64_t	uintmax_t;
 
 typedef int8_t int_fast8_t;
 typedef int64_t int_fast64_t;

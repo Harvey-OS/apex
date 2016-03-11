@@ -14,20 +14,12 @@
 #ifndef _INTTYPES_H_
 #define _INTTYPES_H_ 1
 
-typedef int _intptr_t;
+typedef long long _intptr_t;
 typedef unsigned long long _uintptr_t;
 
-
-typedef signed char int8_t;
-typedef int int32_t;
-typedef long long int64_t;
-typedef unsigned char uint8_t;
-typedef unsigned short uint16_t;
-typedef unsigned int uint32_t;
-typedef unsigned long long uint64_t;
 typedef _intptr_t intptr_t;
 typedef _uintptr_t uintptr_t;
-typedef int64_t	intmax_t;
-typedef uint64_t	uintmax_t;
+typedef long long	intmax_t;
+typedef unsigned long long	uintmax_t;
 
 #endif

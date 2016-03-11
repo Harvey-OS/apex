@@ -29,7 +29,7 @@ int
 utflen(char *s)
 {
 	int c;
-	int32_t n;
+	long n;
 	Rune rune;
 
 	n = 0;

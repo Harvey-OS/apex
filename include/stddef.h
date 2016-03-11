@@ -62,7 +62,4 @@ typedef long double float_t;
 typedef long double double_t;
 #endif
 
-typedef signed int	int32_t;
-typedef unsigned int	uint32_t;
-
 #endif /* __STDDEF_H */

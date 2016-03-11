@@ -26,10 +26,10 @@
 #include "utfdef.h"
 
 int
-utfnlen(char *s, int32_t m)
+utfnlen(char *s, long m)
 {
 	int c;
-	int32_t n;
+	long n;
 	Rune rune;
 	char *es;
 

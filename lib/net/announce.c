@@ -125,7 +125,7 @@ accept(int ctl, char *dir)
 {
 	char buf[128];
 	char *num;
-	int32_t n;
+	long n;
 
 	num = strrchr(dir, '/');
 	if(num == 0)
@@ -149,7 +149,7 @@ reject(int ctl, char *dir, char *cause)
 {
 	char buf[128];
 	char *num;
-	int32_t n;
+	long n;
 
 	num = strrchr(dir, '/');
 	if(num == 0)
@@ -197,7 +197,7 @@ nettrans(char *addr, char *naddr, int na, char *file, int nf)
 	int fd;
 	char reply[4*NAMELEN];
 	char *cp;
-	int32_t n;
+	long n;
 
 	/*
 	 *  ask the connection server

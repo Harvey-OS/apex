@@ -1,10 +1,7 @@
-#include "lib.h"
-#include "sys9.h"
 #include <signal.h>
 #include <setjmp.h>
-
-//TODO
-typedef	unsigned long long uint64_t;
+#include "lib.h"
+#include "sys9.h"
 
 /* A stack to hold pcs when signals nest */
 #define MAXSIGSTACK 20
@@ -12,7 +9,7 @@ typedef struct Pcstack Pcstack;
 static struct Pcstack {
 	int sig;
 	void (*hdlr)(int, char*, Ureg*);
-	uint64_t restorepc;
+	unsigned long long restorepc;
 	Ureg *u;
 } pcstack[MAXSIGSTACK];
 static int nstack = 0;
@@ -32,7 +29,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	p->hdlr = hdlr;
 	p->u = u;
 	nstack++;
-	u->ip = (uint64_t) notecont;
+	u->ip = (unsigned long long) notecont;
 	noted(2);	/* NSAVE: clear note but hold state */
 }
 
@@ -58,7 +55,7 @@ extern sigset_t	_psigblocked;
 typedef struct {
 	sigset_t set;
 	sigset_t blocked;
-	uint64_t jmpbuf[2];
+	unsigned long long jmpbuf[2];
 } sigjmp_buf_amd64;
 
 void

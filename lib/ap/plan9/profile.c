@@ -31,13 +31,13 @@ typedef unsigned long long uvlong;
 
 #include	"tos.h"
 
-extern	void*	sbrk(uint32_t);
-extern	int32_t	_callpc(void**);
-extern	int32_t	_savearg(void);
+extern	void*	sbrk(unsigned long);
+extern	long	_callpc(void**);
+extern	long	_savearg(void);
 extern	void	_cycles(uint64_t*);	/* 64-bit value of the cycle counter if there is one, 0 if there isn't */
 
-static uint32_t	khz;
-static uint32_t	perr;
+static unsigned long	khz;
+static unsigned long	perr;
 static int	havecycles;
 
 typedef	struct	Plink	Plink;
@@ -46,20 +46,20 @@ struct	Plink
 	Plink	*old;
 	Plink	*down;
 	Plink	*link;
-	int32_t	pc;
-	int32_t	count;
+	long	pc;
+	long	count;
 	int64_t	time;
 };
 
 #pragma profile off
 
-uint32_t
+unsigned long
 _profin(void)
 {
 	void *dummy;
-	int32_t pc;
+	long pc;
 	Plink *pp, *p;
-	uint32_t arg;
+	unsigned long arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -109,11 +109,11 @@ out:
 	return arg;		/* disgusting linkage */
 }
 
-uint32_t
+unsigned long
 _profout(void)
 {
 	Plink *p;
-	uint32_t arg;
+	unsigned long arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -166,7 +166,7 @@ void
 _profdump(void)
 {
 	int f;
-	int32_t n;
+	long n;
 	Plink *p;
 	char *vp;
 	char filename[64];

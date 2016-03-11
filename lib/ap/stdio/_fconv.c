@@ -53,7 +53,7 @@ _Balloc(int k)
 		}
 	else {
 		x = 1 << k;
-		rv = (Bigint *)malloc(sizeof(Bigint) + (x-1)*sizeof(int32_t));
+		rv = (Bigint *)malloc(sizeof(Bigint) + (x-1)*sizeof(long));
 		rv->k = k;
 		rv->maxwds = x;
 		}
@@ -402,10 +402,10 @@ _diff(Bigint *a, Bigint *b)
 {
 	Bigint *c;
 	int i, wa, wb;
-	int32_t borrow, y;	/* We need signed shifts here. */
+	long borrow, y;	/* We need signed shifts here. */
 	unsigned long *xa, *xae, *xb, *xbe, *xc;
 #ifdef Pack_32
-	int32_t z;
+	long z;
 #endif
 
 	i = cmp(a,b);

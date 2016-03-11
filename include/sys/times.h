@@ -10,11 +10,6 @@
 #ifndef __TIMES_H
 #define __TIMES_H
 
-#ifndef _CLOCK_T
-#define _CLOCK_T
-typedef int32_t clock_t;
-#endif
-
 struct tms {
 	clock_t	tms_utime;
 	clock_t	tms_stime;

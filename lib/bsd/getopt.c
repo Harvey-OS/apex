@@ -1,61 +1,101 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include <unistd.h>
+#include <wchar.h>
+#include <string.h>
+#include <limits.h>
+#include <stdlib.h>
+#include "libc.h"
+#include "locale_impl.h"
 
-#include	<stdlib.h>
-#include	<string.h>
-#include	<stdio.h>
-#define ERR(str, chr)       if(opterr){fprintf(stderr, "%s%s%c\n", argv[0], str, chr);}
-int     opterr = 1;
-int     optind = 1;
-int	optopt;
-char    *optarg;
+char *optarg;
+int optind=1, opterr=1, optopt, __optpos, __optreset=0;
 
-int
-getopt (int argc, char * const *argv, const char *opts)
+#define optpos __optpos
+weak_alias(__optreset, optreset);
+
+void __getopt_msg(const char *a, const char *b, const char *c, size_t l)
 {
-	static int sp = 1;
-	register int c;
-	register char *cp;
+	FILE *f = stderr;
+	b = __lctrans_cur(b);
+	fwrite(a, strlen(a), 1, f)
+	&& fwrite(b, strlen(b), 1, f)
+	&& fwrite(c, l, 1, f)
+	&& putc('\n', f);
+}
 
-	if (sp == 1)
-		if (optind >= argc ||
-		   argv[optind][0] != '-' || argv[optind][1] == '\0')
-			return EOF;
-		else if (strcmp(argv[optind], "--") == 0) {
-			optind++;
-			return EOF;
+int getopt(int argc, char * const argv[], const char *optstring)
+{
+	int i;
+	wchar_t c, d;
+	int k, l;
+	char *optchar;
+
+	if (!optind || __optreset) {
+		__optreset = 0;
+		__optpos = 0;
+		optind = 1;
+	}
+
+	if (optind >= argc || !argv[optind])
+		return -1;
+
+	if (argv[optind][0] != '-') {
+		if (optstring[0] == '-') {
+			optarg = argv[optind++];
+			return 1;
 		}
-	optopt = c = argv[optind][sp];
-	if (c == ':' || (cp=strchr(opts, c)) == NULL) {
-		ERR (": illegal option -- ", c);
-		if (argv[optind][++sp] == '\0') {
-			optind++;
-			sp = 1;
-		}
+		return -1;
+	}
+
+	if (!argv[optind][1])
+		return -1;
+
+	if (argv[optind][1] == '-' && !argv[optind][2])
+		return optind++, -1;
+
+	if (!optpos) optpos++;
+	if ((k = mbtowc(&c, argv[optind]+optpos, MB_LEN_MAX)) < 0) {
+		k = 1;
+		c = 0xfffd; /* replacement char */
+	}
+	optchar = argv[optind]+optpos;
+	optopt = c;
+	optpos += k;
+
+	if (!argv[optind][optpos]) {
+		optind++;
+		optpos = 0;
+	}
+
+	if (optstring[0] == '-' || optstring[0] == '+')
+		optstring++;
+
+	i = 0;
+	d = 0;
+	do {
+		l = mbtowc(&d, optstring+i, MB_LEN_MAX);
+		if (l>0) i+=l; else i++;
+	} while (l && d != c);
+
+	if (d != c) {
+		if (optstring[0] != ':' && opterr)
+			__getopt_msg(argv[0], ": unrecognized option: ", optchar, k);
 		return '?';
 	}
-	if (*++cp == ':') {
-		if (argv[optind][sp+1] != '\0')
-			optarg = &argv[optind++][sp+1];
-		else if (++optind >= argc) {
-			ERR (": option requires an argument -- ", c);
-			sp = 1;
+	if (optstring[i] == ':') {
+		if (optstring[i+1] == ':') optarg = 0;
+		else if (optind >= argc) {
+			if (optstring[0] == ':') return ':';
+			if (opterr) __getopt_msg(argv[0],
+				": option requires an argument: ",
+				optchar, k);
 			return '?';
-		} else
-			optarg = argv[optind++];
-		sp = 1;
-	} else {
-		if (argv[optind][++sp] == '\0') {
-			sp = 1;
-			optind++;
 		}
-		optarg = NULL;
+		if (optstring[i+1] != ':' || optpos) {
+			optarg = argv[optind++] + optpos;
+			optpos = 0;
+		}
 	}
 	return c;
 }
+
+weak_alias(getopt, __posix_getopt);

@@ -23,7 +23,7 @@ int
 open(const char *path, int flags, ...)
 {
 	int n;
-	int32_t f;
+	long f;
 	int mode;
 	Fdinfo *fi;
 	va_list va;

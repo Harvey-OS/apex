@@ -20,8 +20,8 @@ struct	dirent {
 
 typedef struct _dirdesc {
 	int	dd_fd;		/* file descriptor */
-	int32_t	dd_loc;		/* buf offset of entry from last readdir() */
-	int32_t	dd_size;	/* amount of valid data in buffer */
+	long	dd_loc;		/* buf offset of entry from last readdir() */
+	long	dd_size;	/* amount of valid data in buffer */
 	char	*dd_buf;	/* directory data buffer */
 	void *dirs;
 	int	dirsize;

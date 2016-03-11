@@ -18,7 +18,7 @@
 #define RAND_MAX 32767
 
 typedef struct { int quot, rem; } div_t;
-typedef struct { int32_t quot, rem; } ldiv_t;
+typedef struct { long quot, rem; } ldiv_t;
 
 #ifdef __cplusplus
 extern "C" {
@@ -41,6 +41,8 @@ extern void *malloc(size_t);
 extern void *realloc(void *, size_t);
 extern void abort(void);
 extern int atexit(void (*func)(void));
+//extern int (*_atexit)(void (*func)(void));
+//#define atexit(func) _atexit(func)
 extern void exit(int);
 extern char *getenv(const char *);
 extern int system(const char *);
@@ -48,14 +50,14 @@ extern void *bsearch(const void *, const void *, size_t, size_t, int (*)(const v
 extern void qsort(void *, size_t, size_t, int (*)(const void *, const void *));
 extern int abs(int);
 extern div_t div(int, int);
-extern long labs(int32_t);
-extern ldiv_t ldiv(int32_t, int32_t);
+extern long labs(long);
+extern ldiv_t ldiv(long, long);
 extern int mblen(const char *, size_t);
 extern int mbtowc(wchar_t *, const char *, size_t);
 extern int wctomb(char *, wchar_t);
 extern size_t mbstowcs(wchar_t *, const char *, size_t);
 extern size_t wcstombs(char *, const wchar_t *, size_t);
-extern int mkstemp(char *template);
+extern int mkstemp(char *temp);
 
 #ifdef __cplusplus
 }
