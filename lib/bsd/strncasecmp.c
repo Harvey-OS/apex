@@ -17,8 +17,8 @@ strncasecmp(const char *s1, const char *s2, size_t n)
 	int c1, c2;
 
 	while(*s1 && n-- > 0){
-		c1 = *(char*)s1++;
-		c2 = *(char*)s2++;
+		c1 = *(uchar*)s1++;
+		c2 = *(uchar*)s2++;
 
 		if(c1 == c2)
 			continue;

@@ -23,7 +23,7 @@ stat(const char *path, struct stat *buf)
 		_syserrno();
 		return -1;
 	}
-	_dirtostat(buf, d, 0);
+	dirtostat(buf, d, 0);
 	free(d);
 
 	return 0;

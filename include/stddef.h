@@ -11,7 +11,7 @@
 #define __STDDEF_H
 
 #if defined (__STDDEF_H) || defined (__need_NULL)
-#undef NULL		/* in case <stdio.h> has defined it. */
+#ifndef NULL		/* in case <stdio.h> has defined it. */
 #ifdef __GNUG__
 #define NULL __null
 #else   /* G++ */
@@ -21,6 +21,7 @@
 #define NULL 0
 #endif  /* C++ */
 #endif  /* G++ */
+#endif	/* ifndef NULL */
 #endif	/* NULL not defined and <stddef.h> or need NULL.  */
 #undef	__need_NULL
 
@@ -43,7 +44,7 @@ typedef int mbstate_t;
 #endif
 #ifndef _WINT_T
 #define _WINT_T
-typedef int	wint_t;
+typedef unsigned int	wint_t;
 #endif
 #ifndef _LOCALE_T
 #define _LOCALE_T

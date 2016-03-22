@@ -11,9 +11,6 @@
 #include <float.h>
 #include <math.h>
 
-//TODO
-typedef signed int	long;
-
 static	long	tab[] =
 {
 	1L, 10L, 100L, 1000L, 10000L,

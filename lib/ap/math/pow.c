@@ -11,9 +11,6 @@
 #include <errno.h>
 #include <limits.h>
 
-//TODO
-typedef signed int	long;
-
 double
 pow(double x, double y) /* return x ^ y (exponentiation) */
 {
