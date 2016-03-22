@@ -1,5 +1,5 @@
 APE_PATH = path where you have ape repo cloned
-ARCH = amd64
+ARCH = your arch
 HARVEY = path where you have Harvey repo cloned
 
 CFLAGS=-nostdinc \

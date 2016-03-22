@@ -1,13 +1,13 @@
 
 TARGET = libap.a
-DIRS = amd64 crt gen locale math multibyte plan9 posix stdio stdlib string
+DIRS = $(ARCH) crt gen locale math multibyte plan9 posix stdio stdlib string
 
 .PHONY: all
 
 all: $(TARGET) $(DIRS)
 
 $(TARGET):
-	cd amd64; $(MAKE) $(MFLAGS)
+	cd $(ARCH); $(MAKE) $(MFLAGS)
 	cd crt; $(MAKE) $(MFLAGS)
 	cd gen; $(MAKE) $(MFLAGS)
 	cd locale; $(MAKE) $(MFLAGS)

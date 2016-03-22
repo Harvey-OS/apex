@@ -27,7 +27,7 @@
  * Also, register the note handler.
  */
 
-const char **environ;
+char **environ;
 int errno;
 unsigned long _clock;
 
@@ -42,26 +42,27 @@ _envsetup(void)
 {
 	int dfd, fdinited, n, nd, m, i, j, f, nohandle, psize, cnt;
 	char *ps, *p;
-	const char **pp;
+	char **pp;
 	char name[NAME_MAX+5];
 	Dir *d9, *d9a;
-	static const char **emptyenvp = 0;
 
-	environ = emptyenvp;		/* pessimism */
 	nohandle = 0;
 	fdinited = 0;
 	cnt = 0;
 	strcpy(name, "#e");
-	dfd = open(name, 0);
-	if(dfd < 0)
+	dfd = _OPEN(name, 0);
+	if(dfd < 0){
+		environ = malloc(sizeof(char**));
+		*environ = NULL;
 		return;
+	}
 	name[2] = '/';
 	ps = p = malloc(Envhunk);
 	if(p == 0)
 		return;
 	psize = Envhunk;
 	nd = _dirreadall(dfd, &d9a);
-	close(dfd);
+	_CLOSE(dfd);
 	for(j=0; j<nd; j++){
 		d9 = &d9a[j];
 		n = strlen(d9->name);
@@ -81,10 +82,10 @@ _envsetup(void)
 		memcpy(p, d9->name, n);
 		p[n] = '=';
 		strcpy(name+3, d9->name);
-		f = open(name, O_RDONLY);
+		f = _OPEN(name, O_RDONLY);
 		if(f < 0 || read(f, p+n+1, m) != m)
 			m = 0;
-		close(f);
+		_CLOSE(f);
 		if(p[n+m] == 0)
 			m--;
 		for(i=0; i<m; i++)

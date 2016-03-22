@@ -5,7 +5,6 @@ SHELL=/bin/bash
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 current_dir := $(patsubst %/,%,$(dir $(mkfile_path)))
 HARVEY=$(current_dir)
-ARCH=amd64
 
 BIN=${HARVEY}/${ARCH}/bin
 LIB=${HARVEY}/${ARCH}/lib

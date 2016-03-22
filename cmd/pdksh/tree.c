@@ -430,7 +430,7 @@ vfptreef(shf, indent, fmt, va)
 
 	while ((c = *fmt++))
 	    if (c == '%') {
-		register int32_t n;
+		register long n;
 		register char *p;
 		int neg;
 

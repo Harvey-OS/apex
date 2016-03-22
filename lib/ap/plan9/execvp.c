@@ -11,7 +11,7 @@
 #include <sys/limits.h>
 #include <string.h>
 
-extern const char **environ;
+extern char **environ;
 
 /*
  * BUG: instead of looking at PATH env variable,
@@ -19,7 +19,7 @@ extern const char **environ;
  */
 
 int
-execvp(const char *name, char * const *argv)
+execvp(const char *name, const char **argv)
 {
 	int n;
 	char buf[PATH_MAX];

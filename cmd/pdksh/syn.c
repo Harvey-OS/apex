@@ -645,8 +645,8 @@ block(type, t1, t2, wp)
 
 const	struct tokeninfo {
 	const char *name;
-	int16_t	val;
-	int16_t	reserved;
+	short	val;
+	short	reserved;
 } tokentab[] = {
 	/* Reserved words */
 	{ "if",		IF,	TRUE },
