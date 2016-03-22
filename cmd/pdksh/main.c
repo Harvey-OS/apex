@@ -245,10 +245,10 @@ main(argc, argv)
 			setstr(pwd_v, current_wd, KSH_RETURN_ERROR);
 	}
 	ppid = getppid();
-	setint(global("PPID"), (int32_t) ppid);
+	setint(global("PPID"), (long) ppid);
 #ifdef KSH
 	setint(global("RANDOM"),
-	       (int32_t) (time((time_t *)0) * kshpid * ppid));
+	       (long) (time((time_t *)0) * kshpid * ppid));
 #endif /* KSH */
 	/* setstr can't fail here */
 	setstr(global(version_param), ksh_version, KSH_RETURN_ERROR);
@@ -758,7 +758,7 @@ cleanup_parents_env()
 				if (ep->savefd[fd] > 0)
 					close(ep->savefd[fd]);
 			afree(ep->savefd, &ep->area);
-			ep->savefd = (int16_t *) 0;
+			ep->savefd = (short *) 0;
 		}
 	}
 	e->oenv = (struct env *) 0;

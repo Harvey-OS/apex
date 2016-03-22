@@ -23,7 +23,7 @@ fstat(int fd, struct stat *buf)
 		_syserrno();
 		return -1;
 	}
-	_dirtostat(buf, d, &_fdinfo[fd]);
+	dirtostat(buf, d, &_fdinfo[fd]);
 	free(d);
 	return 0;
 }
