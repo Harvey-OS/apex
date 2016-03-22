@@ -100,7 +100,7 @@ extern	int	_CLOSE(int);
 extern	int	create(const char*, int, unsigned long);
 extern	int	_DUP(int, int);
 extern	int	errstr(char*, unsigned int);
-extern	int	exec(const char*, char* const[]);
+extern	int	exec(const char*, const char*[]);
 extern	void	exits(char *);
 extern	int	fd2path(int, char*, int);
 extern	int	fauth(int, char*);

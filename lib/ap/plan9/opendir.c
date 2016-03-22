@@ -31,7 +31,7 @@ opendir(const char *filename)
 		_syserrno();
 		return NULL;
 	}
-	_dirtostat(&sb, d9, 0);
+	dirtostat(&sb, d9, 0);
 	free(d9);
 	if(S_ISDIR(sb.st_mode) == 0) {
 		errno = ENOTDIR;

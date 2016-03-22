@@ -47,19 +47,19 @@ readprocfdinit(void)
 	char *s, *nexts;
 
 	memset(buf, 0, sizeof buf);
-	pfd = open("#c/pid", 0);
+	pfd = _OPEN("#c/pid", 0);
 	if(pfd < 0)
 		return -1;
 	if(pread(pfd, buf, 100, 0) < 0){
-		close(pfd);
+		_CLOSE(pfd);
 		return -1;
 	}
-	close(pfd);
+	_CLOSE(pfd);
 	pid = strtoul(buf, 0, 10);
 	strcpy(buf, "#p/");
 	_ultoa(buf+3, pid);
 	strcat(buf, "/fd");
-	pfd = open(buf, 0);
+	pfd = _OPEN(buf, 0);
 	if(pfd < 0)
 		return -1;
 	memset(buf, 0, sizeof buf);
@@ -70,7 +70,7 @@ readprocfdinit(void)
 			break;
 		tot += n;
 	}
-	close(pfd);
+	_CLOSE(pfd);
 	if(n < 0)
 		return -1;
 	buf[sizeof buf-1] = '\0';

@@ -14,8 +14,8 @@
 #ifndef _INTTYPES_H_
 #define _INTTYPES_H_ 1
 
-typedef long long _intptr_t;
-typedef unsigned long long _uintptr_t;
+typedef long _intptr_t;
+typedef unsigned long _uintptr_t;
 
 typedef _intptr_t intptr_t;
 typedef _uintptr_t uintptr_t;

@@ -21,7 +21,7 @@
 # define UCHAR_MAX	0xFF
 #endif
 
-int16_t ctypes [UCHAR_MAX+1];	/* type bits for unsigned char */
+short ctypes [UCHAR_MAX+1];	/* type bits for unsigned char */
 
 static int	do_gmatch ARGS((const unsigned char *s, const unsigned char *p,
 			const unsigned char *se, const unsigned char *pe,

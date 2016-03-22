@@ -32,7 +32,7 @@ typedef struct Expand {
 		struct shf *shf;/* file */
 	} u;			/* source */
 	struct tbl *var;	/* variable in ${var..} */
-	int16_t	split;		/* split "$@" / call waitlast $() */
+	short	split;		/* split "$@" / call waitlast $() */
 } Expand;
 
 #define	XBASE		0	/* scanning original */
@@ -63,9 +63,9 @@ static void	alt_expand ARGS((XPtrV *wp, char *start, char *exp_start,
 #endif
 
 /* compile and expand word */
-int8_t *
+char *
 substitute(cp, f)
-	const int8_t *cp;
+	const char *cp;
 	int f;
 {
 	struct source *s, *sold;
@@ -155,11 +155,11 @@ evalonestr(cp, f)
 
 /* for nested substitution: ${var:=$var2} */
 typedef struct SubType {
-	int16_t	stype;		/* [=+-?%#] action after expanded word */
-	int16_t	base;		/* begin position of expanded word */
-	int16_t	f;		/* saved value of f (DOPAT, etc) */
+	short	stype;		/* [=+-?%#] action after expanded word */
+	short	base;		/* begin position of expanded word */
+	short	f;		/* saved value of f (DOPAT, etc) */
 	struct tbl *var;	/* variable for ${var..} */
-	int16_t	quote;		/* saved value of quote (for ${..[%#]..}) */
+	short	quote;		/* saved value of quote (for ${..[%#]..}) */
 	struct SubType *prev;	/* old type */
 	struct SubType *next;	/* poped type (to avoid re-allocating) */
 } SubType;

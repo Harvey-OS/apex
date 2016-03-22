@@ -20,12 +20,12 @@ getpid(void)
 	int n, f;
 	char pidbuf[15];
 
-	f = open("#c/pid", 0);
+	f = _OPEN("#c/pid", 0);
 	n = read(f, pidbuf, sizeof pidbuf);
 	if(n < 0)
 		_syserrno();
 	else
 		n = atoi(pidbuf);
-	close(f);
+	_CLOSE(f);
 	return n;
 }
