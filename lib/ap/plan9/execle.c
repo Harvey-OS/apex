@@ -10,11 +10,11 @@
 #include <unistd.h>
 
 int
-execle(const char *name, char * const arg0, const char *c, ...)
+execle(const char *name, const char *arg0, ...)
 {
 	char *p;
 
 	for(p=(char *)(&name)+1; *p; )
 		p++;
-	return execve(name, &arg0, (const char **)p+1);
+	return execve(name, &arg0, (char **)p+1);
 }

@@ -24,10 +24,10 @@ time(time_t *tp)
 	time_t t;
 
 	memset(b, 0, sizeof(b));
-	f = open("/dev/time", 0);
+	f = _OPEN("/dev/time", 0);
 	if(f >= 0) {
 		pread(f, b, sizeof(b), 0);
-		close(f);
+		_CLOSE(f);
 	}
 	t = atol(b);
 	if(tp)

@@ -10,7 +10,7 @@ _start:
 	call	_envsetup
 	movq	0(%rsp), %rdi
 	leaq	8(%rsp), %rsi
-	movq	$environ, %rbx
+	movq	environ, %rbx
 	call	main
 
 loop:

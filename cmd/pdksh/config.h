@@ -138,7 +138,7 @@
 /* #undef HAVE_GCC_FUNC_ATTR */
 
 /* Define to 32-bit signed integer type if <sys/types.h> doesn't define */
-#define clock_t long
+/*#undef clock_t long */
 
 /* Define to the type of struct rlimit fields if the rlim_t type is missing */
 #define rlim_t long
@@ -285,10 +285,10 @@
 /* #undef HAVE_SETRLIMIT */
 
 /* Define if you have the sigsetjmp function.  */
-#define HAVE_SIGSETJMP
+#define HAVE_SIGSETJMP 1
 
 /* Define if you have the strcasecmp function.  */
-/* #undef HAVE_STRCASECMP */
+#define HAVE_STRCASECMP 1
 
 /* Define if you have the strerror function.  */
 #define HAVE_STRERROR
