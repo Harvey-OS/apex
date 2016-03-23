@@ -1,6 +1,6 @@
 language: c
 script:
-- if [ "${COVERITY_SCAN_BRANCH}" != 1 ]; then ./util/continuous-build.sh; fi
+- make all
 compiler:
 - gcc-4.8
 env:
