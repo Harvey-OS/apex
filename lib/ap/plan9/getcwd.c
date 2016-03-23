@@ -22,17 +22,17 @@ getcwd(char *buf, size_t len)
 {
 	int fd;
 
-	fd = open(".", OREAD);
+	fd = _OPEN(".", OREAD);
 	if(fd < 0) {
 		errno = EACCES;
 		return 0;
 	}
 	if(fd2path(fd, buf, len) < 0) {
 		errno = EIO;
-		close(fd);
+		_CLOSE(fd);
 		return 0;
 	}
-	close(fd);
+	_CLOSE(fd);
 
 /* RSC: is this necessary? */
 	if(buf[0] == '\0')
