@@ -14,10 +14,10 @@
 #include <signal.h>
 #include "sys9.h"
 
-extern const char **environ;
+extern char **environ;
 
 int
-execve(const char *name, char * const argv[], const char *envp[])
+execve(const char *name, const char *argv[], char *envp[])
 {
 	int n, f, i;
 	char **e, *ss, *se;
@@ -39,7 +39,7 @@ execve(const char *name, char * const argv[], const char *envp[])
 		fi = &_fdinfo[n];
 		flags = fi->flags;
 		if(flags&FD_CLOEXEC){
-			close(n);
+			_CLOSE(n);
 			fi->flags = 0;
 			fi->oflags = 0;
 		}else if(flags&FD_ISOPEN){
@@ -57,7 +57,7 @@ execve(const char *name, char * const argv[], const char *envp[])
 	}
 	if(ss > buf)
 		write(f, buf, ss-buf);
-	close(f);
+	_CLOSE(f);
 	/*
 	 * To pass _sighdlr[] across exec, set $_sighdlr
 	 * to list of blank separated fd's that have
@@ -76,7 +76,7 @@ execve(const char *name, char * const argv[], const char *envp[])
 			}
 		}
 		write(f, buf, ss-buf);
-		close(f);
+		_CLOSE(f);
 	}
 	if(envp){
 		strcpy(nam, "#e/");
@@ -103,7 +103,7 @@ execve(const char *name, char * const argv[], const char *envp[])
 			for(i=0; i < n; i++)
 				if(se[i] == 0)
 					se[i] = 1;
-			close(f);
+			_CLOSE(f);
 		}
 	}
 	n = exec(name, argv);

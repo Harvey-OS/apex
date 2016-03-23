@@ -138,9 +138,9 @@ execute(t, flags)
 	flags &= ~XTIME;
 
 	if (t->ioact != NULL || t->type == TPIPE || t->type == TCOPROC) {
-		e->savefd = (int16_t *) alloc(sizeofN(int16_t, NUFILE), ATEMP);
+		e->savefd = (short *) alloc(sizeofN(short, NUFILE), ATEMP);
 		/* initialize to not redirected */
-		memset(e->savefd, 0, sizeofN(int16_t, NUFILE));
+		memset(e->savefd, 0, sizeofN(short, NUFILE));
 	}
 
 	/* do redirection, to be restored in quitenv() */

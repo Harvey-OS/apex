@@ -62,11 +62,11 @@ _IOUNIT(int fd)
 	char buf[128], *args[10];
 
 	snprint(buf, sizeof buf, "#d/%dctl", fd);
-	cfd = open(buf, OREAD);
+	cfd = _OPEN(buf, OREAD);
 	if(cfd < 0)
 		return 0;
 	i = read(cfd, buf, sizeof buf-1);
-	close(cfd);
+	_CLOSE(cfd);
 	if(i <= 0)
 		return 0;
 	buf[i] = '\0';

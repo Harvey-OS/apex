@@ -16,10 +16,10 @@
  * just try prepending /bin/ if name fails...
  */
 
-extern const char **environ;
+extern char **environ;
 
 int
-execlp(char * const name, char * const arg0, ...)
+execlp(const char *name, const char *arg0, ...)
 {
 	int n;
 	char buf[PATH_MAX];

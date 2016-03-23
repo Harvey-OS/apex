@@ -33,7 +33,7 @@ c_shift(wp)
 {
 	register struct block *l = e->loc;
 	register int n;
-	int32_t val;
+	long val;
 	char *arg;
 
 	if (ksh_getopt(wp, &builtin_opt, null) == '?')

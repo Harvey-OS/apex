@@ -92,12 +92,12 @@ extern "C" {
 #endif
 
 /* process primitives */
-extern int execl(const char *, char * const , ...);
-extern int execv(const char *, char * const *);
-extern int execle(const char *, char * const, const char *,  ...);
-extern int execve(const char *, char * const *, const char **);
-extern int execlp(char * const, char * const , ...);
-extern int execvp(const char *, char * const *);
+extern int execl(const char *, const char * , ...);
+extern int execv(const char *, const char **);
+extern int execle(const char *, const char *,  ...);
+extern int execve(const char *, const char **, char**);
+extern int execlp(const char *, const char *, ...);
+extern int execvp(const char *, const char **);
 extern void _exit(int);
 extern unsigned int alarm(unsigned int);
 extern int pause(void);

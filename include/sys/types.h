@@ -35,7 +35,7 @@ typedef long int time_t;
 
 #ifndef _CLOCK_T
 #define _CLOCK_T
-typedef signed int clock_t;
+typedef long int clock_t;
 #endif
 
 #ifdef _BSD_EXTENSION

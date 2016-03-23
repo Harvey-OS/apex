@@ -15,7 +15,7 @@
 
 /* fi is non-null if there is an fd associated with s */
 void
-_dirtostat(struct stat *s, Dir *d, Fdinfo *fi)
+dirtostat(struct stat *s, Dir *d, Fdinfo *fi)
 {
 	int num;
 	char *nam;

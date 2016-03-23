@@ -74,10 +74,10 @@ good:
 	if(pow < CUTOFF) {
 		n = (CUTOFF-pow)+2;
 		bp = sbrk(size*n);
-		if((uint)bp == -1)
+		if((intptr_t)bp == -1)
 			return nil;
 
-		next = (int)bp+size;
+		next = (uint)bp+size;
 		nbp = (Bucket*)next;
 		arena.btab[pow] = nbp;
 		for(n -= 2; n; n--) {
@@ -90,7 +90,7 @@ good:
 	}
 	else {
 		bp = sbrk(size);
-		if((uint)bp == -1)
+		if((intptr_t)bp == -1)
 			return nil;
 	}
 
