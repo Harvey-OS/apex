@@ -1,4 +1,4 @@
-include ../../../Makefile.inc
+include ../../../$(OS).inc
 
 TARGET = libap.a
 SRCS = $(wildcard *.c)
