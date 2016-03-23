@@ -12,7 +12,7 @@ all: $(TARGET) clean
 	$(CC) $(CFLAGS) -c $(SRCS)
 
 $(TARGET): $(OBJ)
-	ar rcs ${LIB}/$@ $^
+	ar rcs ${APEXLIB}/$@ $^
 
 clean:
 	rm -f $(OBJ)
