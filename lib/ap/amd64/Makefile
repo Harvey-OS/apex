@@ -28,7 +28,7 @@ all: $(TARGET) clean
 	$(CC) $(CFLAGS) -c $(SRCSS) || exit 1
 
 $(TARGET): $(OBJ) $(OBJS) $(OBJSS)
-	ar rcs ${LIB}/$@ $^
+	ar rcs ${APEXLIB}/$@ $^
 
 clean:
 	rm -f *.o

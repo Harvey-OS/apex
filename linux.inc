@@ -2,18 +2,16 @@
 
 SHELL=/bin/bash
 
-mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
-current_dir := $(patsubst %/,%,$(dir $(mkfile_path)))
-HARVEY=$(current_dir)
-
-BIN=${HARVEY}/${ARCH}/bin
-LIB=${HARVEY}/${ARCH}/lib
+HARVEYBIN=${HARVEY}/${ARCH}/bin
+HARVEYLIB=${HARVEY}/${ARCH}/lib
+APEXLIB=${APEX}/${ARCH}/lib
+APEXBIN=${APEX}/${ARCH}/bin
 AS=as
 CC=gcc
 LD=ld
 
-IDIR=${HARVEY}/include
-IOBJDIR=${HARVEY}/${ARCH}/include
+IDIR=${APEX}/include
+IOBJDIR=${APEX}/${ARCH}/include
 
 CFLAGS= -std=c99 -O0 -static -mno-red-zone -ffreestanding -nostdinc -nostdlib -fno-builtin -D_SUSV2_SOURCE -D_POSIX_SOURCE -D_LIMITS_EXTENSION ${WFLAGS} -g -I${IDIR} -I${IOBJDIR}
 

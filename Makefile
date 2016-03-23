@@ -3,11 +3,11 @@ include $(OS).inc
 DIRS=lib
 
 all:
-	mkdir -p $(LIB)
+	mkdir -p $(APEXLIB)
 	@cd $(DIRS) && $(MAKE)
 	@echo "Done!"
 
 travis:
-	mkdir -p $(LIB)
+	mkdir -p $(APEXLIB)
 	@cd $(DIRS) && $(MAKE)
 	@echo "Done!"
