@@ -1,4 +1,4 @@
-include ../../Makefile.inc
+include ../../$(OS).inc
 
 TARGET = libbsd.a
 SRCS = $(wildcard *.c)

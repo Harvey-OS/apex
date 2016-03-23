@@ -1,4 +1,4 @@
-include ../../../Makefile.inc
+include ../../../$(OS).inc
 
 CFLAGS += -I../internal
 CP = cp
