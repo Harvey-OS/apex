@@ -1,4 +1,4 @@
-include ../../../$(OS).inc
+include $(APEX)/$(OS).inc
 
 CFLAGS += -I../internal
 CP = cp

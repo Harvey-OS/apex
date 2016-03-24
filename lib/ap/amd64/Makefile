@@ -1,4 +1,4 @@
-include ../../../$(OS).inc
+include $(APEX)/$(OS).inc
 
 TARGET = libap.a
 SRCS =\
