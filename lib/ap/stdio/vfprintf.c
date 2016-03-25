@@ -211,6 +211,7 @@ vfprintf(FILE *f, const char *s, va_list args)
 			flags |= tfl;
 			s++;
 		}
+		/* this is crap. s is signed. */
 		if(ocvt[*s]) nprint += (*ocvt[*s++])(f, &arg, flags, width, precision);
 		else if(*s){
 			putc(*s++, f);

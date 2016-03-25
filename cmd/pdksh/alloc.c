@@ -41,6 +41,7 @@ union Cell {
 	size_t	size;
 	Cell   *next;
 	Block  *block;
+#warning "chck this alignment"
 	struct {int _;} junk;	/* alignment */
 	double djunk;		/* alignment */
 };
@@ -60,8 +61,7 @@ static void *asplit ARGS((Area *ap, Block *bp, Cell *fp, Cell *fpp, int cells));
 
 /* create empty Area */
 Area *
-ainit(ap)
-	register Area *ap;
+ainit( register Area *ap)
 {
 	ap->freelist = &aempty;
 	ACHECK(ap);
@@ -70,8 +70,7 @@ ainit(ap)
 
 /* free all object in Area */
 void
-afreeall(ap)
-	register Area *ap;
+afreeall( register Area *ap)
 {
 	register Block *bp;
 	register Block *tmp;
@@ -91,9 +90,7 @@ afreeall(ap)
 
 /* allocate object from Area */
 void *
-alloc(size, ap)
-	size_t size;
-	register Area *ap;
+alloc( size_t size, register Area *ap)
 {
 	int cells, acells;
 	Block *bp = 0;

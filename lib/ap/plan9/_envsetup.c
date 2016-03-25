@@ -26,7 +26,15 @@
  *
  * Also, register the note handler.
  */
-
+//#define HACK
+#ifdef HACK
+struct Dir hack[] = {
+	{.name="hi", .length=8}, 
+	{.name="there", .length=2},
+	{.name="nohandle", .length=3},
+};
+char *data[] = {"12345678", "fa", "yes"};
+#endif
 char **environ;
 int errno;
 unsigned long _clock;
@@ -61,8 +69,13 @@ _envsetup(void)
 	if(p == 0)
 		return;
 	psize = Envhunk;
+#ifdef HACK
+	nd = 3;
+	d9a = hack;
+#else
 	nd = _dirreadall(dfd, &d9a);
 	_CLOSE(dfd);
+#endif
 	for(j=0; j<nd; j++){
 		d9 = &d9a[j];
 		n = strlen(d9->name);
@@ -74,7 +87,9 @@ _envsetup(void)
 			psize += (n+m+2 < Envhunk)? Envhunk : n+m+2;
 			ps = realloc(ps, psize);
 			if (ps == 0) {
+#ifndef HACK
 				free(d9a);
+#endif
 				return;
 			}
 			p = ps + i;
@@ -82,10 +97,14 @@ _envsetup(void)
 		memcpy(p, d9->name, n);
 		p[n] = '=';
 		strcpy(name+3, d9->name);
+#ifdef HACK
+		memcpy(name, &data[i], m);
+#else
 		f = _OPEN(name, O_RDONLY);
 		if(f < 0 || read(f, p+n+1, m) != m)
 			m = 0;
 		_CLOSE(f);
+#endif
 		if(p[n+m] == 0)
 			m--;
 		for(i=0; i<m; i++)
@@ -102,7 +121,9 @@ _envsetup(void)
 		p += n+m+2;
 		cnt++;
 	}
+#ifndef HACK
 	free(d9a);
+#endif
 	if(!fdinited)
 		_fdinit(0, 0);
 	pp = malloc((1+cnt)*sizeof(char *));

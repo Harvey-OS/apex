@@ -26,11 +26,11 @@ static uint64_t order = 0x0001020304050607ULL;
 static void
 be2vlong(int64_t *to, char *f)
 {
-	char *t, *o;
+	unsigned char *t, *o;
 	int i;
 
-	t = (char*)to;
-	o = (char*)&order;
+	t = (unsigned char*)to;
+	o = (unsigned char*)&order;
 	for(i = 0; i < 8; i++)
 		t[o[i]] = f[i];
 }

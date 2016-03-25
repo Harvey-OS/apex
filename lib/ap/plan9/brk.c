@@ -11,6 +11,7 @@
 #include <errno.h>
 #include "sys9.h"
 
+/* this is crap because end is assumed to have one element. */
 char	end[];
 static	char	*bloc = { end };
 extern	int	brk_(void*);
