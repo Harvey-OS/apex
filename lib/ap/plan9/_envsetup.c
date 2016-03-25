@@ -53,7 +53,7 @@ _envsetup(void)
 	char **pp;
 	char name[NAME_MAX+5];
 	Dir *d9, *d9a;
-
+return;
 	nohandle = 0;
 	fdinited = 0;
 	cnt = 0;

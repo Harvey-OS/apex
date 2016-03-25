@@ -14,7 +14,7 @@
 #include "sh.h"
 
 
-
+#define DEBUG_ALLOC 1
 # if DEBUG_ALLOC
 void acheck ARGS((Area *ap));
 #  define ACHECK(ap)	acheck(ap)
@@ -61,7 +61,7 @@ static void *asplit ARGS((Area *ap, Block *bp, Cell *fp, Cell *fpp, int cells));
 
 /* create empty Area */
 Area *
-ainit( register Area *ap)
+ainit(  Area *ap)
 {
 	ap->freelist = &aempty;
 	ACHECK(ap);
@@ -70,10 +70,10 @@ ainit( register Area *ap)
 
 /* free all object in Area */
 void
-afreeall( register Area *ap)
+afreeall(  Area *ap)
 {
-	register Block *bp;
-	register Block *tmp;
+	 Block *bp;
+	 Block *tmp;
 
 	ACHECK(ap);
 	bp = ap->freelist;
@@ -90,12 +90,11 @@ afreeall( register Area *ap)
 
 /* allocate object from Area */
 void *
-alloc( size_t size, register Area *ap)
+alloc( size_t size,  Area *ap)
 {
 	int cells, acells;
 	Block *bp = 0;
 	Cell *fp = 0, *fpp = 0;
-
 	ACHECK(ap);
 	if (size <= 0)
 		aerror(ap, "allocate bad size");
@@ -156,12 +155,7 @@ alloc( size_t size, register Area *ap)
  * objects.  Returns the `allocated' object.
  */
 static void *
-asplit(ap, bp, fp, fpp, cells)
-	Area *ap;
-	Block *bp;
-	Cell *fp;
-	Cell *fpp;
-	int cells;
+asplit( Area *ap, Block *bp, Cell *fp, Cell *fpp, int cells)
 {
 	Cell *dp = fp;	/* allocated object */
 	int split = (fp-1)->size - cells;
@@ -190,10 +184,7 @@ asplit(ap, bp, fp, fpp, cells)
 
 /* change size of object -- like realloc */
 void *
-aresize(ptr, size, ap)
-	register void *ptr;
-	size_t size;
-	Area *ap;
+aresize(  void *ptr, size_t size, Area *ap)
 {
 	int cells;
 	Cell *dp = (Cell*) ptr;
@@ -328,11 +319,11 @@ aresize(ptr, size, ap)
 void
 afree(ptr, ap)
 	void *ptr;
-	register Area *ap;
+	 Area *ap;
 {
-	register Block *bp;
-	register Cell *fp, *fpp;
-	register Cell *dp = (Cell*)ptr;
+	 Block *bp;
+	 Cell *fp, *fpp;
+	 Cell *dp = (Cell*)ptr;
 
 	ACHECK(ap);
 	if (ptr == 0)
@@ -386,9 +377,7 @@ afree(ptr, ap)
 }
 
 static void
-ablockfree(bp, ap)
-	Block *bp;
-	Area *ap;
+ablockfree( Block *bp, Area *ap)
 {
 	/* NOTE: If this code changes, similar changes may be
 	 * needed in alloc() (where realloc fails).
@@ -407,8 +396,7 @@ ablockfree(bp, ap)
 
 # if DEBUG_ALLOC
 void
-acheck(ap)
-	Area *ap;
+acheck( Area *ap)
 {
 	Block *bp, *bpp;
 	Cell *dp, *dptmp, *fp;
@@ -443,7 +431,8 @@ acheck(ap)
 		fp = bp->freelist;
 		for (dp = &bp->cell[NOBJECT_FIELDS]; dp != bp->last; ) {
 			if ((dp-2)->block != bp) {
-				shellf("acheck: fragment's block is wrong\n");
+				printf("CHECK gp %p \n", bp);
+				shellf("acheck: fragment's block is wrong: want %p, got %p\n", bp, (dp-2)->block);
 				ok = 0;
 			}
 			isfree = dp == fp;
@@ -504,10 +493,7 @@ acheck(ap)
 }
 
 void
-aprint(ap, ptr, size)
-	register Area *ap;
-	void *ptr;
-	size_t size;
+aprint( Area *ap, void *ptr, size_t size)
 {
 	Block *bp;
 
