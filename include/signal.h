@@ -65,7 +65,7 @@ extern int raise(int);
 
 typedef long sigset_t;
 struct sigaction {
-	void		(*sa_handler)(void);
+	void		(*sa_handler)(int, char*, void*);
 	sigset_t	sa_mask;
 	int		sa_flags;
 };

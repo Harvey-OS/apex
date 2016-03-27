@@ -11,7 +11,7 @@
 #include <string.h>
 #include <inttypes.h>
 
-typedef unsigned int	uint;
+typedef unsigned 	long uint;
 
 enum
 {
@@ -37,15 +37,30 @@ struct Arena
 };
 static Arena arena;
 
-#define datoff		((int)((Bucket*)0)->data)
+#define datoff		((uint)((Bucket*)0)->data)
 #define nil		((void*)0)
 
+/* we can remove this HACK when we are done debugging. */
+//#define HACK
+#ifdef HACK
+static void *sbrk(unsigned long incr)
+{
+	static char arena[1048576];
+	static void *v = arena;
+	void *retval;
+
+	retval = v;
+	v += incr;
+	return retval;
+}
+#else
 extern	void	*sbrk(unsigned long);
+#endif
 
 void*
 malloc(size_t size)
 {
-	uint next;
+	uintptr_t next;
 	int pow, n;
 	Bucket *bp, *nbp;
 
@@ -104,6 +119,7 @@ void
 free(void *ptr)
 {
 	Bucket *bp, **l;
+	if (sizeof(uint) != 8) { char cp = *(char *)nil;}
 
 	if(ptr == nil)
 		return;

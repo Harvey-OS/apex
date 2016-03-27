@@ -47,6 +47,7 @@ enum {
 	NT1BITS = 11,
 	NSHFT = 5,
 	NCSHFT = NSHFT + 1,
+	/* this is crap -- it overflows. */
 	WCHARMSK = (1<< (8*MB_LEN_MAX - 1)) - 1,
 };
 

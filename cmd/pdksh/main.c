@@ -92,6 +92,7 @@ main(argc, argv)
 	int argc;
 	register char **argv;
 {
+void acheck(Area *p);
 	register int i;
 	int argi;
 	Source *s;
@@ -124,6 +125,7 @@ main(argc, argv)
 
 	ainit(&aperm);		/* initialize permanent Area */
 
+acheck(&aperm);
 	/* set up base enviroment */
 	memset(&env, 0, sizeof(env));
 	env.type = E_NONE;
@@ -133,33 +135,45 @@ main(argc, argv)
 
 	/* Do this first so output routines (eg, errorf, shellf) can work */
 	initio();
+acheck(&aperm);
 
 	initvar();
+acheck(&aperm);
 
 	initctypes();
+acheck(&aperm);
 
 	inittraps();
-
+acheck(&aperm);
+{ void *p = alloc(128, APERM); afree(p, APERM); }
 #ifdef KSH
 	coproc_init();
 #endif /* KSH */
 
 	/* set up variable and command dictionaries */
 	tinit(&taliases, APERM, 0);
+acheck(&aperm);
 	tinit(&aliases, APERM, 0);
+acheck(&aperm);
 	tinit(&homedirs, APERM, 0);
+acheck(&aperm);
 
 	/* define shell keywords */
 	initkeywords();
 
+acheck(&aperm);
 	/* define built-in commands */
 	tinit(&builtins, APERM, 64); /* must be 2^n (currently 40 builtins) */
+acheck(&aperm);
 	for (i = 0; shbuiltins[i].name != NULL; i++)
 		builtin(shbuiltins[i].name, shbuiltins[i].func);
+acheck(&aperm);
 	for (i = 0; kshbuiltins[i].name != NULL; i++)
 		builtin(kshbuiltins[i].name, kshbuiltins[i].func);
+acheck(&aperm);
 
 	init_histvec();
+acheck(&aperm);
 
 	def_path = DEFAULT__PATH;
 #if defined(HAVE_CONFSTR) && defined(_CS_PATH)
@@ -542,6 +556,7 @@ shell(s, toplevel)
 	volatile int interactive = Flag(FTALKING) && toplevel;
 	int i;
 
+open("SHELL!", 0);
 	newenv(E_PARSE);
 	if (interactive)
 		really_exit = 0;

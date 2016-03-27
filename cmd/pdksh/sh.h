@@ -15,12 +15,7 @@
 
 #include "config.h"	/* system and option configuration info */
 
-#ifdef HAVE_PROTOTYPES
 # define	ARGS(args)	args	/* prototype declaration */
-#else
-# define	ARGS(args)	()	/* K&R declaration */
-#endif
-
 
 /* Start of common headers */
 
