@@ -108,7 +108,7 @@ _startbuf(int fd)
 		notify(copynotehandler);
 		for(i=0; i<OPEN_MAX; i++)
 			if(i!=fd && (_fdinfo[i].flags&FD_ISOPEN))
-				_CLOSE(i);
+				close(i);
 		rendezvous(0, _muxsid);
 		_copyproc(fd, b);
 	}
@@ -403,7 +403,7 @@ _timerproc(void)
 		setpgid(getpid(), _muxsid);
 		signal(SIGALRM, alarmed);
 		for(i=0; i<OPEN_MAX; i++)
-				_CLOSE(i);
+				close(i);
 		rendezvous(1, 0);
 		for(;;) {
 			sleep(mux->waittime);

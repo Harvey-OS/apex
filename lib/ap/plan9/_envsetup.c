@@ -50,7 +50,7 @@ _envsetup(void)
 	fdinited = 0;
 	cnt = 0;
 	strcpy(name, "#e");
-	dfd = _OPEN(name, 0);
+	dfd = open(name, 0);
 	if(dfd < 0){
 		environ = malloc(sizeof(char**));
 		*environ = NULL;
@@ -62,7 +62,7 @@ _envsetup(void)
 		return;
 	psize = Envhunk;
 	nd = _dirreadall(dfd, &d9a);
-	_CLOSE(dfd);
+	close(dfd);
 	for(j=0; j<nd; j++){
 		d9 = &d9a[j];
 		n = strlen(d9->name);
@@ -82,10 +82,10 @@ _envsetup(void)
 		memcpy(p, d9->name, n);
 		p[n] = '=';
 		strcpy(name+3, d9->name);
-		f = _OPEN(name, O_RDONLY);
+		f = open(name, O_RDONLY);
 		if(f < 0 || read(f, p+n+1, m) != m)
 			m = 0;
-		_CLOSE(f);
+		close(f);
 		if(p[n+m] == 0)
 			m--;
 		for(i=0; i<m; i++)
