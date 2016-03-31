@@ -33,20 +33,20 @@ typedef
 struct Qid
 {
 	uvlong	path;
-	unsigned long	vers;
+	uint32_t	vers;
 	uchar	type;
 } Qid;
 
 typedef
 struct Dir {
 	/* system-modified data */
-	ushort	type;	/* server type */
+	uint16_t	type;	/* server type */
 	uint	dev;	/* server subtype */
 	/* file data */
 	Qid	qid;	/* unique id from server */
-	unsigned long	mode;	/* permissions */
-	unsigned long	atime;	/* last read time */
-	unsigned long	mtime;	/* last write time */
+	uint32_t	mode;	/* permissions */
+	uint32_t	atime;	/* last read time */
+	uint32_t	mtime;	/* last write time */
 	vlong	length;	/* file length: see <u.h> */
 	char	*name;	/* last element of path */
 	char	*uid;	/* owner name */
