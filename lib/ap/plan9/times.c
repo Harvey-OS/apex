@@ -33,7 +33,7 @@ times(struct tms *buf)
 {
 	char b[200], *p;
 	int f;
-	unsigned long r;
+	uint32_t r;
 
 	memset(b, 0, sizeof(b));
 	f = open("/dev/cputime", O_RDONLY);

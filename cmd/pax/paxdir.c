@@ -73,7 +73,7 @@
 /* NOTE:  not MAXNAMLEN, which has been preempted by SVR3 <dirent.h> */
 
 struct direct {			/* data from read()/_getdirentries() */
-    unsigned long   d_fileno;	/* unique ident of entry */
+    uint32_t   d_fileno;	/* unique ident of entry */
     unsigned short  d_reclen;	/* length of this record */
     unsigned short  d_namlen;	/* length of string in d_name */
     char            d_name[MAXNAMELEN + 1];	/* NUL-terminated filename */
@@ -604,7 +604,7 @@ unsigned        nbyte;		/* size of buf[] */
 
     if (buf == (char *)NULL
 #ifdef ATT_SPEC
-	|| (unsigned long) buf % sizeof(int32_t) != 0	/* ugh */
+	|| (uint32_t) buf % sizeof(int32_t) != 0	/* ugh */
 #endif
 	) {
 	errno = EFAULT;		/* invalid pointer */
@@ -623,7 +623,7 @@ unsigned        nbyte;		/* size of buf[] */
     }
 
 #ifdef BFS			/* no telling what remote hosts do */
-    if ((unsigned long) offset % DIRBLKSIZ != 0) {
+    if ((uint32_t) offset % DIRBLKSIZ != 0) {
 	errno = ENOENT;		/* file pointer probably misaligned */
 	return -1;
     }

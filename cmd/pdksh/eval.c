@@ -744,7 +744,7 @@ varsub(xp, sp, word, stypep, slenp)
 		if (Flag(FNOUNSET) && c == 0 && !zero_ok)
 			errorf("%s: parameter not set", sp);
 		*stypep = 0; /* unqualified variable/string substitution */
-		xp->str = str_save(ulton((unsigned long)c, 10), ATEMP);
+		xp->str = str_save(ulton((uint32_t)c, 10), ATEMP);
 		return XSUB;
 	}
 

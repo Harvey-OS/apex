@@ -22,7 +22,7 @@ int h_errno;
 struct hostent*
 gethostbyaddr(const void *addr, socklen_t len, int type)
 {
-	unsigned long y;
+	uint32_t y;
 	struct in_addr x;
 	const unsigned char *p = addr;
 

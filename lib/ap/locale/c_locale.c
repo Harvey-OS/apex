@@ -1,7 +1,7 @@
 #include "locale_impl.h"
 #include <stdint.h>
 
-static const unsigned long empty_mo[] = { 0x950412de, 0, -1, -1, -1 };
+static const uint32_t empty_mo[] = { 0x950412de, 0, -1, -1, -1 };
 
 const struct __locale_map __c_dot_utf8 = {
 	.map = empty_mo,

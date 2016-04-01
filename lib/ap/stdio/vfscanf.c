@@ -216,7 +216,7 @@ Done:
 			case 'h': *va_arg(*args, unsigned short *)=num*sign; break;
 			case 'n': *va_arg(*args, unsigned int *)=num*sign; break;
 			case 'l':
-			case 'L': *va_arg(*args, unsigned long *)=num*sign; break;
+			case 'L': *va_arg(*args, uint32_t *)=num*sign; break;
 			}
 			break;
 		case POINTER:

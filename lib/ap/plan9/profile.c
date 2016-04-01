@@ -26,18 +26,18 @@ enum {
 }; /* what */
 
 typedef long long vlong;
-typedef unsigned long ulong;
+typedef uint32_t ulong;
 typedef unsigned long long uvlong;
 
 #include	"tos.h"
 
-extern	void*	sbrk(unsigned long);
+extern	void*	sbrk(uint32_t);
 extern	long	_callpc(void**);
 extern	long	_savearg(void);
 extern	void	_cycles(uint64_t*);	/* 64-bit value of the cycle counter if there is one, 0 if there isn't */
 
-static unsigned long	khz;
-static unsigned long	perr;
+static uint32_t	khz;
+static uint32_t	perr;
 static int	havecycles;
 
 typedef	struct	Plink	Plink;
@@ -53,13 +53,13 @@ struct	Plink
 
 #pragma profile off
 
-unsigned long
+uint32_t
 _profin(void)
 {
 	void *dummy;
 	long pc;
 	Plink *pp, *p;
-	unsigned long arg;
+	uint32_t arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -109,11 +109,11 @@ out:
 	return arg;		/* disgusting linkage */
 }
 
-unsigned long
+uint32_t
 _profout(void)
 {
 	Plink *p;
-	unsigned long arg;
+	uint32_t arg;
 	int64_t t;
 
 	arg = _savearg();

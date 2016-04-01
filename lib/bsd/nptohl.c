@@ -7,11 +7,11 @@
  * in the LICENSE file.
  */
 
-unsigned long
+uint32_t
 nptohl(void *p)
 {
 	unsigned char *up;
-	unsigned long x;
+	uint32_t x;
 
 	up = p;
 	x = (up[0]<<24)|(up[1]<<16)|(up[2]<<8)|up[3];

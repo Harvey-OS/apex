@@ -7,10 +7,10 @@
  * in the LICENSE file.
  */
 
-unsigned long
-ntohl(unsigned long x)
+uint32_t
+ntohl(uint32_t x)
 {
-	unsigned long n;
+	uint32_t n;
 	unsigned char *p;
 
 	n = x;
@@ -18,10 +18,10 @@ ntohl(unsigned long x)
 	return (p[0]<<24)|(p[1]<<16)|(p[2]<<8)|p[3];
 }
 
-unsigned long
-htonl(unsigned long h)
+uint32_t
+htonl(uint32_t h)
 {
-	unsigned long n;
+	uint32_t n;
 	unsigned char *p;
 
 	p = (unsigned char*)&n;

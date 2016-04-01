@@ -61,7 +61,7 @@ long long wcstoll(const wchar_t *restrict s, wchar_t **restrict p, int base)
 	return wcstox(s, p, base, LLONG_MIN);
 }
 
-unsigned long wcstoul(const wchar_t *restrict s, wchar_t **restrict p, int base)
+uint32_t wcstoul(const wchar_t *restrict s, wchar_t **restrict p, int base)
 {
 	return wcstox(s, p, base, ULONG_MAX);
 }

@@ -8,6 +8,6 @@
  */
 
 void
-setmalloctag(void*, unsigned long)
+setmalloctag(void*, uint32_t)
 {
 }

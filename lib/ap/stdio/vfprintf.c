@@ -329,7 +329,7 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 		sign = "";
 		if(flags&PTR) num = (int64_t)va_arg(*args, void *);
 		else if(flags&SHORT) num = va_arg(*args, unsigned int);
-		else if(flags&LONG) num = va_arg(*args, unsigned long);
+		else if(flags&LONG) num = va_arg(*args, uint32_t);
 		else if(flags&VLONG) num = va_arg(*args, unsigned long long);
 		else num = va_arg(*args, unsigned int);
 	}

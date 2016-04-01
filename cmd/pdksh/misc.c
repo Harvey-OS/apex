@@ -70,7 +70,7 @@ initctypes()
 
 char *
 ulton(n, base)
-	register unsigned long n;
+	register uint32_t n;
 	int base;
 {
 	register char *p;

@@ -3192,7 +3192,7 @@ re_compile_fastmap (bufp)
 
   register char *fastmap = bufp->fastmap;
   unsigned char *pattern = bufp->buffer;
-  unsigned long size = bufp->used;
+  uint32_t size = bufp->used;
   unsigned char *p = pattern;
   register unsigned char *pend = pattern + size;
 

@@ -9,10 +9,10 @@
 
 #include <lib9.h>
 
-extern	int	_SEGFLUSH(void*, unsigned long);
+extern	int	_SEGFLUSH(void*, uint32_t);
 
 int
-segflush(void *va, unsigned long len)
+segflush(void *va, uint32_t len)
 {
 	return _SEGFLUSH(va, len);
 }

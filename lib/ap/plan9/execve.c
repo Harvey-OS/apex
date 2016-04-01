@@ -12,6 +12,7 @@
 #include <errno.h>
 #include <string.h>
 #include <signal.h>
+#include <stdint.h>
 #include "sys9.h"
 
 extern char **environ;
@@ -22,7 +23,7 @@ execve(const char *name, const char *argv[], char *envp[])
 	int n, f, i;
 	char **e, *ss, *se;
 	Fdinfo *fi;
-	unsigned long flags;
+	uint32_t flags;
 	char nam[256+5];
 	char buf[1000];
 

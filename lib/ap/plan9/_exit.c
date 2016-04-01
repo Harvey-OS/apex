@@ -13,6 +13,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdint.h>
 
 int _finishing = 0;
 int _sessleader = 0;

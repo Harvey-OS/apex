@@ -9,10 +9,10 @@
 
 #include <lib9.h>
 
-extern	unsigned long	_RENDEZVOUS(unsigned long, unsigned long);
+extern	uint32_t	_RENDEZVOUS(uint32_t, uint32_t);
 
-unsigned long
-rendezvous(unsigned long tag, unsigned long value)
+uint32_t
+rendezvous(uint32_t tag, uint32_t value)
 {
 	return _RENDEZVOUS(tag, value);
 }

@@ -10,6 +10,7 @@
 #define _RESEARCH_SOURCE
 #include <stdlib.h>
 #include <libv.h>
+#include <stdint.h>
 /*
 	random number generator from cacm 31 10, oct 88
 	for 32 bit integers (called long here)

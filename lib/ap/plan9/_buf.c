@@ -21,6 +21,7 @@
 #include <sys/time.h>
 #include <sys/select.h>
 #include <unistd.h>
+#include <stdint.h>
 #include "sys9.h"
 
 typedef struct Muxseg {
@@ -162,7 +163,7 @@ _copyproc(int fd, Muxbuf *b)
 				/* sleep until there's room */
 				b->roomwait = 1;
 				unlock(&mux->lock);
-				rendezvous((unsigned long)&b->roomwait, 0);
+				rendezvous((uintptr_t)&b->roomwait, 0);
 			}
 		} else
 			unlock(&mux->lock);
@@ -184,15 +185,15 @@ _copyproc(int fd, Muxbuf *b)
 			if(mux->selwait && FD_ISSET(fd, &mux->ewant)) {
 				mux->selwait = 0;
 				unlock(&mux->lock);
-				rendezvous((unsigned long)&mux->selwait, fd);
+				rendezvous((uintptr_t)&mux->selwait, fd);
 			} else if(b->datawait) {
 				b->datawait = 0;
 				unlock(&mux->lock);
-				rendezvous((unsigned long)&b->datawait, 0);
+				rendezvous((uintptr_t)&b->datawait, 0);
 			} else if(mux->selwait && FD_ISSET(fd, &mux->rwant)) {
 				mux->selwait = 0;
 				unlock(&mux->lock);
-				rendezvous((unsigned long)&mux->selwait, fd);
+				rendezvous((uintptr_t)&mux->selwait, fd);
 			} else
 				unlock(&mux->lock);
 			_exit(0);
@@ -205,12 +206,13 @@ _copyproc(int fd, Muxbuf *b)
 					b->datawait = 0;
 					unlock(&mux->lock);
 					/* wake up _bufreading process */
-					rendezvous((unsigned long)&b->datawait, 0);
+					rendezvous((uintptr_t)&b->datawait, 0);
 				} else if(mux->selwait && FD_ISSET(fd, &mux->rwant)) {
 					mux->selwait = 0;
 					unlock(&mux->lock);
 					/* wake up selecting process */
-					rendezvous((unsigned long)&mux->selwait, fd);
+					rendezvous((uintptr_t)&mux->selwait,
+						   fd);
 				} else
 					unlock(&mux->lock);
 			} else
@@ -247,7 +249,7 @@ goteof:
 		/* sleep until there's data */
 		b->datawait = 1;
 		unlock(&mux->lock);
-		rendezvous((unsigned long)&b->datawait, 0);
+		rendezvous((uintptr_t)&b->datawait, 0);
 		lock(&mux->lock);
 		ngot = b->putnext - b->getnext;
 	}
@@ -265,7 +267,7 @@ goteof:
 		b->roomwait = 0;
 		unlock(&mux->lock);
 		/* wake up copy process */
-		rendezvous((unsigned long)&b->roomwait, 0);
+		rendezvous((uintptr_t)&b->roomwait, 0);
 	} else
 		unlock(&mux->lock);
 	return ngot;
@@ -358,7 +360,7 @@ select(int nfds, fd_set *rfds, fd_set *wfds, fd_set *efds, struct timeval *timeo
 	}
 	mux->selwait = 1;
 	unlock(&mux->lock);
-	fd = rendezvous((unsigned long)&mux->selwait, 0);
+	fd = rendezvous((uintptr_t)&mux->selwait, 0);
 	if(fd >= 0) {
 		b = _fdinfo[fd].buf;
 		if(FD_ISSET(fd, &mux->rwant)) {
@@ -415,7 +417,8 @@ _timerproc(void)
 					mux->selwait = 0;
 					mux->waittime = LONGWAIT;
 					unlock(&mux->lock);
-					rendezvous((unsigned long)&mux->selwait, -2);
+					rendezvous((uintptr_t)&mux->selwait,
+						   -2);
 				} else {
 					mux->waittime = LONGWAIT;
 					unlock(&mux->lock);
