@@ -39,7 +39,7 @@ execve(const char *name, const char *argv[], char *envp[])
 		fi = &_fdinfo[n];
 		flags = fi->flags;
 		if(flags&FD_CLOEXEC){
-			_CLOSE(n);
+			close(n);
 			fi->flags = 0;
 			fi->oflags = 0;
 		}else if(flags&FD_ISOPEN){
@@ -57,7 +57,7 @@ execve(const char *name, const char *argv[], char *envp[])
 	}
 	if(ss > buf)
 		write(f, buf, ss-buf);
-	_CLOSE(f);
+	close(f);
 	/*
 	 * To pass _sighdlr[] across exec, set $_sighdlr
 	 * to list of blank separated fd's that have
@@ -76,7 +76,7 @@ execve(const char *name, const char *argv[], char *envp[])
 			}
 		}
 		write(f, buf, ss-buf);
-		_CLOSE(f);
+		close(f);
 	}
 	if(envp){
 		strcpy(nam, "#e/");
@@ -103,7 +103,7 @@ execve(const char *name, const char *argv[], char *envp[])
 			for(i=0; i < n; i++)
 				if(se[i] == 0)
 					se[i] = 1;
-			_CLOSE(f);
+			close(f);
 		}
 	}
 	n = exec(name, argv);

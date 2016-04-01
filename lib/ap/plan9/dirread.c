@@ -38,7 +38,7 @@ statcheck(char *buf, uint nbuf)
 
 static
 long
-dirpackage(char *buf, long ts, Dir **d)
+_dirpackage(char *buf, long ts, Dir **d)
 {
 	char *s;
 	long ss, i, n, nn, m;
@@ -97,7 +97,7 @@ _dirread(int fd, Dir **d)
 		return -1;
 	ts = read(fd, buf, DIRMAX);
 	if(ts >= 0)
-		ts = dirpackage(buf, ts, d);
+		ts = _dirpackage(buf, ts, d);
 	free(buf);
 	return ts;
 }
@@ -123,7 +123,7 @@ _dirreadall(int fd, Dir **d)
 		ts += n;
 	}
 	if(ts >= 0)
-		ts = dirpackage(buf, ts, d);
+		ts = _dirpackage(buf, ts, d);
 	free(buf);
 	return ts;
 }
