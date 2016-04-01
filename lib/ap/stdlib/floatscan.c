@@ -309,7 +309,7 @@ static long double decfloat(FILE *f, int c, int bits, int emin, int sign, int po
 
 static long double hexfloat(FILE *f, int bits, int emin, int sign, int pok)
 {
-	unsigned long x = 0;
+	uint32_t x = 0;
 	long double y = 0;
 	long double scale = 1;
 	long double bias = 0;

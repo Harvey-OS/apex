@@ -14,6 +14,7 @@
 #include "sys9.h"
 #include <string.h>
 #include <unistd.h>
+#include <stdint.h>
 
 extern int errno;
 Fdinfo _fdinfo[OPEN_MAX];
@@ -118,7 +119,7 @@ static void
 sfdinit(int usedproc, char *s, char *se)
 {
 	Fdinfo *fi;
-	unsigned long fd, fl, ofl;
+	uint32_t fd, fl, ofl;
 	char *e;
 
 	while(s < se){

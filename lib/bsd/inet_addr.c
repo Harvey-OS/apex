@@ -20,13 +20,13 @@
 
 #define CLASS(x)	(x[0]>>6)
 
-unsigned long
+uint32_t
 inet_addr(char *from)
 {
 	int i;
 	char *p;
 	unsigned char to[4];
-	unsigned long x;
+	uint32_t x;
  
 	p = from;
 	memset(to, 0, 4);

@@ -8,6 +8,7 @@
  */
 
 #include	<stdlib.h>
+#include	<stdint.h>
 
 /*
  *	algorithm by
@@ -21,11 +22,11 @@
 #define	Q	44488
 #define	R	3399
 
-typedef unsigned long	ulong;
+typedef uint32_t	ulong;
 
-static	unsigned long	rng_vec[LEN];
-static	unsigned long*	rng_tap = rng_vec;
-static	unsigned long*	rng_feed = 0;
+static	uint32_t	rng_vec[LEN];
+static	uint32_t*	rng_tap = rng_vec;
+static	uint32_t*	rng_feed = 0;
 
 void
 srand(unsigned int seed)
@@ -58,7 +59,7 @@ srand(unsigned int seed)
 static long
 lrand(void)
 {
-	unsigned long x;
+	uint32_t x;
 
 	rng_tap--;
         if(rng_tap < rng_vec) {

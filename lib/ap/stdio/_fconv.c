@@ -75,9 +75,9 @@ _Bfree(Bigint *v)
 _multadd(Bigint *b, int m, int a)	/* multiply by m and add a */
 {
 	int i, wds;
-	unsigned long *x, y;
+	uint32_t *x, y;
 #ifdef Pack_32
-	unsigned long xi, z;
+	uint32_t xi, z;
 #endif
 	Bigint *b1;
 
@@ -112,7 +112,7 @@ _multadd(Bigint *b, int m, int a)	/* multiply by m and add a */
 	}
 
  int
-_hi0bits(register unsigned long x)
+_hi0bits(register uint32_t x)
 {
 	register int k = 0;
 
@@ -141,10 +141,10 @@ _hi0bits(register unsigned long x)
 	}
 
  static int
-lo0bits(unsigned long *y)
+lo0bits(uint32_t *y)
 {
 	register int k;
-	register unsigned long x = *y;
+	register uint32_t x = *y;
 
 	if (x & 7) {
 		if (x & 1)
@@ -199,10 +199,10 @@ _mult(Bigint *a, Bigint *b)
 {
 	Bigint *c;
 	int k, wa, wb, wc;
-	unsigned long carry, y, z;
-	unsigned long *x, *xa, *xae, *xb, *xbe, *xc, *xc0;
+	uint32_t carry, y, z;
+	uint32_t *x, *xa, *xae, *xb, *xbe, *xc, *xc0;
 #ifdef Pack_32
-	unsigned long z2;
+	uint32_t z2;
 #endif
 
 	if (a->wds < b->wds) {
@@ -318,7 +318,7 @@ _lshift(Bigint *b, int k)
 {
 	int i, k1, n, n1;
 	Bigint *b1;
-	unsigned long *x, *x1, *xe, z;
+	uint32_t *x, *x1, *xe, z;
 
 #ifdef Pack_32
 	n = k >> 5;
@@ -371,7 +371,7 @@ _lshift(Bigint *b, int k)
  int
 _cmp(Bigint *a, Bigint *b)
 {
-	unsigned long *xa, *xa0, *xb, *xb0;
+	uint32_t *xa, *xa0, *xb, *xb0;
 	int i, j;
 
 	i = a->wds;
@@ -403,7 +403,7 @@ _diff(Bigint *a, Bigint *b)
 	Bigint *c;
 	int i, wa, wb;
 	long borrow, y;	/* We need signed shifts here. */
-	unsigned long *xa, *xae, *xb, *xbe, *xc;
+	uint32_t *xa, *xae, *xb, *xbe, *xc;
 #ifdef Pack_32
 	long z;
 #endif
@@ -479,10 +479,10 @@ _d2b(double darg, int *e, int *bits)
 {
 	Bigint *b;
 	int de, k;
-	unsigned long *x, y, z;
+	uint32_t *x, y, z;
 	Dul d;
 #ifdef VAX
-	unsigned long d0, d1;
+	uint32_t d0, d1;
 	d.d = darg;
 	d0 = word0(d) >> 16 | word0(d) << 16;
 	d1 = word1(d) >> 16 | word1(d) << 16;

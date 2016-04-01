@@ -38,7 +38,7 @@ static Arena arena;
 
 #define datoff		((int64_t)((Bucket*)0)->data)
 
-extern	void	*sbrk(unsigned long);
+extern	void	*sbrk(uint32_t);
 
 void*
 malloc(size_t size)

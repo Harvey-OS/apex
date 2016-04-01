@@ -7,7 +7,7 @@
  * in the LICENSE file.
  */
 
-typedef	unsigned long	ulong;
+typedef	uint32_t	ulong;
 typedef	unsigned int	uint;
 typedef	unsigned short	ushort;
 typedef	unsigned char	uchar;
@@ -18,8 +18,8 @@ typedef	signed char	schar;
 typedef	struct	Vlong	Vlong;
 struct	Vlong
 {
-	unsigned long	lo;
-	unsigned long	hi;
+	uint32_t	lo;
+	uint32_t	hi;
 };
 
 void	abort(void);
@@ -30,7 +30,7 @@ void	abort(void);
 void
 _addv(Vlong *r, Vlong a, Vlong b)
 {
-	unsigned long lo, hi;
+	uint32_t lo, hi;
 
 	lo = a.lo + b.lo;
 	hi = a.hi + b.hi;
@@ -43,7 +43,7 @@ _addv(Vlong *r, Vlong a, Vlong b)
 void
 _subv(Vlong *r, Vlong a, Vlong b)
 {
-	unsigned long lo, hi;
+	uint32_t lo, hi;
 
 	lo = a.lo - b.lo;
 	hi = a.hi - b.hi;
@@ -59,7 +59,7 @@ void
 _d2v(Vlong *y, double d)
 {
 	union { double d; struct Vlong; } x;
-	unsigned long xhi, xlo, ylo, yhi;
+	uint32_t xhi, xlo, ylo, yhi;
 	int sh;
 
 	x.d = d;
@@ -141,7 +141,7 @@ _v2f(Vlong x)
 static void
 dodiv(Vlong num, Vlong den, Vlong *q, Vlong *r)
 {
-	unsigned long numlo, numhi, denhi, denlo, quohi, quolo, t;
+	uint32_t numlo, numhi, denhi, denlo, quohi, quolo, t;
 	int i;
 
 	numhi = num.hi;
@@ -304,7 +304,7 @@ _rshav(Vlong *r, Vlong a, int b)
 void
 _rshlv(Vlong *r, Vlong a, int b)
 {
-	unsigned long t;
+	uint32_t t;
 
 	t = a.hi;
 	if(b >= 32) {
@@ -329,7 +329,7 @@ _rshlv(Vlong *r, Vlong a, int b)
 void
 _lshv(Vlong *r, Vlong a, int b)
 {
-	unsigned long t;
+	uint32_t t;
 
 	t = a.lo;
 	if(b >= 32) {
@@ -477,10 +477,10 @@ _vasop(Vlong *ret, void *lv, void fn(Vlong*, Vlong, Vlong), int type, Vlong rv)
 		break;
 
 	case 6:	/* ulong */
-		t.lo = *(unsigned long*)lv;
+		t.lo = *(uint32_t*)lv;
 		t.hi = 0;
 		fn(&u, t, rv);
-		*(unsigned long*)lv = u.lo;
+		*(uint32_t*)lv = u.lo;
 		break;
 
 	case 7:	/* vlong */
@@ -497,7 +497,7 @@ _p2v(Vlong *ret, void *p)
 {
 	long t;
 
-	t = (unsigned long)p;
+	t = (uint32_t)p;
 	ret->lo = t;
 	ret->hi = 0;
 }
@@ -513,7 +513,7 @@ _sl2v(Vlong *ret, long sl)
 }
 
 void
-_ul2v(Vlong *ret, unsigned long ul)
+_ul2v(Vlong *ret, uint32_t ul)
 {
 	long t;
 
@@ -553,7 +553,7 @@ _sh2v(Vlong *ret, long sh)
 }
 
 void
-_uh2v(Vlong *ret, unsigned long ul)
+_uh2v(Vlong *ret, uint32_t ul)
 {
 	long t;
 
@@ -573,7 +573,7 @@ _sc2v(Vlong *ret, long uc)
 }
 
 void
-_uc2v(Vlong *ret, unsigned long ul)
+_uc2v(Vlong *ret, uint32_t ul)
 {
 	long t;
 

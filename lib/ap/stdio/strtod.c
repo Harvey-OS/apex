@@ -86,7 +86,7 @@ ulp(double xarg)
 	}
 
  static Bigint *
-s2b(const char *s, int nd0, int nd, unsigned long y9)
+s2b(const char *s, int nd0, int nd, uint32_t y9)
 {
 	Bigint *b;
 	int i, k;
@@ -121,11 +121,11 @@ s2b(const char *s, int nd0, int nd, unsigned long y9)
  static double
 b2d(Bigint *a, int *e)
 {
-	unsigned long *xa, *xa0, w, y, z;
+	uint32_t *xa, *xa0, w, y, z;
 	int k;
 	Dul d;
 #ifdef VAX
-	unsigned long d0, d1;
+	uint32_t d0, d1;
 #else
 #define d0 word0(d)
 #define d1 word1(d)
@@ -228,7 +228,7 @@ strtod(const char *s00, char **se)
 	double aadj, aadj1, adj;
 	Dul rv, rv0;
 	long L;
-	unsigned long y, z;
+	uint32_t y, z;
 	Bigint *bb, *bb1, *bd, *bd0, *bs, *delta;
 	sign = nz0 = nz = 0;
 	rv.d = 0.;

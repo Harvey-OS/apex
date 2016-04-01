@@ -88,7 +88,7 @@ _dtoa(double darg, int mode, int ndigits, int *decpt, int *sign, char **rve)
 	long L;
 #ifndef Sudden_Underflow
 	int denorm;
-	unsigned long x;
+	uint32_t x;
 #endif
 	Bigint *b, *b1, *delta, *mlo, *mhi, *S;
 	double ds;
@@ -264,8 +264,8 @@ _dtoa(double darg, int mode, int ndigits, int *decpt, int *sign, char **rve)
 			if (i <= 0)
 				i = 1;
 		}
-	j = sizeof(unsigned long);
-	for(result_k = 0; sizeof(Bigint) - sizeof(unsigned long) + j <= i;
+	j = sizeof(uint32_t);
+	for(result_k = 0; sizeof(Bigint) - sizeof(uint32_t) + j <= i;
 		j <<= 1) result_k++;
 	result = Balloc(result_k);
 	s = s0 = (char *)result;
@@ -656,11 +656,11 @@ quorem(Bigint *b, Bigint *S)
 {
 	int n;
 	long borrow, y;
-	unsigned long carry, q, ys;
-	unsigned long *bx, *bxe, *sx, *sxe;
+	uint32_t carry, q, ys;
+	uint32_t *bx, *bxe, *sx, *sxe;
 #ifdef Pack_32
 	long z;
-	unsigned long si, zs;
+	uint32_t si, zs;
 #endif
 
 	n = S->wds;

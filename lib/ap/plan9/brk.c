@@ -9,6 +9,7 @@
 
 #include "lib.h"
 #include <errno.h>
+#include <stdint.h>
 #include "sys9.h"
 
 char	end[];
@@ -18,9 +19,9 @@ extern	int	brk_(void*);
 char *
 brk(char *p)
 {
-	unsigned long n;
+	uintptr_t n;
 
-	n = (unsigned long)p;
+	n = (uintptr_t)p;
 	n += 3;
 	n &= ~3;
 	if(brk_((void*)n) < 0){
@@ -32,7 +33,7 @@ brk(char *p)
 }
 
 void *
-sbrk(unsigned long n)
+sbrk(uintptr_t n)
 {
 	n += 3;
 	n &= ~3;
