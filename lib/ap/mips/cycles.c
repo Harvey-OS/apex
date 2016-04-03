@@ -8,7 +8,7 @@
  */
 
 void
-_cycles(unsigned long long *u)
+_cycles(FIXMDE *u)
 {
 	*u = 0;
 }

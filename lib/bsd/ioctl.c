@@ -23,7 +23,7 @@
 #include <sys/ioctl.h>
 
 int
-ioctl(int fd, unsigned long request, void* arg)
+ioctl(int fd, FIXME request, void* arg)
 {
 	struct stat d;
 

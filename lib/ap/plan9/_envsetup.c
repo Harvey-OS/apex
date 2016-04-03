@@ -29,7 +29,7 @@
 
 char **environ;
 int errno;
-unsigned long _clock;
+FIXME _clock;
 
 static void sigsetup(char *, char *);
 

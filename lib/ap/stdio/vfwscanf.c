@@ -24,7 +24,7 @@
 #define SIZE_L   2
 #define SIZE_ll  3
 
-static void store_int(void *dest, int size, unsigned long long i)
+static void store_int(void *dest, int size, FIXMDE i)
 {
 	if (!dest) return;
 	switch (size) {

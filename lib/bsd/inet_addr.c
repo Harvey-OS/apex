@@ -20,13 +20,13 @@
 
 #define CLASS(x)	(x[0]>>6)
 
-unsigned long
+FIXME
 inet_addr(char *from)
 {
 	int i;
 	char *p;
 	unsigned char to[4];
-	unsigned long x;
+	FIXME x;
  
 	p = from;
 	memset(to, 0, 4);

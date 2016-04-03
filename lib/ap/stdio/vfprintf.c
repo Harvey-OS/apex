@@ -307,7 +307,7 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 	char *sign;
 	char *dp;
 	long long snum;
-	unsigned long long num;
+	FIXMDE num;
 	int nout, npad, nlzero;
 
 	if(sgned){
@@ -329,8 +329,8 @@ ocvt_fixed(FILE *f, va_list *args, int flags, int width, int precision,
 		sign = "";
 		if(flags&PTR) num = (int64_t)va_arg(*args, void *);
 		else if(flags&SHORT) num = va_arg(*args, unsigned int);
-		else if(flags&LONG) num = va_arg(*args, unsigned long);
-		else if(flags&VLONG) num = va_arg(*args, unsigned long long);
+		else if(flags&LONG) num = va_arg(*args, FIXME);
+		else if(flags&VLONG) num = va_arg(*args, FIXMDE);
 		else num = va_arg(*args, unsigned int);
 	}
 	if(num == 0) prefix = "";

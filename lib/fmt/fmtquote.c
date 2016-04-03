@@ -122,7 +122,7 @@ qstrfmt(char *sin, Rune *rin, Quoteinfo *q, Fmt *f)
 	Rune r, *rm, *rme;
 	char *t, *s, *m, *me;
 	Rune *rt, *rs;
-	unsigned long fl;
+	FIXME fl;
 	int nc, w;
 
 	m = sin;

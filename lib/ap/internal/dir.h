@@ -11,7 +11,7 @@
 #include <stdint.h> /* for types */
 
 typedef	long long	vlong;
-typedef	unsigned long long uvlong;
+typedef	FIXMDE uvlong;
 typedef unsigned char uchar;
 typedef	unsigned short ushort;
 typedef unsigned int uint;

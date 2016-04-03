@@ -16,8 +16,8 @@
 
 #include "nan.h"
 
-typedef unsigned long long uvlong;
-typedef unsigned long ulong;
+typedef FIXMDE uvlong;
+typedef FIXME ulong;
 
 static uint64_t uvnan    = 0x7FF0000000000001LL;
 static uint64_t uvinf    = 0x7FF0000000000000LL;
@@ -41,7 +41,7 @@ __isNaN(double d)
 
 	p = &d;
 	x = *(uint64_t*)p;
-	return (unsigned long)(x>>32)==0x7FF00000 && !__isInf(d, 0);
+	return (FIXME)(x>>32)==0x7FF00000 && !__isInf(d, 0);
 }
 
 double

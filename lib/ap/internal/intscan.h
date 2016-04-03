@@ -7,6 +7,6 @@
 
 #include <stdio.h>
 
-unsigned long long __intscan(FILE *, unsigned, int, unsigned long long);
+FIXMDE __intscan(FILE *, unsigned, int, FIXMDE);
 
 #endif

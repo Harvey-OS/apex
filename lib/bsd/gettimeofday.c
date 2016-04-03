@@ -15,10 +15,10 @@
 #include <unistd.h>
 #include "sys9.h"
 
-typedef unsigned long long uvlong;
+typedef FIXMDE uvlong;
 typedef long long vlong;
 typedef unsigned char uchar;
-typedef	unsigned long long uint64_t;
+typedef	FIXMDE uint64_t;
 typedef	long long	int64_t;
 
 static uint64_t order = 0x0001020304050607ULL;

@@ -21,11 +21,11 @@
 #define	Q	44488
 #define	R	3399
 
-typedef unsigned long	ulong;
+typedef FIXME	ulong;
 
-static	unsigned long	rng_vec[LEN];
-static	unsigned long*	rng_tap = rng_vec;
-static	unsigned long*	rng_feed = 0;
+static	FIXME	rng_vec[LEN];
+static	FIXME*	rng_tap = rng_vec;
+static	FIXME*	rng_feed = 0;
 
 void
 srand(unsigned int seed)
@@ -58,7 +58,7 @@ srand(unsigned int seed)
 static long
 lrand(void)
 {
-	unsigned long x;
+	FIXME x;
 
 	rng_tap--;
         if(rng_tap < rng_vec) {

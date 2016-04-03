@@ -9,7 +9,7 @@ typedef struct Pcstack Pcstack;
 static struct Pcstack {
 	int sig;
 	void (*hdlr)(int, char*, Ureg*);
-	unsigned long long restorepc;
+	FIXMDE restorepc;
 	Ureg *u;
 } pcstack[MAXSIGSTACK];
 static int nstack = 0;
@@ -29,7 +29,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	p->hdlr = hdlr;
 	p->u = u;
 	nstack++;
-	u->ip = (unsigned long long) notecont;
+	u->ip = (FIXMDE) notecont;
 	noted(2);	/* NSAVE: clear note but hold state */
 }
 
@@ -55,7 +55,7 @@ extern sigset_t	_psigblocked;
 typedef struct {
 	sigset_t set;
 	sigset_t blocked;
-	unsigned long long jmpbuf[2];
+	FIXMDE jmpbuf[2];
 } sigjmp_buf_amd64;
 
 void

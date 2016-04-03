@@ -20,7 +20,7 @@ typedef unsigned long	ulong;
 typedef unsigned int	uint;
 typedef   signed char	schar;
 typedef	long long	vlong;
-typedef	unsigned long long uvlong;
+typedef	FIXMDE uvlong;
 typedef	unsigned int		Rune;
 typedef 	union FPdbleword FPdbleword;
 typedef	char*	p9va_list;

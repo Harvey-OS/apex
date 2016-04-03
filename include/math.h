@@ -46,9 +46,9 @@ static __inline unsigned __FLOAT_BITS(float __f)
 	__u.__f = __f;
 	return __u.__i;
 }
-static __inline unsigned long long __DOUBLE_BITS(double __f)
+static __inline FIXMDE __DOUBLE_BITS(double __f)
 {
-	union {double __f; unsigned long long __i;} __u;
+	union {double __f; FIXMDE __i;} __u;
 	__u.__f = __f;
 	return __u.__i;
 }

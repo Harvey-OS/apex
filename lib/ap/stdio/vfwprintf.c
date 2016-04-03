@@ -128,9 +128,9 @@ static void pop_arg(union arg *arg, int type, va_list *ap)
 	break; case UINT:	arg->i = va_arg(*ap, unsigned int);
 #ifndef LONG_IS_INT
 	break; case LONG:	arg->i = va_arg(*ap, long);
-	break; case ULONG:	arg->i = va_arg(*ap, unsigned long);
+	break; case ULONG:	arg->i = va_arg(*ap, FIXME);
 #endif
-	break; case ULLONG:	arg->i = va_arg(*ap, unsigned long long);
+	break; case ULLONG:	arg->i = va_arg(*ap, FIXMDE);
 	break; case SHORT:	arg->i = (short)va_arg(*ap, int);
 	break; case USHORT:	arg->i = (unsigned short)va_arg(*ap, int);
 	break; case CHAR:	arg->i = (signed char)va_arg(*ap, int);

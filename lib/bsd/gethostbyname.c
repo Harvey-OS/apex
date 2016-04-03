@@ -40,7 +40,7 @@ gethostbyname(const char *name)
 	int i, t, fd, m;
 	char *p, *bp;
 	int nn, na;
-	unsigned long x;
+	FIXME x;
 	static struct hostent h;
 	static char buf[1024];
 	static char *nptr[Nname+1];

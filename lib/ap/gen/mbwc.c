@@ -53,8 +53,8 @@ enum {
 int
 mbtowc(wchar_t *pwc, const char *s, size_t n)
 {
-	unsigned long long c[MB_LEN_MAX];
-	unsigned long long l, m, wm, b;
+	FIXMDE c[MB_LEN_MAX];
+	FIXMDE l, m, wm, b;
 	int i;
 
 	if(!s)
@@ -104,7 +104,7 @@ bad:
 int
 wctomb(char *s, wchar_t wchar)
 {
-	unsigned long long c, maxc, m;
+	FIXMDE c, maxc, m;
 	int i, j;
 
 	if(!s)

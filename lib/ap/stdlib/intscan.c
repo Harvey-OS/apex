@@ -23,12 +23,12 @@ static const unsigned char table[] = { -1,
 -1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,
 };
 
-unsigned long long __intscan(FILE *f, unsigned base, int pok, unsigned long long lim)
+FIXMDE __intscan(FILE *f, unsigned base, int pok, FIXMDE lim)
 {
 	const unsigned char *val = table+1;
 	int c, neg=0;
 	unsigned x;
-	unsigned long long y;
+	FIXMDE y;
 	if (base > 36) {
 		errno = EINVAL;
 		return 0;

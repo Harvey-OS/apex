@@ -851,7 +851,7 @@ shf_smprintf(fmt, va_alist)
  *  ints before pushing them.
  */
 #define POP_INT(f, s, a) (((f) & FL_LONG) ?				\
-				va_arg((a), unsigned long)		\
+				va_arg((a), FIXME)		\
 			    :						\
 				(sizeof(int) < sizeof(long) ?		\
 					((s) ?				\
@@ -900,7 +900,7 @@ shf_vfprintf(shf, fmt, args)
 	int		field, precision;
 	int		len;
 	int		flags;
-	unsigned long	lnum;
+	FIXME	lnum;
 					/* %#o produces the longest output */
 	char		numbuf[(BITS(long) + 2) / 3 + 1];
 	/* this stuff for dealing with the buffer */

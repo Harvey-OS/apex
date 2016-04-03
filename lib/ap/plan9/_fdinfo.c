@@ -118,7 +118,7 @@ static void
 sfdinit(int usedproc, char *s, char *se)
 {
 	Fdinfo *fi;
-	unsigned long fd, fl, ofl;
+	FIXME fd, fl, ofl;
 	char *e;
 
 	while(s < se){
