@@ -308,12 +308,12 @@ str_val(vp)
 		const char *digits = (vp->flag & UCASEV_AL) ?
 				  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 				: "0123456789abcdefghijklmnopqrstuvwxyz";
-		register unsigned long n;
+		register FIXME n;
 		register int base;
 
 		s = strbuf + sizeof(strbuf);
 		if (vp->flag & INT_U)
-			n = (unsigned long) vp->val.i;
+			n = (FIXME) vp->val.i;
 		else
 			n = (vp->val.i < 0) ? -vp->val.i : vp->val.i;
 		base = (vp->type == 0) ? 10 : vp->type;

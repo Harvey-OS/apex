@@ -5,21 +5,21 @@
 #endif
 
 struct Ureg {
-	unsigned long long	ax;
-	unsigned long long	bx;
-	unsigned long long	cx;
-	unsigned long long	dx;
-	unsigned long long	si;
-	unsigned long long	di;
-	unsigned long long	bp;
-	unsigned long long	r8;
-	unsigned long long	r9;
-	unsigned long long	r10;
-	unsigned long long	r11;
-	unsigned long long	r12;
-	unsigned long long	r13;
-	unsigned long long	r14;
-	unsigned long long	r15;
+	FIXMDE	ax;
+	FIXMDE	bx;
+	FIXMDE	cx;
+	FIXMDE	dx;
+	FIXMDE	si;
+	FIXMDE	di;
+	FIXMDE	bp;
+	FIXMDE	r8;
+	FIXMDE	r9;
+	FIXMDE	r10;
+	FIXMDE	r11;
+	FIXMDE	r12;
+	FIXMDE	r13;
+	FIXMDE	r14;
+	FIXMDE	r15;
 
 	// these are pointless and I don't want to waste a second on them.
 	// I'm sure it will break something but let's see.
@@ -29,13 +29,13 @@ struct Ureg {
 	//	unsigned short	fs;
 	//	unsigned short	gs;
 
-	unsigned long long	type;
-	unsigned long long	error;		/* error code (or zero) */
-	unsigned long long	ip;		/* pc */
-	unsigned long long	cs;		/* old context */
-	unsigned long long	flags;		/* old flags */
-	unsigned long long	sp;		/* sp */
-	unsigned long long	ss;		/* old stack segment */
+	FIXMDE	type;
+	FIXMDE	error;		/* error code (or zero) */
+	FIXMDE	ip;		/* pc */
+	FIXMDE	cs;		/* old context */
+	FIXMDE	flags;		/* old flags */
+	FIXMDE	sp;		/* sp */
+	FIXMDE	ss;		/* old stack segment */
 };
 
 #endif

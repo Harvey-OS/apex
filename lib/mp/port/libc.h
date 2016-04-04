@@ -15,7 +15,7 @@
 #include <fmt.h>
 
 typedef unsigned int u32int;
-typedef unsigned long long u64int;
+typedef FIXMDE u64int;
 
 #define	nelem(x)	(sizeof(x)/sizeof((x)[0]))
 

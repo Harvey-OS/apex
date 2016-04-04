@@ -20,7 +20,7 @@ struct Tos {
 		ulong	pid;
 		ulong	what;
 	} prof;
-	unsigned long long	cyclefreq;	/* cycle clock frequency if there is one, 0 otherwise */
+	FIXMDE	cyclefreq;	/* cycle clock frequency if there is one, 0 otherwise */
 	long long	kcycles;	/* cycles spent in kernel */
 	long long	pcycles;	/* cycles spent in process (kernel + user) */
 	unsigned long	pid;		/* might as well put the pid here */

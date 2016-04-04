@@ -42,7 +42,7 @@ typedef unsigned int		uint;
 typedef unsigned long		ulong;
 
 #ifndef NOVLONGS
-typedef unsigned long long	uvlong;
+typedef FIXMDE	uvlong;
 typedef long long		vlong;
 #endif
 

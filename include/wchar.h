@@ -97,7 +97,7 @@ long wcstol (const wchar_t *__restrict, wchar_t **__restrict, int);
 unsigned long wcstoul (const wchar_t *__restrict, wchar_t **__restrict, int);
 
 long long wcstoll (const wchar_t *__restrict, wchar_t **__restrict, int);
-unsigned long long wcstoull (const wchar_t *__restrict, wchar_t **__restrict, int);
+FIXMDE wcstoull (const wchar_t *__restrict, wchar_t **__restrict, int);
 
 
 

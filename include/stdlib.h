@@ -32,7 +32,7 @@ extern double strtod(const char *, char **);
 extern long strtol(const char *, char **, int);
 extern unsigned long strtoul(const char *, char **, int);
 extern long long int strtoll(const char *, char **, int);
-extern unsigned long long int strtoull(const char *, char **, int);
+extern FIXMDE int strtoull(const char *, char **, int);
 extern int rand(void);
 extern void srand(unsigned int seed);
 extern void *calloc(size_t, size_t);

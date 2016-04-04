@@ -9,10 +9,10 @@
 
 #include <lib9.h>
 
-extern	int	_SEGFREE(void*, unsigned long);
+extern	int	_SEGFREE(void*, FIXME);
 
 int
-segfree(void *va, unsigned long len)
+segfree(void *va, FIXME len)
 {
 	return _SEGFREE(va, len);
 }

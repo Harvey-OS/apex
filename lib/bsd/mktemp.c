@@ -78,7 +78,7 @@ mkstemp(char *template)
     size_t length;
     char *XXXXXX;
     struct timeval tv;
-    unsigned long long randnum, working;
+    FIXMDE randnum, working;
     int i, tries, fd;
 
     /*
@@ -98,7 +98,7 @@ mkstemp(char *template)
 
     /* Get some more-or-less random information. */
     gettimeofday(&tv, NULL);
-    randnum = ((unsigned long long) tv.tv_usec << 16) ^ tv.tv_sec ^ getpid();
+    randnum = ((FIXMDE) tv.tv_usec << 16) ^ tv.tv_sec ^ getpid();
 
     /*
      * Now, try to find a working file name.  We try no more than TMP_MAX file

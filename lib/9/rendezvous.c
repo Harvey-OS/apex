@@ -9,10 +9,10 @@
 
 #include <lib9.h>
 
-extern	unsigned long	_RENDEZVOUS(unsigned long, unsigned long);
+extern	FIXME	_RENDEZVOUS(FIXME, FIXME);
 
-unsigned long
-rendezvous(unsigned long tag, unsigned long value)
+FIXME
+rendezvous(FIXME tag, FIXME value)
 {
 	return _RENDEZVOUS(tag, value);
 }

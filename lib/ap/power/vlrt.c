@@ -7,7 +7,7 @@
  * in the LICENSE file.
  */
 
-typedef	unsigned long	ulong;
+typedef	FIXME	ulong;
 typedef	unsigned int	uint;
 typedef	unsigned short	ushort;
 typedef	unsigned char	uchar;
@@ -18,8 +18,8 @@ typedef	signed char	schar;
 typedef	struct	Vlong	Vlong;
 struct	Vlong
 {
-	unsigned long	hi;
-	unsigned long	lo;
+	FIXME	hi;
+	FIXME	lo;
 };
 
 void	abort(void);
@@ -29,7 +29,7 @@ void
 _d2v(Vlong *y, double d)
 {
 	union { double d; Vlong; } x;
-	unsigned long xhi, xlo, ylo, yhi;
+	FIXME xhi, xlo, ylo, yhi;
 	int sh;
 
 	x.d = d;
@@ -247,10 +247,10 @@ _vasop(Vlong *ret, void *lv, void fn(Vlong*, Vlong, Vlong), int type, Vlong rv)
 		break;
 
 	case 6:	/* ulong */
-		t.lo = *(unsigned long*)lv;
+		t.lo = *(FIXME*)lv;
 		t.hi = 0;
 		fn(&u, t, rv);
-		*(unsigned long*)lv = u.lo;
+		*(FIXME*)lv = u.lo;
 		break;
 
 	case 7:	/* vlong */

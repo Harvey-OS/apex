@@ -20,6 +20,6 @@ typedef unsigned long _uintptr_t;
 typedef _intptr_t intptr_t;
 typedef _uintptr_t uintptr_t;
 typedef long long	intmax_t;
-typedef unsigned long long	uintmax_t;
+typedef FIXMDE	uintmax_t;
 
 #endif

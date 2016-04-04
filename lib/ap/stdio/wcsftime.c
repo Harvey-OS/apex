@@ -15,7 +15,7 @@ size_t __wcsftime_l(wchar_t *restrict s, size_t n, const wchar_t *restrict f, co
 	const char *t_mb;
 	const wchar_t *t;
 	int plus;
-	unsigned long width;
+	FIXME width;
 	for (l=0; l<n; f++) {
 		if (!*f) {
 			s[l] = 0;

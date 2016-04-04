@@ -26,18 +26,18 @@ enum {
 }; /* what */
 
 typedef long long vlong;
-typedef unsigned long ulong;
-typedef unsigned long long uvlong;
+typedef FIXME ulong;
+typedef FIXMDE uvlong;
 
 #include	"tos.h"
 
-extern	void*	sbrk(unsigned long);
+extern	void*	sbrk(FIXME);
 extern	long	_callpc(void**);
 extern	long	_savearg(void);
 extern	void	_cycles(uint64_t*);	/* 64-bit value of the cycle counter if there is one, 0 if there isn't */
 
-static unsigned long	khz;
-static unsigned long	perr;
+static FIXME	khz;
+static FIXME	perr;
 static int	havecycles;
 
 typedef	struct	Plink	Plink;
@@ -53,13 +53,13 @@ struct	Plink
 
 #pragma profile off
 
-unsigned long
+FIXME
 _profin(void)
 {
 	void *dummy;
 	long pc;
 	Plink *pp, *p;
-	unsigned long arg;
+	FIXME arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -109,11 +109,11 @@ out:
 	return arg;		/* disgusting linkage */
 }
 
-unsigned long
+FIXME
 _profout(void)
 {
 	Plink *p;
-	unsigned long arg;
+	FIXME arg;
 	int64_t t;
 
 	arg = _savearg();

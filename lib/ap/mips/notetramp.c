@@ -18,7 +18,7 @@ typedef struct Pcstack Pcstack;
 static struct Pcstack {
 	int sig;
 	void (*hdlr)(int, char*, Ureg*);
-	unsigned long restorepc;
+	FIXME restorepc;
 	Ureg *u;
 } pcstack[MAXSIGSTACK];
 static int nstack = 0;
@@ -38,7 +38,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	p->hdlr = hdlr;
 	p->u = u;
 	nstack++;
-	u->pc = (unsigned long) notecont;
+	u->pc = (FIXME) notecont;
 	_NOTED(2);	/* NSAVE: clear note but hold state */
 }
 

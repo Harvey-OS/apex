@@ -9,10 +9,10 @@
 
 #include <lib9.h>
 
-extern	int	_SEGATTACH(int, char*, void*, unsigned long);
+extern	int	_SEGATTACH(int, char*, void*, FIXME);
 
 int
-segattach(int attr, char *class, void *va, unsigned long len)
+segattach(int attr, char *class, void *va, FIXME len)
 {
 	return _SEGATTACH(attr, class, va, len);
 }

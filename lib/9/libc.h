@@ -152,7 +152,7 @@ extern	unsigned long	getcallerpc(void*);
 
 /* Used in libsec.h and not picked up in earlier type definitions */
 typedef unsigned int u32int;
-typedef unsigned long long u64int;
+typedef FIXMDE u64int;
 
 int  dec16(uchar *, int, char *, int);
 int  enc16(char *, int, uchar *, int);

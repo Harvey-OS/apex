@@ -143,7 +143,7 @@ __fmtcpy(Fmt *f, const void *vm, int n, int sz)
 {
 	Rune *rt, *rs, r;
 	char *t, *s, *m, *me;
-	unsigned long fl;
+	FIXME fl;
 	int nc, w;
 
 	m = (char*)vm;
@@ -201,7 +201,7 @@ __fmtrcpy(Fmt *f, const void *vm, int n)
 {
 	Rune r, *m, *me, *rt, *rs;
 	char *t, *s;
-	unsigned long fl;
+	FIXME fl;
 	int w;
 
 	m = (Rune*)vm;
@@ -337,7 +337,7 @@ __ifmt(Fmt *f)
 {
 	char buf[70], *p, *conv;
 	uint64_t vu;
-	unsigned long u;
+	FIXME u;
 	int neg, base, i, n, fl, w, isv;
 
 	neg = 0;
@@ -357,7 +357,7 @@ __ifmt(Fmt *f)
 		break;
 	}
 	if(f->r == 'p'){
-		u = (unsigned long)va_arg(f->args, void*);
+		u = (FIXME)va_arg(f->args, void*);
 		f->r = 'x';
 		fl |= FmtUnsigned;
 	}else if(fl & FmtVLong){
@@ -368,7 +368,7 @@ __ifmt(Fmt *f)
 			vu = va_arg(f->args, int64_t);
 	}else if(fl & FmtLong){
 		if(fl & FmtUnsigned)
-			u = va_arg(f->args, unsigned long);
+			u = va_arg(f->args, FIXME);
 		else
 			u = va_arg(f->args, long);
 	}else if(fl & FmtByte){
@@ -494,7 +494,7 @@ int
 __countfmt(Fmt *f)
 {
 	void *p;
-	unsigned long fl;
+	FIXME fl;
 
 	fl = f->flags;
 	p = va_arg(f->args, void*);

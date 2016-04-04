@@ -18,8 +18,8 @@ typedef struct Pcstack Pcstack;
 static struct Pcstack {
 	int sig;
 	void (*hdlr)(int, char*, Ureg*);
-	unsigned long restorepc;
-	unsigned long restorenpc;
+	FIXME restorepc;
+	FIXME restorenpc;
 	Ureg *u;
 } pcstack[MAXSIGSTACK];
 static int nstack = 0;
@@ -40,7 +40,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	p->hdlr = hdlr;
 	p->u = u;
 	nstack++;
-	u->pc = (unsigned long) notecont;
+	u->pc = (FIXME) notecont;
 	u->npc = u->pc+4;
 	_NOTED(2);	/* NSAVE: clear note but hold state */
 }
@@ -83,8 +83,8 @@ siglongjmp(sigjmp_buf j, int ret)
 	if(ret == 0)
 		u->r8 = 1;
 	u->r9 = j[JMPBUFPC] - JMPBUFDPC;
-	u->pc = (unsigned long)__noterestore;
-	u->npc = (unsigned long)__noterestore + 4;
+	u->pc = (FIXME)__noterestore;
+	u->npc = (FIXME)__noterestore + 4;
 	u->sp = j[JMPBUFSP];
 	_NOTED(3);	/* NRSTR */
 }
