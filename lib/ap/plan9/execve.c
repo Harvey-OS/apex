@@ -22,7 +22,7 @@ execve(const char *name, const char *argv[], char *envp[])
 	int n, f, i;
 	char **e, *ss, *se;
 	Fdinfo *fi;
-	unsigned long flags;
+	uint32_t flags;
 	char nam[256+5];
 	char buf[1000];
 

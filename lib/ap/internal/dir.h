@@ -10,18 +10,11 @@
 #include <sys/stat.h> /* for dirtostat */
 #include <stdint.h> /* for types */
 
-typedef	long long	vlong;
-typedef	unsigned long long uvlong;
-typedef unsigned char uchar;
-typedef	unsigned short ushort;
-typedef unsigned int uint;
-typedef	unsigned long ulong;
-
 #define	GBIT8(p)	((p)[0])
 #define	GBIT16(p)	((p)[0]|((p)[1]<<8))
 #define	GBIT32(p)	((p)[0]|((p)[1]<<8)|((p)[2]<<16)|((p)[3]<<24))
-#define	GBIT64(p)	((vlong)((p)[0]|((p)[1]<<8)|((p)[2]<<16)|((p)[3]<<24)) |\
-				((vlong)((p)[4]|((p)[5]<<8)|((p)[6]<<16)|((p)[7]<<24)) << 32))
+#define	GBIT64(p)	((int64_t)((p)[0]|((p)[1]<<8)|((p)[2]<<16)|((p)[3]<<24)) |\
+				((int64_t)((p)[4]|((p)[5]<<8)|((p)[6]<<16)|((p)[7]<<24)) << 32))
 
 #define	PBIT8(p,v)	(p)[0]=(v)
 #define	PBIT16(p,v)	(p)[0]=(v);(p)[1]=(v)>>8
@@ -42,33 +35,33 @@ typedef	unsigned long ulong;
 typedef union
 {
 	char	clength[8];
-	vlong	vlength;
+	int64_t	vlength;
 	struct
 	{
-		long	hlength;
-		long	length;
+		int32_t	hlength;
+		int32_t	length;
 	};
 } Length;
 
 typedef
 struct Qid
 {
-	uvlong	path;
+	uint64_t	path;
 	uint32_t	vers;
-	uchar	type;
+	unsigned char	type;
 } Qid;
 
 typedef
 struct Dir {
 	/* system-modified data */
 	uint16_t	type;	/* server type */
-	uint	dev;	/* server subtype */
+	uint32_t	dev;	/* server subtype */
 	/* file data */
 	Qid	qid;	/* unique id from server */
 	uint32_t	mode;	/* permissions */
 	uint32_t	atime;	/* last read time */
 	uint32_t	mtime;	/* last write time */
-	vlong	length;	/* file length: see <u.h> */
+	int64_t	length;	/* file length: see <u.h> */
 	char	*name;	/* last element of path */
 	char	*uid;	/* owner name */
 	char	*gid;	/* group name */
@@ -76,16 +69,16 @@ struct Dir {
 } Dir;
 
 void	dirtostat(struct stat *, Dir*, Fdinfo*);
-uint	convM2D(unsigned char*, uint, Dir*, char*);
-uint	convD2M(Dir*, uchar*, uint);
+uint32_t	convM2D(unsigned char*, uint32_t, Dir*, char*);
+uint32_t	convD2M(Dir*, unsigned char*, uint32_t);
 Dir	*_dirstat(const char*);
 int	_dirwstat(const char*, Dir*);
 Dir	*_dirfstat(int);
 int	_dirfwstat(int, Dir*);
-long	_dirread(int, Dir**);
-long _dirreadall(int, Dir**);
+int32_t	_dirread(int, Dir**);
+int32_t _dirreadall(int, Dir**);
 void _nulldir(Dir*);
-uint sizeD2M(Dir*);
+uint32_t sizeD2M(Dir*);
 
 #ifndef nil
 #define nil ((void*)0)

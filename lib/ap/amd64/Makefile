@@ -5,6 +5,7 @@ SRCS =\
 	notetramp.c \
 
 SRCSS =\
+	_chdir.s \
 	_dup.s \
 	_pipe.s \
 	_stat.s \

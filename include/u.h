@@ -14,14 +14,14 @@
 #endif
 
 #define nil		((void*)0)
-typedef	unsigned short	ushort;
+typedef	uint16_t	ushort;
 typedef	unsigned char	uchar;
-typedef unsigned long	ulong;
-typedef unsigned int	uint;
+typedef uint32_t	ulong;
+typedef uint32_t	uint;
 typedef   signed char	schar;
-typedef	long long	vlong;
-typedef	unsigned long long uvlong;
-typedef	unsigned int		Rune;
+typedef	int64_t	vlong;
+typedef	uint64_t uvlong;
+typedef	uint32_t		Rune;
 typedef 	union FPdbleword FPdbleword;
 typedef	char*	p9va_list;
 

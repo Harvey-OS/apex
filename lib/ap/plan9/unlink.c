@@ -25,7 +25,7 @@ int
 unlink(const char *path)
 {
 	int n, i, fd;
-	long long nn;
+	int64_t nn;
 	Dir *db1, *db2, nd;
 	Fdinfo *f;
  	char *p, newname[PATH_MAX], newelem[32];
@@ -42,8 +42,8 @@ unlink(const char *path)
 			   db1->qid.vers == db2->qid.vers &&
 			   db1->type == db2->type &&
 			   db1->dev == db2->dev) {
-				sprintf(newelem, "%8.8lx%8.8lx", (ulong)(db2->qid.path>>32),
-					(unsigned long)db2->qid.path);
+				sprintf(newelem, "%8.8lx%8.8lx", (uintptr_t)(db2->qid.path>>32),
+					(uint32_t)db2->qid.path);
 				_nulldir(&nd);
 				nd.name = newelem;
 				if(_dirfwstat(i, &nd) < 0)
