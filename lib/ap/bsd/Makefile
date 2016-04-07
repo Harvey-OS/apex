@@ -1,9 +1,9 @@
 include $(APEX)/$(OS).inc
 
-TARGET = libbsd.a
+TARGET = libap.a
 SRCS = $(wildcard *.c)
 OBJ = ${SRCS:.c=.o}
-CFLAGS += -I../ap/internal -D_BSD_EXTENSION -D_BSD_EXTENSION -D_PLAN9_SOURCE
+CFLAGS += -I../internal -D_BSD_EXTENSION -D_BSD_EXTENSION -D_PLAN9_SOURCE
 
 .PHONY: clean all
 
