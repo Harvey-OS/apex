@@ -1,24 +1,42 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
+#include <limits.h>
+#include <string.h>
+#include <errno.h>
+#include <stdint.h>
 
-/*
- * pANS stdio -- vsnprintf
- */
-#include "iolib.h"
+static size_t sn_write(FILE *f, const unsigned char *s, size_t l)
+{
+	size_t k = f->wend - f->wpos;
+	if (k > l) k = l;
+	memcpy(f->wpos, s, k);
+	f->wpos += k;
+	/* pretend to succeed, but discard extra data */
+	return l;
+}
 
-int vsnprintf(char *buf, size_t nbuf, const char *fmt, va_list args){
-	int n;
-	FILE *f=_IO_sopenw();
-	if(f==NULL)
-		return 0;
-	setvbuf(f, buf, _IOFBF, nbuf);
-	n=vfprintf(f, fmt, args);
-	_IO_sclose(f);
-	return n;
+int vsnprintf(char *restrict s, size_t n, const char *restrict fmt, va_list ap)
+{
+	int r;
+	char b;
+	FILE f = { .lbf = EOF, .write = sn_write, .lock = -1 };
+
+	if (n-1 > INT_MAX-1) {
+		if (n) {
+			errno = EOVERFLOW;
+			return -1;
+		}
+		s = &b;
+		n = 1;
+	}
+
+	/* Ensure pointers don't wrap if "infinite" n is passed in */
+	if (n > (char *)0+SIZE_MAX-s-1) n = (char *)0+SIZE_MAX-s-1;
+	f.buf_size = n;
+	f.buf = f.wpos = (void *)s;
+	f.wbase = f.wend = (void *)(s+n);
+	r = vfprintf(&f, fmt, ap);
+
+	/* Null-terminate, overwriting last char if dest buffer is full */
+	if (n) f.wpos[-(f.wpos == f.wend)] = 0;
+	return r;
 }

@@ -93,8 +93,8 @@ extern	int	await(char*, int);
 #ifndef __SYS_SOCKET_H__
 extern	int	bind(const char*, const char*, int);
 #endif
-extern	int	_CHDIR(const char*);
-extern	int	_CLOSE(int);
+extern	int	chdir(const char*);
+extern	int	close(int);
 extern	int	create(const char*, int, uint32_t);
 extern	int	_DUP(int, int);
 extern	int	errstr(char*, unsigned int);
@@ -108,8 +108,8 @@ extern	int	fwstat(int, unsigned char*, int);
 extern	int	_mount(int, int, const char*, int, const char*);
 extern	int	noted(int);
 extern	int	notify(int(*)(void*, char*));
-extern	int	_OPEN(const char*, int);
-extern	int	_PIPE(int*);
+extern	int	open(const char*, int, ...);
+extern	int	pipe(int*);
 extern	int32_t	pread(int, void*, int32_t, int64_t);
 extern	int32_t	pwrite(int, const void*, int32_t, int64_t);
 //extern	int32_t	_READ(int, void*, int32_t);

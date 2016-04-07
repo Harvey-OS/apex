@@ -1,21 +1,12 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include <stdio.h>
+#include <stdarg.h>
 
-/*
- * pANS stdio -- printf
- */
-#include "iolib.h"
-int printf(const char *fmt, ...){
-	int n;
-	va_list args;
-	va_start(args, fmt);
-	n=vfprintf(stdout, fmt, args);
-	va_end(args);
-	return n;
+int printf(const char *restrict fmt, ...)
+{
+	int ret;
+	va_list ap;
+	va_start(ap, fmt);
+	ret = vfprintf(stdout, fmt, ap);
+	va_end(ap);
+	return ret;
 }

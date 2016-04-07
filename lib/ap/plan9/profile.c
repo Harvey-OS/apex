@@ -28,8 +28,8 @@ enum {
 #include	"tos.h"
 
 extern	void*	sbrk(uint32_t);
-extern	int32_t	_callpc(void**);
-extern	int32_t	_savearg(void);
+extern	int32_t	_callpc(void**); /* used only in old main9p.s */
+extern	int32_t	_savearg(void);  /* Same as above */
 extern	void	_cycles(uint64_t*);	/* 64-bit value of the cycle counter if there is one, 0 if there isn't */
 
 static uint32_t	khz;
@@ -42,7 +42,7 @@ struct	Plink
 	Plink	*old;
 	Plink	*down;
 	Plink	*link;
-	int32_t	pc;
+	uint64_t	pc;
 	int32_t	count;
 	int64_t	time;
 };
@@ -53,7 +53,7 @@ uint32_t
 _profin(void)
 {
 	void *dummy;
-	int32_t pc;
+	uint64_t pc;
 	Plink *pp, *p;
 	uint32_t arg;
 	int64_t t;

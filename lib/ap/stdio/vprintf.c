@@ -1,16 +1,6 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include <stdio.h>
 
-/*
- * pANS stdio -- vprintf
- */
-#include "iolib.h"
-int vprintf(const char *fmt, va_list args){
-	return vfprintf(stdout, fmt, args);
+int vprintf(const char *restrict fmt, va_list ap)
+{
+	return vfprintf(stdout, fmt, ap);
 }

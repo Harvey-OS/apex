@@ -30,7 +30,7 @@ enum
 struct	Fcall
 {
 	char	type;
-	int16_t	fid;
+	uint32_t	fid;
 	uint16_t	tag;
 	union
 	{
@@ -56,15 +56,15 @@ struct	Fcall
 		};
 		struct
 		{
-			int32_t	perm;		/* T-Create */ 
-			int16_t	newfid;		/* T-Clone, T-Clwalk */
+			uint32_t	perm;		/* T-Create */ 
+			uint32_t	newfid;		/* T-Clone, T-Clwalk */
 			char	name[NAMELEN];	/* T-Walk, T-Clwalk, T-Create */
 			char	mode;		/* T-Create, T-Open */
 		};
 		struct
 		{
-			int32_t	offset;		/* T-Read, T-Write */
-			int32_t	count;		/* T-Read, T-Write, R-Read */
+			int64_t	offset;		/* T-Read, T-Write */
+			uint32_t	count;		/* T-Read, T-Write, R-Read */
 			char	*data;		/* T-Write, R-Read */
 		};
 		struct
