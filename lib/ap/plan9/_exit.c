@@ -48,7 +48,7 @@ _finish(int status, char *term)
 /* emulate: return p+sprintf(p, "%uld", v) */
 #define IDIGIT 15
 char *
-_ultoa(char *p, unsigned long v)
+_ultoa(char *p, uint32_t v)
 {
 	char s[IDIGIT];
 	int n, i;

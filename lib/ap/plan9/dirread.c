@@ -15,7 +15,7 @@
 #include "dir.h"
 
 static int
-statcheck(char *buf, uint nbuf)
+statcheck(char *buf, uint32_t nbuf)
 {
 	char *ebuf;
 	int i;
@@ -37,11 +37,11 @@ statcheck(char *buf, uint nbuf)
 }
 
 static
-long
-_dirpackage(char *buf, long ts, Dir **d)
+int32_t
+_dirpackage(char *buf, int32_t ts, Dir **d)
 {
 	char *s;
-	long ss, i, n, nn, m;
+	int32_t ss, i, n, nn, m;
 
 	if(ts == 0){
 		*d = nil;
@@ -86,11 +86,11 @@ _dirpackage(char *buf, long ts, Dir **d)
 	return nn;
 }
 
-long
+int32_t
 _dirread(int fd, Dir **d)
 {
 	char *buf;
-	long ts;
+	int32_t ts;
 
 	buf = malloc(DIRMAX);
 	if(buf == nil)
@@ -102,11 +102,11 @@ _dirread(int fd, Dir **d)
 	return ts;
 }
 
-long
+int32_t
 _dirreadall(int fd, Dir **d)
 {
 	char *buf, *nbuf;
-	long n, ts;
+	int32_t n, ts;
 
 	buf = nil;
 	ts = 0;

@@ -25,19 +25,15 @@ enum {
 	Profsample,			/* Use clock interrupt to sample (default when there is no cycle counter) */
 }; /* what */
 
-typedef long long vlong;
-typedef unsigned long ulong;
-typedef unsigned long long uvlong;
-
 #include	"tos.h"
 
-extern	void*	sbrk(unsigned long);
-extern	long	_callpc(void**);
-extern	long	_savearg(void);
+extern	void*	sbrk(uint32_t);
+extern	int32_t	_callpc(void**); /* used only in old main9p.s */
+extern	int32_t	_savearg(void);  /* Same as above */
 extern	void	_cycles(uint64_t*);	/* 64-bit value of the cycle counter if there is one, 0 if there isn't */
 
-static unsigned long	khz;
-static unsigned long	perr;
+static uint32_t	khz;
+static uint32_t	perr;
 static int	havecycles;
 
 typedef	struct	Plink	Plink;
@@ -46,20 +42,20 @@ struct	Plink
 	Plink	*old;
 	Plink	*down;
 	Plink	*link;
-	long	pc;
-	long	count;
+	uint64_t	pc;
+	int32_t	count;
 	int64_t	time;
 };
 
 #pragma profile off
 
-unsigned long
+uint32_t
 _profin(void)
 {
 	void *dummy;
-	long pc;
+	uint64_t pc;
 	Plink *pp, *p;
-	unsigned long arg;
+	uint32_t arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -109,11 +105,11 @@ out:
 	return arg;		/* disgusting linkage */
 }
 
-unsigned long
+uint32_t
 _profout(void)
 {
 	Plink *p;
-	unsigned long arg;
+	uint32_t arg;
 	int64_t t;
 
 	arg = _savearg();
@@ -127,7 +123,7 @@ _profout(void)
 	case Profuser:			/* Subtract kernel cycles on proc entry */
 		p->time = p->time - _tos->kcycles;
 		/* fall through */
-	case Proftime:	
+	case Proftime:
 	proftime:				/* Add cycle counter on proc entry */
 		_cycles((uint64_t*)&t);
 		p->time = p->time + t;
@@ -166,7 +162,7 @@ void
 _profdump(void)
 {
 	int f;
-	long n;
+	int32_t n;
 	Plink *p;
 	char *vp;
 	char filename[64];
@@ -228,7 +224,7 @@ _profdump(void)
 		vp += 4;
 
 		/*
-		 * long pc
+		 * int32_t pc
 		 */
 		n = p->pc;
 		vp[0] = n>>24;
@@ -238,7 +234,7 @@ _profdump(void)
 		vp += 4;
 
 		/*
-		 * long count
+		 * int32_t count
 		 */
 		n = p->count;
 		vp[0] = n>>24;
@@ -248,7 +244,7 @@ _profdump(void)
 		vp += 4;
 
 		/*
-		 * vlong time
+		 * int64_t time
 		 */
 		if (havecycles){
 			n = (int64_t)(p->time / (int64_t)khz);

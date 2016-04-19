@@ -7,6 +7,7 @@
  * in the LICENSE file.
  */
 
+#include <stdint.h>
 #include <sys/types.h>
 #include <sys/limits.h>
 #include <fcntl.h>
@@ -36,8 +37,8 @@ typedef struct Muxbuf {
 
 /* be sure to change _fdinfo[] init in _fdinfo if you change this */
 typedef struct Fdinfo{
-	unsigned long	flags;
-	unsigned long	oflags;
+	uint32_t	flags;
+	uint32_t	oflags;
 	uid_t	uid;
 	gid_t	gid;
 	char		*name;
@@ -70,7 +71,7 @@ extern void	_closebuf(int);
 extern int _readbuf(int, void*, int, int);
 extern void	_detachbuf(void);
 extern void	_finish(int, char *);
-extern char	*_ultoa(char *, unsigned long);
+extern char	*_ultoa(char *, uint32_t);
 extern int	_notehandler(void *, char *);
 extern void	_notetramp(int, void (*)(int, char*, Ureg*), Ureg*);
 extern void	_syserrno(void);

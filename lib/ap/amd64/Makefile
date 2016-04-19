@@ -6,12 +6,9 @@ SRCS =\
 
 SRCSS =\
 	_dup.s \
-	_pipe.s \
 	_stat.s \
 	_fstat.s \
 	_wstat.s \
-	_open.s \
-	_close.s \
 	sigsetjmp.s \
 
 OBJ = ${SRCS:.c=.o}

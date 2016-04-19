@@ -30,13 +30,13 @@ enum
 struct	Fcall
 {
 	char	type;
-	short	fid;
-	unsigned short	tag;
+	uint32_t	fid;
+	uint16_t	tag;
 	union
 	{
 		struct
 		{
-			unsigned short	oldtag;		/* T-Flush */
+			uint16_t	oldtag;		/* T-Flush */
 			Qid	qid;		/* R-Attach, R-Walk, R-Open, R-Create */
 			char	rauth[AUTHENTLEN];	/* Rattach */
 		};
@@ -56,15 +56,15 @@ struct	Fcall
 		};
 		struct
 		{
-			long	perm;		/* T-Create */ 
-			short	newfid;		/* T-Clone, T-Clwalk */
+			uint32_t	perm;		/* T-Create */ 
+			uint32_t	newfid;		/* T-Clone, T-Clwalk */
 			char	name[NAMELEN];	/* T-Walk, T-Clwalk, T-Create */
 			char	mode;		/* T-Create, T-Open */
 		};
 		struct
 		{
-			long	offset;		/* T-Read, T-Write */
-			long	count;		/* T-Read, T-Write, R-Read */
+			int64_t	offset;		/* T-Read, T-Write */
+			uint32_t	count;		/* T-Read, T-Write, R-Read */
 			char	*data;		/* T-Write, R-Read */
 		};
 		struct
@@ -128,4 +128,4 @@ int	convS2M(Fcall*, char*);
 //int	convM2D(char*, Dir*);
 //int	convD2M(Dir*, char*);
 
-char*	getS(int, char*, Fcall*, long*);
+char*	getS(int, char*, Fcall*, int32_t*);

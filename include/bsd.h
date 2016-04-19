@@ -24,7 +24,7 @@ extern "C" {
 
 #ifndef _SIZE_T
 #define _SIZE_T
-typedef unsigned long size_t;
+typedef unsigned long long size_t;
 #endif
 
 extern void	bhappy(void*);

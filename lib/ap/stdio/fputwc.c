@@ -21,7 +21,8 @@ wint_t __fputwc_unlocked(wchar_t c, FILE *f)
 		l = wctomb(mbc, c);
 		for (i = 0; i < l; i++)
 			n += i;
-		if (l < 0 || fwrite((void *)mbc, l/n, n, f) < l) c = WEOF;
+		puts("yeah!");
+		if (l < 0 || fwrite((void *)mbc, l, n, f) < l) c = WEOF;
 	}
 	if (c==WEOF) f->flags |= F_ERR;
 	return c;

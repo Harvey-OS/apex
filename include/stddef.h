@@ -32,7 +32,7 @@
 typedef long ptrdiff_t;
 #ifndef _SIZE_T
 #define _SIZE_T
-typedef unsigned long size_t;
+typedef long long size_t;
 #endif
 #ifndef _WCHAR_T
 #define _WCHAR_T

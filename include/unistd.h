@@ -13,7 +13,7 @@
    This header file is not defined in pure ANSI
 #endif
 
-#define _POSIX_VERSION	199309L
+#define _POSIX_VERSION	200809L
 #define _POSIX_ASYNC_IO -1
 #define _POSIX_CHOWN_RESTRICTED 1
 #define _POSIX_NO_TRUNC 1

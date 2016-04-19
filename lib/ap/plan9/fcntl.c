@@ -25,7 +25,7 @@ fcntl(int fd, int cmd, ...)
 	int arg, i, ans, err;
 	Fdinfo *fi, *fans;
 	va_list va;
-	unsigned long oflags;
+	uint32_t oflags;
 
 	err = 0;
 	ans = 0;

@@ -29,7 +29,7 @@
 
 char **environ;
 int errno;
-unsigned long _clock;
+uint32_t _clock;
 
 static void sigsetup(char *, char *);
 
