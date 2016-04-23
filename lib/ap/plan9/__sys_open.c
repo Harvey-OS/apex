@@ -7,21 +7,13 @@
  * in the LICENSE file.
  */
 
-/*
- * pANS stdio -- sopenr
- */
-#include "iolib.h"
-#include <string.h>
+#include "sys9.h"
 
-FILE *_IO_sopenr(const char *s){
-	FILE *f;
-	for(f=_IO_stream;f!=&_IO_stream[FOPEN_MAX];f++) if(f->state==CLOSED) break;
-	if(f==&_IO_stream[FOPEN_MAX]) return NULL;
-	f->buf=f->rp=(char *)s;	/* what an annoyance const is */
-	f->bufl=strlen(s);
-	f->wp=f->buf+f->bufl;
-	f->state=RD;
-	f->flags=STRING;
-	f->fd=-1;
-	return f;
+/* syscall in libc */
+extern	int	open(const char *, int);
+
+int
+__sys_open(const char *c, int i)
+{
+	return open(c, i);
 }

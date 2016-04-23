@@ -1,20 +1,32 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
+#include <fcntl.h>
+#include <string.h>
+#include <errno.h>
+#include <unistd.h>
 
-/*
- * pANS stdio -- fopen
- */
-#include "iolib.h"
-FILE *fopen(const char *name, const char *mode){
+FILE *fopen(const char *restrict filename, const char *restrict mode)
+{
 	FILE *f;
-	for(f=_IO_stream;f!=&_IO_stream[FOPEN_MAX];f++)
-		if(f->state==CLOSED)
-			return freopen(name, mode, f);
-	return NULL;
+	int fd;
+	int flags;
+
+	/* Check for valid initial mode character */
+	if (!strchr("rwa", *mode)) {
+		errno = EINVAL;
+		return 0;
+	}
+
+	/* Compute the flags to pass to open() */
+	flags = __fmodeflags(mode);
+
+	fd = open(filename, flags, 0666);
+	if (fd < 0) return 0;
+	if (flags & O_CLOEXEC)
+		fcntl(fd, F_SETFD, FD_CLOEXEC);
+
+	f = fdopen(fd, mode);
+	if (f) return f;
+
+	close(fd);
+	return 0;
 }

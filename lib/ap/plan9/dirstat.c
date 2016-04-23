@@ -31,7 +31,7 @@ _dirstat(const char *name)
 		if(d == nil)
 			return nil;
 		buf = (unsigned char*)&d[1];
-		n = _STAT(name, buf, BIT16SZ+nd);
+		n = __sys_stat(name, buf, BIT16SZ+nd);
 		if(n < BIT16SZ){
 			free(d);
 			return nil;
@@ -58,7 +58,7 @@ _dirwstat(const char *name, Dir *d)
 	if(buf == nil)
 		return -1;
 	convD2M(d, buf, r);
-	r = _WSTAT(name, buf, r);
+	r = __sys_wstat(name, buf, r);
 	free(buf);
 	return r;
 }
@@ -76,7 +76,7 @@ _dirfstat(int fd)
 		if(d == nil)
 			return nil;
 		buf = (unsigned char*)&d[1];
-		n = _FSTAT(fd, buf, nd);
+		n = __sys_fstat(fd, buf, nd);
 		if(n < BIT16SZ){
 			free(d);
 			return nil;

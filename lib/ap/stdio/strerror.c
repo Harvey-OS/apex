@@ -16,8 +16,6 @@
 #include <string.h>
 #include <errno.h>
 
-#include "iolib.h"
-
 char *sys_errlist[] = {
 	"Error 0",
 	"Too big",

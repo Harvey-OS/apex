@@ -48,7 +48,9 @@ wint_t __fgetwc_unlocked(FILE *f)
 wint_t fgetwc(FILE *f)
 {
 	wint_t c;
+	FLOCK(f);
 	c = __fgetwc_unlocked(f);
+	FUNLOCK(f);
 	return c;
 }
 

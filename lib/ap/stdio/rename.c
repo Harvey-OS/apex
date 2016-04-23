@@ -10,7 +10,10 @@
 /*
  * pANS stdio -- rename
  */
-#include "iolib.h"
+
+#include <stdio.h>
+#include <unistd.h>
+
 int rename(const char *old, const char *new){
 	if(link((char *)old, (char *)new)<0) return -1;
 	if(unlink((char *)old)<0){

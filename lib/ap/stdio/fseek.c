@@ -1,33 +1,39 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- fseek
- */
-#include "iolib.h"
-int fseek(FILE *f, long offs, int type){
-	switch(f->state){
-	case ERR:
-	case CLOSED:
-		return -1;
-	case WR:
-		fflush(f);
-		break;
-	case RD:
-		if(type==1 && f->buf!=f->unbuf)
-			offs-=f->wp-f->rp;
-		break;
+int __fseeko_unlocked(FILE *f, off_t off, int whence)
+{
+	/* Adjust relative offset for unread data in buffer, if any. */
+	if (whence == SEEK_CUR) off -= f->rend - f->rpos;
+
+	/* Flush write buffer, and report error on failure. */
+	if (f->wpos > f->wbase) {
+		f->write(f, 0, 0);
+		if (!f->wpos) return -1;
 	}
-	if(f->flags&STRING || lseek(f->fd, offs, type)==-1)
-		return -1;
-	if(f->state==RD) f->rp=f->wp=f->buf;
-	if(f->state!=OPEN)
-		f->state=RDWR;
+
+	/* Leave writing mode */
+	f->wpos = f->wbase = f->wend = 0;
+
+	/* Perform the underlying seek. */
+	if (f->seek(f, off, whence) < 0) return -1;
+
+	/* If seek succeeded, file is seekable and we discard read buffer. */
+	f->rpos = f->rend = 0;
+	f->flags &= ~F_EOF;
+
 	return 0;
+}
+
+int fseeko(FILE *f, off_t off, int whence)
+{
+	int result;
+	FLOCK(f);
+	result = __fseeko_unlocked(f, off, whence);
+	FUNLOCK(f);
+	return result;
+}
+
+int fseek(FILE *f, long off, int whence)
+{
+	return fseeko(f, off, whence);
 }

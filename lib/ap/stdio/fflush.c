@@ -1,40 +1,45 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- fflush
- */
-#include "iolib.h"
-int fflush(FILE *f){
-	int error, cnt;
-	if(f==NULL){
-		error=0;
-		for(f=_IO_stream;f!=&_IO_stream[FOPEN_MAX];f++)
-			if(f->state==WR && fflush(f)==EOF)
-				error=EOF;
-		return error;
+static int __fflush_unlocked(FILE *f)
+{
+	/* If writing, flush output */
+	if (f->wpos > f->wbase) {
+		f->write(f, 0, 0);
+		if (!f->wpos) return EOF;
 	}
-	if(f->flags&STRING) return EOF;
-	switch(f->state){
-	default:	/* OPEN RDWR EOF RD */
-		return 0;
-	case CLOSED:
-	case ERR:
-		return EOF;
-	case WR:
-		cnt=(f->flags&LINEBUF?f->lp:f->wp)-f->buf;
-		if(cnt && write(f->fd, f->buf, cnt)!=cnt){
-			f->state=ERR;
-			return EOF;
-		}
-		f->rp=f->wp=f->buf;
-		f->state=RDWR;
-		return 0;
+
+	/* If reading, sync position, per POSIX */
+	if (f->rpos < f->rend) f->seek(f, f->rpos-f->rend, SEEK_CUR);
+
+	/* Clear read and write modes */
+	f->wpos = f->wbase = f->wend = 0;
+	f->rpos = f->rend = 0;
+
+	return 0;
+}
+
+/* stdout.c will override this if linked */
+static FILE *volatile __stdout_used = 0;
+
+int fflush(FILE *f)
+{
+	int r;
+
+	if (f) {
+		FLOCK(f);
+		r = __fflush_unlocked(f);
+		FUNLOCK(f);
+		return r;
 	}
+
+	r = __stdout_used ? fflush(__stdout_used) : 0;
+
+	for (f=*__ofl_lock(); f; f=f->next) {
+		FLOCK(f);
+		if (f->wpos > f->wbase) r |= __fflush_unlocked(f);
+		FUNLOCK(f);
+	}
+	__ofl_unlock();
+
+	return r;
 }

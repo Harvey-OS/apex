@@ -9,14 +9,10 @@ typedef signed char	int8_t;
 typedef	unsigned short	uint16_t;
 typedef	signed short	int16_t;
 typedef unsigned int	uint32_t;
-typedef unsigned int	uint;
 typedef signed int	int32_t;
 typedef	unsigned long uint64_t;
 typedef	long	int64_t;
 typedef uint32_t	usize;
-typedef	uint32_t		Rune;
-typedef union FPdbleword FPdbleword;
-typedef int		jmp_buf[10]; // for registers.
 
 typedef int8_t int_fast8_t;
 typedef int64_t int_fast64_t;

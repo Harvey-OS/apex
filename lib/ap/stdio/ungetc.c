@@ -1,42 +1,20 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- ungetc
- */
-#include "iolib.h"
-int ungetc(int c, FILE *f){
-	if(c==EOF) return EOF;
-	switch(f->state){
-	default:	/* WR */
-		f->state=ERR;
+int ungetc(int c, FILE *f)
+{
+	if (c == EOF) return c;
+
+	FLOCK(f);
+
+	if (!f->rpos) __toread(f);
+	if (!f->rpos || f->rpos <= f->buf - UNGET) {
+		FUNLOCK(f);
 		return EOF;
-	case CLOSED:
-	case ERR:
-		return EOF;
-	case OPEN:
-		_IO_setvbuf(f);
-	case RDWR:
-	case END:
-		f->wp=f->buf;
-		if(f->bufl==0)
-			f->wp += 1;
-		else
-			f->wp += f->bufl;
-		f->rp = f->wp;
-		f->state=RD;
-	case RD:
-		if(f->rp==f->buf) return EOF;
-		if(f->flags&STRING)
-			f->rp--;
-		else
-			*--f->rp=c;
-		return (char)c;
 	}
+
+	*--f->rpos = c;
+	f->flags &= ~F_EOF;
+
+	FUNLOCK(f);
+	return c;
 }

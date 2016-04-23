@@ -1,19 +1,11 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * Posix stdio -- fileno
- */
-#include "iolib.h"
-int fileno(FILE *f){
-	if(f==NULL)
-		return -1;
-	else
-		return f->fd;
+int fileno(FILE *f)
+{
+	/* f->fd never changes, but the lock must be obtained and released
+	 * anyway since this function cannot return while another thread
+	 * holds the lock. */
+	FLOCK(f);
+	FUNLOCK(f);
+	return f->fd;
 }

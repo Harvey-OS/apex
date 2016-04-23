@@ -1,48 +1,24 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- setvbuf
- */
-#include "iolib.h"
-#include <stdlib.h>
-int setvbuf(FILE *f, char *buf, int mode, size_t size){
-	if(f->state!=OPEN){
-		f->state=ERR;
-		return -1;
-	}
-	f->state=RDWR;
-	switch(mode){
-	case _IOLBF:
-		f->flags|=LINEBUF;
-	case _IOFBF:
-		if(buf==0){
-			buf=malloc(size);
-			if(buf==0){
-				f->state=ERR;
-				return -1;
-			}
-			f->flags|=BALLOC;
-		}
-		f->bufl=size;
-		break;
-	case _IONBF:
-		buf=f->unbuf;
-		f->bufl=0;
-		break;
-	}
-	f->rp=f->wp=f->lp=f->buf=buf;
-	f->state=RDWR;
+/* This function makes no attempt to protect the user from his/her own
+ * stupidity. If called any time but when then ISO C standard specifically
+ * allows it, all hell can and will break loose, especially with threads!
+ *
+ * This implementation ignores all arguments except the buffering type,
+ * and uses the existing buffer allocated alongside the FILE object.
+ * In the case of stderr where the preexisting buffer is length 1, it
+ * is not possible to set line buffering or full buffering. */
+
+int setvbuf(FILE *restrict f, char *restrict buf, int type, size_t size)
+{
+	f->lbf = EOF;
+
+	if (type == _IONBF)
+		f->buf_size = 0;
+	else if (type == _IOLBF)
+		f->lbf = '\n';
+
+	f->flags |= F_SVB;
+
 	return 0;
-}
-int _IO_setvbuf(FILE *f){
-	if(f==stderr || (f==stdout && isatty(1)))
-		return setvbuf(f, (char *)0, _IOLBF, BUFSIZ);
-	return setvbuf(f, (char *)0, _IOFBF, BUFSIZ);
 }

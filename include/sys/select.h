@@ -12,28 +12,31 @@
 #ifndef _BSD_EXTENSION
     This header file is an extension to ANSI/POSIX
 #endif
-
-#ifndef _FD_SET_T
-#define _FD_SET_T
-/* BSD select, and adjunct types and macros */
-
-/* assume 96 fds is sufficient for fdset size */
-
-typedef struct fd_set {
-	long fds_bits[3];
-} fd_set;
-
-#define FD_SET(n,p)	((p)->fds_bits[(n)>>5] |= (1 << ((n) &0x1f)))
-#define FD_CLR(n,p)	((p)->fds_bits[(n)>>5] &= ~(1 << ((n) &0x1f)))
-#define FD_ISSET(n,p)	((p)->fds_bits[(n)>>5] & (1 << ((n) &0x1f)))
-#define FD_ZERO(p)	((p)->fds_bits[0] =0, (p)->fds_bits[1] =0, (p)->fds_bits[2] =0)
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-extern int select(int, fd_set*, fd_set*, fd_set*, struct timeval *);
+#include <sys/types.h>
+
+#define FD_SETSIZE 1024
+
+typedef unsigned long fd_mask;
+
+typedef struct
+{
+	unsigned long fds_bits[FD_SETSIZE / 8 / sizeof(long)];
+} fd_set;
+
+#define FD_ZERO(s) do { int __i; unsigned long *__b=(s)->fds_bits; for(__i=sizeof (fd_set)/sizeof (long); __i; __i--) *__b++=0; } while(0)
+#define FD_SET(d, s)   ((s)->fds_bits[(d)/(8*sizeof(long))] |= (1UL<<((d)%(8*sizeof(long)))))
+#define FD_CLR(d, s)   ((s)->fds_bits[(d)/(8*sizeof(long))] &= ~(1UL<<((d)%(8*sizeof(long)))))
+#define FD_ISSET(d, s) !!((s)->fds_bits[(d)/(8*sizeof(long))] & (1UL<<((d)%(8*sizeof(long)))))
+
+int select (int, fd_set *__restrict, fd_set *__restrict, fd_set *__restrict, struct timeval *__restrict);
+
+#if defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define NFDBITS (8*(int)sizeof(long))
+#endif
 
 #ifdef __cplusplus
 }

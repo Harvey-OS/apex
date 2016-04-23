@@ -38,21 +38,31 @@ typedef long int time_t;
 typedef long int clock_t;
 #endif
 
+#ifndef __TIMEVAL__
+#define __TIMEVAL__
+struct timeval {
+	time_t	tv_sec;
+	long int	tv_usec;
+};
+#endif
+
+#ifndef __TIMESPEC__
+#define __TIMESPEC__
+struct timespec {
+	time_t tv_sec;
+	long tv_nsec;
+};
+#endif
+
 #ifdef _BSD_EXTENSION
+struct timezone {
+	int	tz_minuteswest;
+	int	tz_dsttime;
+};
+
 #ifndef _CADDR_T
 #define _CADDR_T
 typedef char * caddr_t;
-#endif
-#ifndef _FD_SET_T
-#define _FD_SET_T
-/* also cf <select.h> */
-typedef struct fd_set {
-	signed int fds_bits[3];
-} fd_set;
-#define FD_SET(n,p)	((p)->fds_bits[(n)>>5] |= (1 << ((n) &0x1f)))
-#define FD_CLR(n,p)	((p)->fds_bits[(n)>>5] &= ~(1 << ((n) &0x1f)))
-#define FD_ISSET(n,p)	((p)->fds_bits[(n)>>5] & (1 << ((n) &0x1f)))
-#define FD_ZERO(p)	((p)->fds_bits[0] =0, (p)->fds_bits[1] =0, (p)->fds_bits[2] =0)
 #endif
 #endif
 

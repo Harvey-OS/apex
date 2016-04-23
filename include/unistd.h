@@ -143,9 +143,11 @@ extern int chown(const char *, uid_t, gid_t);
 
 /* input and output primitives */
 extern int pipe(int *);
-extern int dup(int);
+extern int _DUP(int);
+#define dup _DUP
 extern int dup2(int, int);
-extern int close(int);
+extern	int	_CLOSE(int);
+#define close(i) _CLOSE(i)
 extern ssize_t read(int, void *, size_t);
 extern ssize_t write(int, const void *, size_t);
 #ifdef __TYPES_H
@@ -164,9 +166,11 @@ extern char *getlogin_r(char *, int);
 #endif
 
 /* berkeley specific functions */
-#ifdef _BSD_EXTENSION
-#include <bsd.h>
-#endif
+extern int	getopt(int, char* const*, const char*);
+extern int	opterr;
+extern int	optind;
+extern int	optopt;
+extern char	*optarg;
 
 #ifdef __cplusplus
 }

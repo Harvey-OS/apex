@@ -9,6 +9,8 @@ wchar_t *fgetws(wchar_t *restrict s, int n, FILE *restrict f)
 
 	if (!n--) return s;
 
+	FLOCK(f);
+
 	for (; n; n--) {
 		wint_t c = __fgetwc_unlocked(f);
 		if (c == WEOF) break;
@@ -17,6 +19,8 @@ wchar_t *fgetws(wchar_t *restrict s, int n, FILE *restrict f)
 	}
 	*p = 0;
 	if (ferror(f)) p = s;
+
+	FUNLOCK(f);
 
 	return (p == s) ? NULL : s;
 }

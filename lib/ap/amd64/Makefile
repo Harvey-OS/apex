@@ -5,10 +5,6 @@ SRCS =\
 	notetramp.c \
 
 SRCSS =\
-	_dup.s \
-	_stat.s \
-	_fstat.s \
-	_wstat.s \
 	sigsetjmp.s \
 
 OBJ = ${SRCS:.c=.o}

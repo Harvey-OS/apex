@@ -1,17 +1,9 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- fgetpos
- */
-#include "iolib.h"
-int fgetpos(FILE *f, fpos_t *pos){
-	*pos=ftell(f);
-	return *pos==-1?-1:0;
+int fgetpos(FILE *restrict f, fpos_t *restrict pos)
+{
+	off_t off = ftello(f);
+	if (off < 0) return -1;
+	*(off_t *)pos = off;
+	return 0;
 }

@@ -13,9 +13,9 @@ LD=ld
 IDIR=${APEX}/include
 IOBJDIR=${APEX}/${ARCH}/include
 
-CFLAGS= -std=c99 -O0 -static -mno-red-zone -ffreestanding -nostdinc -nostdlib -fno-builtin -D_SUSV2_SOURCE -D_POSIX_SOURCE -D_LIMITS_EXTENSION ${WFLAGS} -g -I${IDIR} -I${IOBJDIR}
+CFLAGS= -std=c11 -O0 -static -mno-red-zone -ffreestanding -nostdinc -nostdlib -D_SUSV2_SOURCE -D_POSIX_SOURCE -D_LIMITS_EXTENSION ${WFLAGS} -g -I${IDIR} -I${IOBJDIR}
 
-WFLAGS=-Wall -Wno-missing-braces -Wno-parentheses -Wno-unknown-pragmas -Wuninitialized -Wmaybe-uninitialized 
+WFLAGS=-Wall -Wno-missing-braces -Wno-parentheses -Wno-unknown-pragmas -Wuninitialized
 
 AR=ar				# manipulating libraries
 RANLIB=echo			# for updating libraries

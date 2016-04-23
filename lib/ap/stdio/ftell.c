@@ -1,25 +1,33 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
+#include <limits.h>
+#include <errno.h>
 
-/*
- * pANS stdio -- ftell
- */
-#include "iolib.h"
-long ftell(FILE *f){
-	long seekp=lseek(f->fd, 0L, 1);
-	if(seekp<0) return -1;		/* enter error state? */
-	switch(f->state){
-	default:
-		return seekp;
-	case RD:
-		return seekp-(f->wp-f->rp);
-	case WR:
-		return (f->flags&LINEBUF?f->lp:f->wp)-f->buf+seekp;
+off_t __ftello_unlocked(FILE *f)
+{
+	off_t pos = f->seek(f, 0,
+		(f->flags & F_APP) && f->wpos > f->wbase
+		? SEEK_END : SEEK_CUR);
+	if (pos < 0) return pos;
+
+	/* Adjust for data in buffer. */
+	return pos - (f->rend - f->rpos) + (f->wpos - f->wbase);
+}
+
+off_t ftello(FILE *f)
+{
+	off_t pos;
+	FLOCK(f);
+	pos = __ftello_unlocked(f);
+	FUNLOCK(f);
+	return pos;
+}
+
+long ftell(FILE *f)
+{
+	off_t pos = ftello(f);
+	if (pos > LONG_MAX) {
+		errno = EOVERFLOW;
+		return -1;
 	}
+	return pos;
 }

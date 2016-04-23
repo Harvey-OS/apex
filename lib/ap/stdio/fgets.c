@@ -1,26 +1,44 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
+#include <string.h>
 
-/*
- * pANS stdio -- fgets
- */
-#include "iolib.h"
-char *fgets(char *as, int n, FILE *f){
-	int c=0;
-	char *s=as;
-	while(n>1 && (c=getc(f))!=EOF){
-		*s++=c;
-		--n;
-		if(c=='\n') break;
+#define MIN(a,b) ((a)<(b) ? (a) : (b))
+
+char *fgets(char *restrict s, int n, FILE *restrict f)
+{
+	char *p = s;
+	unsigned char *z;
+	size_t k;
+	int c;
+
+	FLOCK(f);
+
+	if (n--<=1) {
+		f->mode |= f->mode-1;
+		FUNLOCK(f);
+		if (n) return 0;
+		*s = 0;
+		return s;
 	}
-	if(c==EOF && s==as
-	|| ferror(f)) return NULL;
-	if(n) *s='\0';
-	return as;
+
+	while (n) {
+		z = memchr(f->rpos, '\n', f->rend - f->rpos);
+		k = z ? z - f->rpos + 1 : f->rend - f->rpos;
+		k = MIN(k, n);
+		memcpy(p, f->rpos, k);
+		f->rpos += k;
+		p += k;
+		n -= k;
+		if (z || !n) break;
+		if ((c = getc_unlocked(f)) < 0) {
+			if (p==s || !feof(f)) s = 0;
+			break;
+		}
+		n--;
+		if ((*p++ = c) == '\n') break;
+	}
+	if (s) *p = 0;
+
+	FUNLOCK(f);
+
+	return s;
 }

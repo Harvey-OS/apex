@@ -28,8 +28,8 @@ extern "C" {
  */
 
 struct iovec {
-	char	*iov_base;
-	int	iov_len;
+	void	*iov_base;
+	size_t	iov_len;
 };
 
 extern int writev(int, struct iovec*, int);

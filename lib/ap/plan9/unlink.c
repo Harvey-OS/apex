@@ -69,7 +69,7 @@ unlink(const char *path)
 				if(nn < 0)
 					nn = 0;
 				seek(fd, nn, 0);
-				_DUP(fd, i);
+				__sys_dup(fd, i);
 				close(fd);
 				free(db1);
 				return 0;

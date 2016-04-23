@@ -58,6 +58,13 @@ extern int wctomb(char *, wchar_t);
 extern size_t mbstowcs(wchar_t *, const char *, size_t);
 extern size_t wcstombs(char *, const wchar_t *, size_t);
 extern int mkstemp(char *temp);
+extern int 	putenv(char*);
+extern char	*mktemp(char *);
+extern char	*sys_errlist[];
+extern int		sys_nerr;
+extern void	bhappy(void*);
+extern int	rresvport(int*);
+extern int	rcmd(char**, int, char*, char*, char*, int*);
 
 #ifdef __cplusplus
 }

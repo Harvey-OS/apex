@@ -18,7 +18,7 @@
 #ifndef __cplusplus
 #define NULL ((void *)0)
 #else   /* C++ */
-#define NULL 0
+#define NULL 0L
 #endif  /* C++ */
 #endif  /* G++ */
 #endif	/* ifndef NULL */
@@ -32,7 +32,7 @@
 typedef long ptrdiff_t;
 #ifndef _SIZE_T
 #define _SIZE_T
-typedef long long size_t;
+typedef unsigned long size_t;
 #endif
 #ifndef _WCHAR_T
 #define _WCHAR_T
@@ -48,7 +48,7 @@ typedef unsigned int	wint_t;
 #endif
 #ifndef _LOCALE_T
 #define _LOCALE_T
-typedef long long locale_t;
+typedef long locale_t;
 #endif
 #ifndef _WCTYPE_T
 #define _WCTYPE_T
