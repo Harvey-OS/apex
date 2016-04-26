@@ -1,20 +1,22 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include <stdio.h>
+#include <string.h>
+#include <errno.h>
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- perror
- */
-#include "iolib.h"
-void perror(const char *s){
-	extern int errno;
-	if(s!=NULL && *s != '\0') fputs(s, stderr), fputs(": ", stderr);
-	fputs(strerror(errno), stderr);
-	putc('\n', stderr);
-	fflush(stderr);
+void perror(const char *msg)
+{
+	FILE *f = stderr;
+	char *errstr = strerror(errno);
+
+	FLOCK(f);
+
+	if (msg && *msg) {
+		fwrite(msg, strlen(msg), 1, f);
+		fputc(':', f);
+		fputc(' ', f);
+	}
+	fwrite(errstr, strlen(errstr), 1, f);
+	fputc('\n', f);
+
+	FUNLOCK(f);
 }

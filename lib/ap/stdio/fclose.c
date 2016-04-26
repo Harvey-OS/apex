@@ -1,24 +1,31 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
+#include "libc.h"
 
-/*
- * pANS stdio -- fclose
- */
-#include "iolib.h"
-int fclose(FILE *f){
-	int error=0;
-	if(!f) return EOF;
-	if(f->state==CLOSED) return EOF;
-	if(fflush(f)==EOF) error=EOF;
-	if(f->flags&BALLOC) free(f->buf);
-	if(!(f->flags&STRING) && close(f->fd)<0) error=EOF;
-	f->state=CLOSED;
-	f->flags=0;
-	return error;
+//static void dummy(FILE *f) { }
+
+int fclose(FILE *f)
+{
+	int r;
+	int perm;
+
+	FLOCK(f);
+
+	//__unlist_locked_file(f);
+
+	if (!(perm = f->flags & F_PERM)) {
+		FILE **head = __ofl_lock();
+		if (f->prev) f->prev->next = f->next;
+		if (f->next) f->next->prev = f->prev;
+		if (*head == f) *head = f->next;
+		__ofl_unlock();
+	}
+
+	r = fflush(f);
+	r |= f->close(f);
+
+	if (f->getln_buf) free(f->getln_buf);
+	if (!perm) free(f);
+	else FUNLOCK(f);
+
+	return r;
 }

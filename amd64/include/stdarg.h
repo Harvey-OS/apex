@@ -1,5 +1,11 @@
-#ifndef __STDARG
-#define __STDARG
+#ifndef _STDARG_H
+#define _STDARG_H
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
 typedef char *va_list;
 
@@ -24,4 +30,8 @@ typedef va_list __isoc_va_list; /* wchar.h */
 #define va_arg(v,l)	__builtin_va_arg(v,l)
 #define va_copy(v,l)	__builtin_va_copy(v,l)
 
-#endif /* __STDARG */
+#ifdef __cplusplus
+}
+#endif
+
+#endif

@@ -1,54 +1,35 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
-
-/*
- * pANS stdio -- fread
- */
-#include "iolib.h"
+#include "stdio_impl.h"
 #include <string.h>
 
-#define BIGN (BUFSIZ/2)
+#define MIN(a,b) ((a)<(b) ? (a) : (b))
 
-size_t fread(void *p, size_t recl, size_t nrec, FILE *f){
-	char *s;
-	int n, d, c;
+size_t fread(void *restrict destv, size_t size, size_t nmemb, FILE *restrict f)
+{
+	unsigned char *dest = destv;
+	size_t len = size*nmemb, l = len, k;
 
-	s=(char *)p;
-	n=recl*nrec;
-	while(n>0){
-		d=f->wp-f->rp;
-		if(d>0){
-			if(d>n)
-				d=n;
-			memcpy(s, f->rp, d);
-			f->rp+=d;
-		}else{
-			if(n >= BIGN && f->state==RD && !(f->flags&STRING) && f->buf!=f->unbuf){
-				d=read(f->fd, s, n);
-				if(d<=0){
-					f->state=(d==0)?END:ERR;
-					goto ret;
-				}
-			}else{
- 				c=_IO_getc(f);
-				if(c==EOF)
-					goto ret;
-				*s=c;
-				d=1;
-			}
-		}
-		s+=d;
-		n-=d;
+	FLOCK(f);
+
+	f->mode |= f->mode-1;
+
+	if (f->rend - f->rpos > 0) {
+		/* First exhaust the buffer. */
+		k = MIN(f->rend - f->rpos, l);
+		memcpy(dest, f->rpos, k);
+		f->rpos += k;
+		dest += k;
+		l -= k;
 	}
-    ret:
-	if(recl)
-		return (s-(char*)p)/recl;
-	else
-		return s-(char*)p;
+
+	/* Read the remainder directly */
+	for (; l; l-=k, dest+=k) {
+		k = __toread(f) ? 0 : f->read(f, dest, l);
+		if (k+1<=1) {
+			FUNLOCK(f);
+			return (len-l)/size;
+		}
+	}
+
+	FUNLOCK(f);
+	return nmemb;
 }

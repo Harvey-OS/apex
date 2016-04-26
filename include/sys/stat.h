@@ -10,6 +10,10 @@
 #ifndef __STAT_H
 #define __STAT_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef __TYPES_H
 #include <sys/types.h>
 #endif
@@ -66,16 +70,14 @@ struct	stat {
 #define S_IFSOCK S_IFIFO
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 extern mode_t umask(mode_t);
 extern int mkdir(const char *, mode_t);
 extern int mkfifo(const char *, mode_t);
-extern int stat(const char *, struct stat *);
 extern	int	__stat(char *, struct stat *);
-extern int fstat(int, struct stat *);
+extern	int _STAT(const char *, struct stat *);
+extern int _FSTAT(int, struct stat *);
+#define stat(c, s) _STAT(c, s)
+#define fstat(i, s) _FSTAT(i, s)
 extern int chmod(const char *, mode_t);
 
 #ifdef _BSD_EXTENSION

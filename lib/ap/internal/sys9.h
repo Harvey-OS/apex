@@ -85,34 +85,23 @@ enum
 	RFNOMNT		= (1<<14)
 };
 
-//TODO
-// Remove unused functions now from libc
-
+/* Libc needed syscalls */
 extern	int	await(char*, int);
-//extern	int	alarm(uint32_t);
-#ifndef __SYS_SOCKET_H__
-extern	int	bind(const char*, const char*, int);
-#endif
 extern	int	chdir(const char*);
-extern	int	close(int);
 extern	int	create(const char*, int, uint32_t);
-extern	int	_DUP(int, int);
 extern	int	errstr(char*, unsigned int);
 extern	int	exec(const char*, const char*[]);
 extern	void	exits(char *);
 extern	int	fd2path(int, char*, int);
 extern	int	fauth(int, char*);
 extern	int	_fsession(int, char*, int);
-extern	int	_FSTAT(int, unsigned char*, int);
 extern	int	fwstat(int, unsigned char*, int);
 extern	int	_mount(int, int, const char*, int, const char*);
 extern	int	noted(int);
-extern	int	notify(int(*)(void*, char*));
-extern	int	open(const char*, int, ...);
+extern	int	notify(void(*)(void*, char*));
 extern	int	pipe(int*);
 extern	int32_t	pread(int, void*, int32_t, int64_t);
 extern	int32_t	pwrite(int, const void*, int32_t, int64_t);
-//extern	int32_t	_READ(int, void*, int32_t);
 extern	int	remove(const char*);
 extern	int	rendezvous(uint32_t, uint32_t);
 extern	int	rfork(int);
@@ -124,20 +113,20 @@ extern	int	segfree(void*, uint32_t);
 extern	int64_t	seek(int, int64_t, int);
 extern	int	semacquire(int32_t*, int);
 extern	int32_t	semrelease(int32_t*, int32_t);
-//extern	int	sleep(int32_t);
-extern	int	_STAT(const char*, unsigned char*, int);
-extern	Waitmsg*	_wait(void);
 extern	int	tsemacquire(int32_t*, uint32_t);
-//extern	int32_t	_WRITE(int, const void*, int32_t);
-extern	int	_WSTAT(const char*, unsigned char*, int);
-
-extern	int	__open(char *, int, ...);
-extern	int	__access(char *, int);
-extern	int	__chdir(char *);
-extern	int	__creat(char *, int);
-extern	int	__link(char *, int);
-extern	int	__unlink(char *);
 extern	Waitmsg* _WAIT(void);
+
+/*
+ * Following libc syscalls are used inside their respective ANSI/POSIX
+ * functions with the same name, so they have been replaced with private
+ * calls to real syscalls through new functions to avoid colliding.
+ */
+extern	int	__sys_close(int);
+extern	int	__sys_dup(int, int);
+extern	int	__sys_fstat(int, unsigned char*, int);
+extern	int	__sys_open(const char *, int);
+extern	int	__sys_stat(const char*, unsigned char*, int);
+extern	int	__sys_wstat(const char*, unsigned char*, int);
 
 /*
  * atomic

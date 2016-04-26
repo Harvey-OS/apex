@@ -48,7 +48,7 @@ fcntl(int fd, int cmd, ...)
 			if(i == OPEN_MAX)
 				err = EMFILE;
 			else {
-				ans = _DUP(fd, i);
+				ans = __sys_dup(fd, i);
 				if(ans != i){
 					if(ans < 0){
 						_syserrno();

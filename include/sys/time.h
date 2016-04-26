@@ -12,22 +12,6 @@
 
 #include <sys/types.h>
 
-#ifndef __TIMEVAL__
-#define __TIMEVAL__
-struct timeval {
-	time_t	tv_sec;
-	long int	tv_usec;
-};
-
-#ifdef _BSD_EXTENSION
-struct timezone {
-	int	tz_minuteswest;
-	int	tz_dsttime;
-};
-
 extern int gettimeofday(struct timeval *, struct timezone *);
-
-#endif
-#endif /* __TIMEVAL__ */
 
 #endif /* __SYSTIME_H */

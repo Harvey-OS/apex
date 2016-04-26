@@ -1,7 +1,3 @@
-#ifndef __C99
-#define __C99
-#endif
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
@@ -105,6 +101,8 @@ int vfwscanf(FILE *restrict f, const wchar_t *restrict fmt, va_list ap)
 	char tmp[3*sizeof(int)+10];
 	const wchar_t *set;
 	size_t i, k;
+
+	FLOCK(f);
 
 	fwide(f, 1);
 
@@ -323,6 +321,7 @@ match_fail:
 			free(wcs);
 		}
 	}
+	FUNLOCK(f);
 	return matches;
 }
 

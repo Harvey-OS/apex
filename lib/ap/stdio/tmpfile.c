@@ -24,7 +24,10 @@
  * As I read the pANS, this can't reasonably use tmpnam to generate
  * the name, so that code is duplicated.
  */
-#include "iolib.h"
+
+#include <stdio.h>
+#include <unistd.h>
+
 FILE *tmpfile(void){
 	FILE *f;
 	static char name[]="/tmp/tf000000000000";

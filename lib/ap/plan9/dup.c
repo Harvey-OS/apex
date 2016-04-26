@@ -12,7 +12,7 @@
 #include <errno.h>
 
 int
-dup(int oldd)
+_DUP(int oldd)
 {
 	return fcntl(oldd, F_DUPFD, 0);
 }

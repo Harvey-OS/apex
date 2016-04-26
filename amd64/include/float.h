@@ -1,5 +1,10 @@
-#ifndef __FLOAT
-#define __FLOAT
+#ifndef _FLOAT_H
+#define _FLOAT_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* IEEE, default rounding */
 
 #define FLT_ROUNDS	1
@@ -90,4 +95,9 @@ union FPdbleword
 #define	FPADNRM	(1<<1)	/* not in plan 9 */
 #define	FPAINVAL	(1<<0)
 #endif
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* __FLOAT */

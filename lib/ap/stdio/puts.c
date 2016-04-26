@@ -1,18 +1,10 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- puts
- */
-#include "iolib.h"
-int puts(const char *s){
-	fputs(s, stdout);
-	putchar('\n');
-	return ferror(stdin)?EOF:0;
+int puts(const char *s)
+{
+	int r;
+	FLOCK(stdout);
+	r = -(fputs(s, stdout) < 0 || putc_unlocked('\n', stdout) < 0);
+	FUNLOCK(stdout);
+	return r;
 }

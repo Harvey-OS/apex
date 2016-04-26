@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "stdio_impl.h"
 #include <stdarg.h>
 
 int fprintf(FILE *restrict f, const char *restrict fmt, ...)

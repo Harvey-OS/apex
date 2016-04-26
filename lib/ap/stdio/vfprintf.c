@@ -160,7 +160,7 @@ static void pop_arg(union arg *arg, int type, va_list *ap)
 
 static void out(FILE *f, const char *s, size_t l)
 {
-	if (!(f->flags & F_ERR)) fwrite((void *)s, 1, l, f);
+	if (!(f->flags & F_ERR)) __fwritex((void *)s, l, f);
 }
 
 static void pad(FILE *f, char c, int w, int l, int fl)
@@ -668,7 +668,7 @@ int vfprintf(FILE *restrict f, const char *restrict fmt, va_list ap)
 		return -1;
 	}
 
-	//FLOCK(f);
+	FLOCK(f);
 	olderr = f->flags & F_ERR;
 	if (f->mode < 1) f->flags &= ~F_ERR;
 	if (!f->buf_size) {
@@ -687,7 +687,7 @@ int vfprintf(FILE *restrict f, const char *restrict fmt, va_list ap)
 	}
 	if (f->flags & F_ERR) ret = -1;
 	f->flags |= olderr;
-	//FUNLOCK(f);
+	FUNLOCK(f);
 	va_end(ap2);
 	return ret;
 }

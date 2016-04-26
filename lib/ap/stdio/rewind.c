@@ -1,16 +1,9 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
+#include "stdio_impl.h"
 
-/*
- * pANS stdio -- rewind
- */
-#include "iolib.h"
-void rewind(FILE *f){
-	fseek(f, 0L, SEEK_SET);
+void rewind(FILE *f)
+{
+	FLOCK(f);
+	__fseeko_unlocked(f, 0, SEEK_SET);
+	f->flags &= ~F_ERR;
+	FUNLOCK(f);
 }

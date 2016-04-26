@@ -72,7 +72,7 @@ extern int _readbuf(int, void*, int, int);
 extern void	_detachbuf(void);
 extern void	_finish(int, char *);
 extern char	*_ultoa(char *, uint32_t);
-extern int	_notehandler(void *, char *);
+extern void	_notehandler(void *, char *);
 extern void	_notetramp(int, void (*)(int, char*, Ureg*), Ureg*);
 extern void	_syserrno(void);
 extern int	_getpw(int *, char **, char **);

@@ -10,8 +10,9 @@
 /*
  * pANS stdio -- tmpnam
  */
-#include "iolib.h"
+#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 char *
 tmpnam(char *s)

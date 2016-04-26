@@ -99,7 +99,7 @@ sigaction(int sig, const struct sigaction *act, struct sigaction *oact)
 }
 
 /* this is registered in _envsetup */
-int
+void
 _notehandler(void *u, char *msg)
 {
 	int i;
@@ -118,12 +118,10 @@ _notehandler(void *u, char *msg)
 				/* notetramp is machine-dependent; doesn't return to here */
 			}
 			noted(0); /* NCONT */
-			return 0;
 		}
 	}
 	//_doatexits();
 	noted(1); /* NDFLT */
-	return 0;
 }
 
 int

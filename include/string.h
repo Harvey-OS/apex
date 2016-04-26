@@ -20,6 +20,7 @@ extern void *memcpy(void *, const void *, size_t);
 extern void* memccpy(void*, void*, int, size_t);
 extern void *memmove(void *, const void *, size_t);
 extern char *strcpy(char *, const char *);
+extern size_t strlcpy (char *, const char *, size_t);
 extern char *strncpy(char *, const char *, size_t);
 extern char *strcat(char *, const char *);
 extern char *strncat(char *, const char *, size_t);
@@ -44,10 +45,6 @@ extern size_t strlen(const char *);
 #ifdef _REENTRANT_SOURCE
 extern char *strerror_r(int, const char *, int);
 extern char *strtok_r(char *, const char *, char **);
-#endif
-
-#ifdef _BSD_EXTENSION
-#include <bsd.h>
 #endif
 
 #ifdef __cplusplus
