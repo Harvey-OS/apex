@@ -11,27 +11,83 @@
 #define __LIMITS
 /* 8 bit chars (signed), 16 bit shorts, 32 bit ints/longs */
 
-#define CHAR_BIT	8
-#define MB_LEN_MAX	4
+#if '\0'-1 > 0
+#define CHAR_MIN 0
+#define CHAR_MAX 255
+#else
+#define CHAR_MIN (-128)
+#define CHAR_MAX 127
+#endif
 
-#define UCHAR_MAX	0xff
-#define USHRT_MAX	0xffff
-#define UINT_MAX	0xffffffffU
-#define ULONG_MAX	0xffffffffUL
+/* Some universal constants... */
 
-#define CHAR_MAX	SCHAR_MAX
-#define SCHAR_MAX	0x7f
-#define SHRT_MAX	0x7fff
-#define INT_MAX		0x7fffffff
-#define LONG_MAX	0x7fffffffL
+#define CHAR_BIT 8
+#define SCHAR_MIN (-128)
+#define SCHAR_MAX 127
+#define UCHAR_MAX 255
+#define SHRT_MIN  (-1-0x7fff)
+#define SHRT_MAX  0x7fff
+#define USHRT_MAX 0xffff
+#define INT_MIN  (-1-0x7fffffff)
+#define INT_MAX  0x7fffffff
+#define UINT_MAX 0xffffffffU
+#define LONG_MIN (-LONG_MAX-1)
+#define ULONG_MAX (2UL*LONG_MAX+1)
+#define LLONG_MIN (-LLONG_MAX-1)
+#define ULLONG_MAX (2ULL*LLONG_MAX+1)
 
-#define CHAR_MIN	SCHAR_MIN
-#define SCHAR_MIN	(-SCHAR_MAX-1)
-#define SHRT_MIN	(-SHRT_MAX-1)
-#define INT_MIN		(-INT_MAX-1)
-#define LONG_MIN	(-LONG_MAX-1)
+#define MB_LEN_MAX 4
 
-#ifdef _POSIX_SOURCE
+#if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) \
+ || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+
+#define PIPE_BUF 4096
+#ifdef PAGE_SIZE
+#define PAGESIZE PAGE_SIZE
+#endif
+#define FILESIZEBITS 64
+#define NAME_MAX 255
+#define SYMLINK_MAX 255
+#define PATH_MAX 4096
+#define NZERO 20
+#define NGROUPS_MAX 32
+#define ARG_MAX 131072
+#define IOV_MAX 1024
+#define SYMLOOP_MAX 40
+#define WORD_BIT 32
+#define SSIZE_MAX LONG_MAX
+#define TZNAME_MAX 6
+#define TTY_NAME_MAX 32
+#define HOST_NAME_MAX 255
+
+/* Implementation choices... */
+
+#define PTHREAD_KEYS_MAX 128
+#define PTHREAD_STACK_MIN 2048
+#define PTHREAD_DESTRUCTOR_ITERATIONS 4
+#define SEM_VALUE_MAX 0x7fffffff
+#define SEM_NSEMS_MAX 256
+#define DELAYTIMER_MAX 0x7fffffff
+#define MQ_PRIO_MAX 32768
+#define LOGIN_NAME_MAX 256
+
+/* Arbitrary numbers... */
+
+#define BC_BASE_MAX 99
+#define BC_DIM_MAX 2048
+#define BC_SCALE_MAX 99
+#define BC_STRING_MAX 1000
+#define CHARCLASS_NAME_MAX 14
+#define COLL_WEIGHTS_MAX 2
+#define EXPR_NEST_MAX 32
+#define LINE_MAX 4096
+#define RE_DUP_MAX 255
+
+#define NL_ARGMAX 9
+#define NL_LANGMAX 32
+#define NL_MSGMAX 32767
+#define NL_SETMAX 255
+#define NL_TEXTMAX 2048
 
 #define _POSIX_AIO_LISTIO_MAX	2
 #define _POSIX_AIO_MAX			1
@@ -72,8 +128,8 @@
 /*#define MQ_OPEN_MAX _POSIX_MQ_OPEN_MAX */
 /*#define MQ_PRIO_MAX _POSIX_MQ_PRIO_MAX */
 /*#define NAME_MAX _POSIX_NAME_MAX */
-#define NGROUPS_MAX 10
-#define NL_ARGMAX 9
+/*#define NGROUPS_MAX 10 */
+/*#define NL_ARGMAX 9 */
 /*#define OPEN_MAX _POSIX_OPEN_MAX */
 /*#define PAGESIZE 1 */
 #define PASS_MAX	64
@@ -83,17 +139,24 @@
 /*#define SEM_NSEMS_MAX _POSIX_SEM_NSEMS_MAX */
 /*#define SEM_VALUE_MAX _POSIX_SEM_VALUE_MAX */
 /*#define SIGQUEUE_MAX _POSIX_SIGQUEUE_MAX */
-#define SSIZE_MAX LONG_MAX
+/* #define SSIZE_MAX LONG_MAX */
 /*#define STREAM_MAX _POSIX_STREAM_MAX */
 /*#define TIMER_MAX _POSIX_TIMER_MAX */
-#define TZNAME_MAX _POSIX_TZNAME_MAX
+/*#define TZNAME_MAX _POSIX_TZNAME_MAX*/
+
+/* Bits from musl */
+#if defined(_POSIX_SOURCE) || defined(_POSIX_C_SOURCE) \
+ || defined(_XOPEN_SOURCE) || defined(_GNU_SOURCE) || defined(_BSD_SOURCE)
+#define LONG_BIT 64
+#endif
+
+#define LONG_MAX  0x7fffffffffffffffL
 
 /* C99 */
 /* Some universal constants... */
 #define LLONG_MAX  0x7fffffffffffffffLL
 #define LLONG_MIN (-LLONG_MAX-1)
 #define ULLONG_MAX (2ULL*LLONG_MAX+1)
-
 
 #ifdef _LIMITS_EXTENSION
 /* some things are just too big for pedagogy (X!) */

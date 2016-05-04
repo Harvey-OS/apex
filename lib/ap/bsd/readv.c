@@ -11,8 +11,8 @@
 #include <string.h>
 #include <sys/uio.h>
 
-int
-readv(int fd, struct iovec *v, int ent)
+ssize_t
+readv(int fd, const struct iovec *v, int ent)
 {
 	int x, i, n, len;
 	char buf[10*1024];

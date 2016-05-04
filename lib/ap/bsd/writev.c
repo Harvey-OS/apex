@@ -17,8 +17,8 @@
 
 #include "priv.h"
 
-int
-writev(int fd, struct iovec *v, int ent)
+ssize_t
+writev(int fd, const struct iovec *v, int ent)
 {
 	int i, n, written;
 	char *t, *e, *f;

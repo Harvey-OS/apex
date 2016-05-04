@@ -32,8 +32,8 @@ struct iovec {
 	size_t	iov_len;
 };
 
-extern int writev(int, struct iovec*, int);
-extern int readv(int, struct iovec*, int);
+extern ssize_t readv (int, const struct iovec *, int);
+extern ssize_t writev (int, const struct iovec *, int);
 
 #ifdef __cplusplus
 }
