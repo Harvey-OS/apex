@@ -29,7 +29,7 @@ mkdir(const char *name, mode_t mode)
 	if(n < 0)
 		_syserrno();
 	else{
-		__sys_close(n);
+		close(n);
 		n = 0;
 	}
 	return n;

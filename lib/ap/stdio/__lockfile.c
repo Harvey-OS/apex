@@ -3,12 +3,12 @@
 
 int __lockfile(FILE *f)
 {
-	/*int owner, tid = __pthread_self()->tid;
-	if (f->lock == tid)
-		return 0;
-	while ((owner = a_cas(&f->lock, 0, tid)))
-		__wait(&f->lock, &f->waiters, owner, 1);*/
-	return 1;
+	//int owner, tid = __pthread_self()->tid;
+	//if (f->lock == tid)
+	//while ((owner = a_cas(&f->lock, 0, tid)))
+	//	__wait(&f->lock, &f->waiters, owner, 1);
+	f->lock = 0;
+	return 0;
 }
 
 void __unlockfile(FILE *f)

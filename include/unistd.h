@@ -146,8 +146,7 @@ extern int pipe(int *);
 extern int _DUP(int);
 #define dup _DUP
 extern int dup2(int, int);
-extern	int	_CLOSE(int);
-#define close(i) _CLOSE(i)
+extern	int	close(int);
 extern ssize_t read(int, void *, size_t);
 extern ssize_t write(int, const void *, size_t);
 #ifdef __TYPES_H
