@@ -89,7 +89,7 @@ enum
 extern	int	await(char*, int);
 extern	int	chdir(const char*);
 extern	int	create(const char*, int, uint32_t);
-extern	int	errstr(char*, unsigned int);
+extern	int	errstr(char*, uint32_t);
 extern	int	exec(const char*, const char*[]);
 extern	void	exits(char *);
 extern	int	fd2path(int, char*, int);
