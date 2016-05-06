@@ -36,7 +36,7 @@ static struct errmap {
 	{EINVAL,	"bad character in file name"},
 	{EINVAL,	"file name syntax"},
 	{EPERM,	"permission denied"},
-	{EPERM,	"inappropriate use of fd"},
+	{EBADFD,	"inappropriate use of fd"},
 	{EINVAL,	"bad arg in system call"},
 	{EBUSY,	"device or object already in use"},
 	{EIO,		"i/o error"},
@@ -51,7 +51,7 @@ static struct errmap {
 	{ECHILD,	"no living children"},
 	{EIO,		"i/o error in demand load"},
 	{ENOMEM,	"virtual memory allocation failed"},
-	{EBADF,	"fd out of range or not open"},
+	{ENOENT,	"fd out of range or not open"},
 	{EMFILE,	"no free file descriptors"},
 	{ESPIPE,	"seek on a stream"},
 	{ENOEXEC,	"exec header invalid"},
@@ -62,7 +62,7 @@ static struct errmap {
 	{ENOMEM,	"kernel allocate failed"},
 	{EINVAL,	"segments overlap"},
 	{EIO,		"i/o count too small"},
-	{EGREG,	"ken has left the building"},
+	{EGREG,	"harvey lost its sunglasses"},
 	{EINVAL,	"bad attach specifier"},
 
 	/* from exhausted() calls in kernel */
@@ -119,15 +119,19 @@ static struct errmap {
 void
 _syserrno(void)
 {
+	char err[ERRMAX];
 	int i;
 
-	if(errstr(_plan9err, sizeof _plan9err) < 0)
-		errno = EINVAL;
-	else{
-		for(i = 0; i < NERRMAP; i++)
-			if(strstr(_plan9err, map[i].ename) != 0)
-				break;
-		errstr(_plan9err, sizeof _plan9err);
-		errno = (i < NERRMAP)? map[i].errno : EINVAL;
+	err[0] = 0;
+	errstr(err, sizeof err);
+	strncpy(_plan9err, err, sizeof err);
+	_plan9err[sizeof err-1] = 0;
+	//errno = EPLAN9;
+	for(i = 0; i < NERRMAP; i++){
+		if(strstr(err, map[i].ename) != 0){
+			errno = map[i].errno;
+			break;
+		}
 	}
+	errstr(err, sizeof err);
 }
