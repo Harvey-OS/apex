@@ -50,7 +50,7 @@ _envsetup(void)
 	fdinited = 0;
 	cnt = 0;
 	strcpy(name, "#e");
-	dfd = open(name, 0);
+	dfd = __sys_open(name, 0);
 	if(dfd < 0){
 		environ = malloc(sizeof(char**));
 		*environ = NULL;
@@ -82,7 +82,7 @@ _envsetup(void)
 		memcpy(p, d9->name, n);
 		p[n] = '=';
 		strcpy(name+3, d9->name);
-		f = open(name, O_RDONLY);
+		f = __sys_open(name, O_RDONLY);
 		if(f < 0 || read(f, p+n+1, m) != m)
 			m = 0;
 		close(f);

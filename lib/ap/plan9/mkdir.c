@@ -10,6 +10,7 @@
 #include "lib.h"
 #include <sys/stat.h>
 #include <errno.h>
+#include <unistd.h>
 #include "sys9.h"
 
 /*

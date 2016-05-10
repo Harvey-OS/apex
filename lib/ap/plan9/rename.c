@@ -57,7 +57,7 @@ rename(const char *from, const char *to)
 		char buf[8192];
 
 		tfd = -1;
-		if((ffd = open(from, 0)) < 0 ||
+		if((ffd = __sys_open(from, 0)) < 0 ||
 		   (tfd = create(to, 1, d->mode)) < 0){
 			close(ffd);
 			_syserrno();

@@ -60,7 +60,7 @@ unlink(const char *path)
 					}
 				}
 				/* reopen remove on close */
-				fd = open(p, 64|(f->oflags)); 
+				fd = __sys_open(p, 64|(f->oflags)); 
 				if(fd < 0){
 					free(db2);
 					continue;

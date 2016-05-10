@@ -14,12 +14,12 @@
 #ifndef __LOCK_H
 #define __LOCK_H
 
-#include <u.h>
+#include <stdint.h>
 
 typedef struct
 {
-	long	key;
-	long	sem;
+	int32_t	key;
+	int32_t	sem;
 } Lock;
 
 #ifdef __cplusplus
