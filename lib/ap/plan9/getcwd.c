@@ -22,7 +22,7 @@ getcwd(char *buf, size_t len)
 {
 	int fd;
 
-	fd = open(".", OREAD);
+	fd = __sys_open(".", OREAD);
 	if(fd < 0) {
 		errno = EACCES;
 		return 0;

@@ -54,6 +54,11 @@ _OPEN(const char *path, int flags, ...)
 		if(n < 0)
 			_syserrno();
 	}
+	if(n >= OPEN_MAX){
+		close(n);
+		errno = ENFILE;
+		return -1;
+	}
 	if(n >= 0){
 		fi = &_fdinfo[n];
 		fi->flags = FD_ISOPEN;

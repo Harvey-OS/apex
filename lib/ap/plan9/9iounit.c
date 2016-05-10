@@ -62,7 +62,7 @@ _IOUNIT(int fd)
 	char buf[128], *args[10];
 
 	snprint(buf, sizeof buf, "#d/%dctl", fd);
-	cfd = open(buf, OREAD);
+	cfd = __sys_open(buf, OREAD);
 	if(cfd < 0)
 		return 0;
 	i = read(cfd, buf, sizeof buf-1);

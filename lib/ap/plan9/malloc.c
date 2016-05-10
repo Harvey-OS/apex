@@ -72,7 +72,7 @@ good:
 	if(pow < CUTOFF) {
 		n = (CUTOFF-pow)+2;
 		bp = sbrk(size*n);
-		if((intptr_t)bp == -1)
+		if((intptr_t)bp < 0)
 			return NULL;
 
 		next = (uint64_t)bp+size;
@@ -88,7 +88,7 @@ good:
 	}
 	else {
 		bp = sbrk(size);
-		if((intptr_t)bp == -1)
+		if((intptr_t)bp < 0)
 			return NULL;
 	}
 

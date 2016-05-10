@@ -47,7 +47,7 @@ readprocfdinit(void)
 	char *s, *nexts;
 
 	memset(buf, 0, sizeof buf);
-	pfd = open("#c/pid", 0);
+	pfd = __sys_open("#c/pid", 0);
 	if(pfd < 0)
 		return -1;
 	if(pread(pfd, buf, 100, 0) < 0){
@@ -59,7 +59,7 @@ readprocfdinit(void)
 	strcpy(buf, "#p/");
 	_ultoa(buf+3, pid);
 	strcat(buf, "/fd");
-	pfd = open(buf, 0);
+	pfd = __sys_open(buf, 0);
 	if(pfd < 0)
 		return -1;
 	memset(buf, 0, sizeof buf);
