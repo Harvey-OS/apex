@@ -11,21 +11,22 @@
 #include <string.h>
 #include <inttypes.h>
 #include <stdint.h>
+#include <sys/types.h>
 
 enum
 {
 	MAGIC		= 0xbada110c,
-	MAX2SIZE	= 32,
-	CUTOFF		= 12,
+	MAX2SIZE	= 64,
+	CUTOFF		= 24,
 };
 
 typedef struct Bucket Bucket;
 struct Bucket
 {
-	int	size;
-	int	magic;
+	ssize_t	size;
+	ssize_t	magic;
 	Bucket	*next;
-	int	pad;
+	ssize_t	pad;
 	char	data[1];
 };
 
@@ -36,15 +37,15 @@ struct Arena
 };
 static Arena arena;
 
-#define datoff		((int64_t)((Bucket*)0)->data)
+#define datoff		((ssize_t)((Bucket*)0)->data)
 
 extern	void	*sbrk(uint64_t);
 
 void*
 malloc(size_t size)
 {
-	uint64_t next;
-	int pow, n;
+	size_t next;
+	ssize_t pow, n;
 	Bucket *bp, *nbp;
 
 	for(pow = 1; pow < MAX2SIZE; pow++) {
@@ -72,14 +73,14 @@ good:
 	if(pow < CUTOFF) {
 		n = (CUTOFF-pow)+2;
 		bp = sbrk(size*n);
-		if((intptr_t)bp < 0)
+		if((intptr_t)bp == -1)
 			return NULL;
 
-		next = (uint64_t)bp+size;
+		next = (size_t)bp+size;
 		nbp = (Bucket*)next;
 		arena.btab[pow] = nbp;
 		for(n -= 2; n; n--) {
-			next = (uint64_t)nbp+size;
+			next = (size_t)nbp+size;
 			nbp->next = (Bucket*)next;
 			nbp->size = pow;
 			nbp = nbp->next;
@@ -88,7 +89,7 @@ good:
 	}
 	else {
 		bp = sbrk(size);
-		if((intptr_t)bp < 0)
+		if((intptr_t)bp == -1)
 			return NULL;
 	}
 
@@ -107,7 +108,7 @@ free(void *ptr)
 		return;
 
 	/* Find the start of the structure */
-	bp = (Bucket*)((uint64_t)ptr - datoff);
+	bp = (Bucket*)((size_t)ptr - datoff);
 
 	if(bp->magic != MAGIC)
 		abort();
@@ -122,14 +123,19 @@ void*
 realloc(void *ptr, size_t n)
 {
 	void *new;
-	uint64_t osize;
+	size_t osize;
 	Bucket *bp;
+
+	if(n == 0) {
+		free(ptr);
+		return NULL;
+	}
 
 	if(ptr == NULL)
 		return malloc(n);
 
 	/* Find the start of the structure */
-	bp = (Bucket*)((uint64_t)ptr - datoff);
+	bp = (Bucket*)((size_t)ptr - datoff);
 
 	if(bp->magic != MAGIC)
 		abort();
