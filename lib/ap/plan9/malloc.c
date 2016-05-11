@@ -46,7 +46,7 @@ malloc(size_t size)
 	uint64_t next;
 	int pow, n;
 	Bucket *bp, *nbp;
-
+pwrite(666, "", 0, size);
 	for(pow = 1; pow < MAX2SIZE; pow++) {
 		if(size <= (1<<pow))
 			goto good;
@@ -102,6 +102,7 @@ void
 free(void *ptr)
 {
 	Bucket *bp, **l;
+pwrite(667, ptr, 0, 0);
 
 	if(ptr == NULL)
 		return;
@@ -124,7 +125,7 @@ realloc(void *ptr, size_t n)
 	void *new;
 	uint64_t osize;
 	Bucket *bp;
-
+pwrite(777, ptr, n, 0);
 	if(ptr == NULL)
 		return malloc(n);
 
@@ -136,8 +137,10 @@ realloc(void *ptr, size_t n)
 
 	/* enough space in this bucket */
 	osize = 1<<bp->size;
-	if(osize >= n)
+	if(osize >= n){
+		pwrite(777, ptr, n, 1);
 		return ptr;
+	}
 
 	new = malloc(n);
 	if(new == NULL)
@@ -146,5 +149,6 @@ realloc(void *ptr, size_t n)
 	memmove(new, ptr, osize);
 	free(ptr);
 
+pwrite(777, new, n, 0);
 	return new;
 }
