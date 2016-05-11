@@ -36,9 +36,9 @@ struct Arena
 };
 static Arena arena;
 
-#define datoff		((size_t)((Bucket*)0)->data)
+#define datoff		((int64_t)((Bucket*)0)->data)
 
-extern	void	*sbrk(uint32_t);
+extern	void	*sbrk(uint64_t);
 
 void*
 malloc(size_t size)
