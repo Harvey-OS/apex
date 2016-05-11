@@ -45,17 +45,17 @@ _envsetup(void)
 	char **pp;
 	char name[NAME_MAX+5];
 	Dir *d9, *d9a;
+	static char **emptyenvp = 0;
+
+	environ = emptyenvp;		/* pessimism */
 
 	nohandle = 0;
 	fdinited = 0;
 	cnt = 0;
 	strcpy(name, "#e");
 	dfd = __sys_open(name, 0);
-	if(dfd < 0){
-		environ = malloc(sizeof(char**));
-		*environ = NULL;
-		return;
-	}
+	if(dfd < 0)
+			return;
 	name[2] = '/';
 	ps = p = malloc(Envhunk);
 	if(p == 0)
