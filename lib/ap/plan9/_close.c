@@ -8,34 +8,36 @@
  */
 
 #include "lib.h"
-#include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
-#include <string.h>
-#include <stdio.h>
 #include "sys9.h"
-#include "dir.h"
 
-char*
-getcwd(char *buf, size_t len)
+int
+_CLOSE(int d)
 {
-	int fd;
+	int n;
+	Fdinfo *f;
 
-	fd = __sys_open(".", OREAD);
-	if(fd < 0) {
-		errno = EACCES;
-		return 0;
+	n = -1;
+	f = &_fdinfo[d];
+	if(d<0 || d>=OPEN_MAX || !(f->flags&FD_ISOPEN))
+		errno = EBADF;
+	else{
+		if(f->flags&(FD_BUFFERED|FD_BUFFEREDX)) {
+			if(f->flags&FD_BUFFERED)
+				_closebuf(d);
+			f->flags &= ~FD_BUFFERED;
+		}
+		n = __sys_close(d);
+		if(n < 0)
+			_syserrno();
+		_fdinfo[d].flags = 0;
+		_fdinfo[d].oflags = 0;
+		if(_fdinfo[d].name){
+			free(_fdinfo[d].name);
+			_fdinfo[d].name = 0;
+		}
 	}
-	if(fd2path(fd, buf, len) < 0) {
-		errno = EIO;
-		__sys_close(fd);
-		return 0;
-	}
-	__sys_close(fd);
-
-/* RSC: is this necessary? */
-	if(buf[0] == '\0')
-		strcpy(buf, "/");
-	return buf;
+	return n;
 }

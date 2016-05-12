@@ -59,7 +59,7 @@ rename(const char *from, const char *to)
 		tfd = -1;
 		if((ffd = __sys_open(from, 0)) < 0 ||
 		   (tfd = create(to, 1, d->mode)) < 0){
-			close(ffd);
+			__sys_close(ffd);
 			_syserrno();
 			n = -1;
 		}
@@ -68,8 +68,8 @@ rename(const char *from, const char *to)
 				_syserrno();
 				n = -1;
 			}
-		close(ffd);
-		close(tfd);
+		__sys_close(ffd);
+		__sys_close(tfd);
 		if(n>0)
 			n = 0;
 		if(n == 0) {

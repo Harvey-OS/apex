@@ -142,11 +142,13 @@ extern int chown(const char *, uid_t, gid_t);
 #endif
 
 /* input and output primitives */
-extern int pipe(int *);
+extern int _PIPE(int *);
+#define pipe _PIPE
 extern int _DUP(int);
 #define dup _DUP
 extern int dup2(int, int);
-extern	int	close(int);
+extern	int	_CLOSE(int);
+#define close _CLOSE
 extern ssize_t read(int, void *, size_t);
 extern ssize_t write(int, const void *, size_t);
 #ifdef __TYPES_H

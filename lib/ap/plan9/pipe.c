@@ -7,30 +7,35 @@
  * in the LICENSE file.
  */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <time.h>
+#include <errno.h>
 #include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
+#include "lib.h"
 #include "sys9.h"
 
-time_t
-time(time_t *tp)
+int
+_PIPE(int fildes[2])
 {
-	char b[20];
-	int f;
-	time_t t;
+	Fdinfo *fi;
+	int i;
 
-	memset(b, 0, sizeof(b));
-	f = __sys_open("/dev/time", 0);
-	if(f >= 0) {
-		pread(f, b, sizeof(b), 0);
-		__sys_close(f);
+	if(!fildes){
+		errno = EFAULT;
+		return -1;
 	}
-	t = atol(b);
-	if(tp)
-		*tp = t;
-	return t;
+	if(__sys_pipe(fildes) < 0)
+		_syserrno();
+	else
+	if(fildes[0] < 0 || fildes[0]>=OPEN_MAX ||
+	   fildes[1] < 0 || fildes[1]>=OPEN_MAX) {
+		errno = EMFILE;
+		return -1;
+	}
+	for(i = 0; i <=1; i++) {
+		fi = &_fdinfo[fildes[i]];
+		fi->flags = FD_ISOPEN;
+		fi->oflags = O_RDWR;
+		fi->uid = 0;	/* none */
+		fi->gid = 0;
+	}
+	return 0;
 }

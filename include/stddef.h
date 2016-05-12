@@ -48,7 +48,7 @@ typedef unsigned int	wint_t;
 #endif
 #ifndef _LOCALE_T
 #define _LOCALE_T
-typedef long locale_t;
+typedef struct __locale_struct * locale_t;
 #endif
 #ifndef _WCTYPE_T
 #define _WCTYPE_T

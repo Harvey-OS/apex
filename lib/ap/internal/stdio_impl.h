@@ -18,6 +18,9 @@
 #define F_SVB 64
 #define F_APP 128
 
+/* Wrapped in unistd.h for freopen.c */
+#define close _CLOSE
+
 struct _IO_FILE {
 	unsigned flags;
 	unsigned char *rpos, *rend;

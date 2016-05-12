@@ -7,30 +7,13 @@
  * in the LICENSE file.
  */
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <time.h>
-#include <unistd.h>
-#include <string.h>
-#include <stdlib.h>
 #include "sys9.h"
 
-time_t
-time(time_t *tp)
-{
-	char b[20];
-	int f;
-	time_t t;
+/* syscall in libc */
+extern	int	pipe(int *);
 
-	memset(b, 0, sizeof(b));
-	f = __sys_open("/dev/time", 0);
-	if(f >= 0) {
-		pread(f, b, sizeof(b), 0);
-		__sys_close(f);
-	}
-	t = atol(b);
-	if(tp)
-		*tp = t;
-	return t;
+int
+__sys_pipe(int *fd)
+{
+	return pipe(fd);
 }
