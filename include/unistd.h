@@ -142,7 +142,8 @@ extern int chown(const char *, uid_t, gid_t);
 #endif
 
 /* input and output primitives */
-extern int pipe(int *);
+extern int _PIPE(int *);
+#define pipe _PIPE
 extern int _DUP(int);
 #define dup _DUP
 extern int dup2(int, int);
