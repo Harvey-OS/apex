@@ -1,5 +1,5 @@
 
-TARGET = libap.a
+TARGET = libapex.a
 DIRS = $(ARCH) bsd crt gen locale math multibyte plan9 posix stdio stdlib string
 
 .PHONY: all

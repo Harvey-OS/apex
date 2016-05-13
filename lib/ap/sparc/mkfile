@@ -1,6 +1,6 @@
 APE=/sys/src/ape
 <$APE/config
-LIB=/$objtype/lib/ape/libap.a
+LIB=/$objtype/lib/ape/libapex.a
 OFILES=\
 #	atom.$O\
 	cycles.$O\

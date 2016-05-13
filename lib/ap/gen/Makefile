@@ -1,6 +1,6 @@
 include $(APEX)/$(OS).inc
 
-TARGET = libap.a
+TARGET = libapex.a
 SRCS = $(wildcard *.c)
 OBJ = ${SRCS:.c=.o}
 CFLAGS += -I../internal -D_BSD_SOURCE

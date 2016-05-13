@@ -1,6 +1,6 @@
 include $(APEX)/$(OS).inc
 
-TARGET = libap.a
+TARGET = libapex.a
 SRCS =\
 	notetramp.c \
 

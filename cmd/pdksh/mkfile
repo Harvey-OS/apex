@@ -30,7 +30,7 @@ OFILES=\
 	version.$O
 
 # Autolib doesn't get this right on the alpha, and I don't understand why. -rsc
-LIB=/$objtype/lib/ape/libap.a /$objtype/lib/ape/libbsd.a
+LIB=/$objtype/lib/ape/libapex.a /$objtype/lib/ape/libbsd.a
 
 </sys/src/cmd/mkone
 
