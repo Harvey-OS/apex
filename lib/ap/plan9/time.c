@@ -27,7 +27,7 @@ time(time_t *tp)
 	f = __sys_open("/dev/time", 0);
 	if(f >= 0) {
 		pread(f, b, sizeof(b), 0);
-		close(f);
+		__sys_close(f);
 	}
 	t = atol(b);
 	if(tp)

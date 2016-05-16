@@ -55,7 +55,7 @@ _OPEN(const char *path, int flags, ...)
 			_syserrno();
 	}
 	if(n >= OPEN_MAX){
-		close(n);
+		__sys_close(n);
 		errno = ENFILE;
 		return -1;
 	}

@@ -29,10 +29,10 @@ getcwd(char *buf, size_t len)
 	}
 	if(fd2path(fd, buf, len) < 0) {
 		errno = EIO;
-		close(fd);
+		__sys_close(fd);
 		return 0;
 	}
-	close(fd);
+	__sys_close(fd);
 
 /* RSC: is this necessary? */
 	if(buf[0] == '\0')

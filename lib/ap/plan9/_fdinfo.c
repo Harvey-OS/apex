@@ -51,10 +51,10 @@ readprocfdinit(void)
 	if(pfd < 0)
 		return -1;
 	if(pread(pfd, buf, 100, 0) < 0){
-		close(pfd);
+		__sys_close(pfd);
 		return -1;
 	}
-	close(pfd);
+	__sys_close(pfd);
 	pid = strtoul(buf, 0, 10);
 	strcpy(buf, "#p/");
 	_ultoa(buf+3, pid);
@@ -70,7 +70,7 @@ readprocfdinit(void)
 			break;
 		tot += n;
 	}
-	close(pfd);
+	__sys_close(pfd);
 	if(n < 0)
 		return -1;
 	buf[sizeof buf-1] = '\0';

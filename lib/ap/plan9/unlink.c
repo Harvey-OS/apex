@@ -70,7 +70,7 @@ unlink(const char *path)
 					nn = 0;
 				seek(fd, nn, 0);
 				__sys_dup(fd, i);
-				close(fd);
+				__sys_close(fd);
 				free(db1);
 				return 0;
 			}

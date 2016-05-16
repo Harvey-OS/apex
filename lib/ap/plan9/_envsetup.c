@@ -62,7 +62,7 @@ _envsetup(void)
 		return;
 	psize = Envhunk;
 	nd = _dirreadall(dfd, &d9a);
-	close(dfd);
+	__sys_close(dfd);
 	for(j=0; j<nd; j++){
 		d9 = &d9a[j];
 		n = strlen(d9->name);
@@ -85,7 +85,7 @@ _envsetup(void)
 		f = __sys_open(name, O_RDONLY);
 		if(f < 0 || read(f, p+n+1, m) != m)
 			m = 0;
-		close(f);
+		__sys_close(f);
 		if(p[n+m] == 0)
 			m--;
 		for(i=0; i<m; i++)

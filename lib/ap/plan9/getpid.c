@@ -26,6 +26,6 @@ getpid(void)
 		_syserrno();
 	else
 		n = atoi(pidbuf);
-	close(f);
+	__sys_close(f);
 	return n;
 }

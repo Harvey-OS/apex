@@ -7,7 +7,7 @@ int __lockfile(FILE *f)
 	//if (f->lock == tid)
 	//while ((owner = a_cas(&f->lock, 0, tid)))
 	//	__wait(&f->lock, &f->waiters, owner, 1);
-	f->lock = 0;
+	f->lock = 1;
 	return 0;
 }
 
@@ -25,5 +25,5 @@ void __unlockfile(FILE *f)
 	 * malloc changes, this assumption needs revisiting. */
 
 	//if (f->waiters) __wake(&f->lock, 1, 1);
-	f->lock = 1;
+	f->lock = 0;
 }

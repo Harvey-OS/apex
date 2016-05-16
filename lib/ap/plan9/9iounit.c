@@ -66,7 +66,7 @@ _IOUNIT(int fd)
 	if(cfd < 0)
 		return 0;
 	i = read(cfd, buf, sizeof buf-1);
-	close(cfd);
+	__sys_close(cfd);
 	if(i <= 0)
 		return 0;
 	buf[i] = '\0';
