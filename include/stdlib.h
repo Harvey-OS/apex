@@ -60,6 +60,7 @@ extern size_t wcstombs(char *, const wchar_t *, size_t);
 extern int mkstemp(char *temp);
 extern int 	putenv(char*);
 extern char	*mktemp(char *);
+extern int mkstemp(char *);
 extern char	*sys_errlist[];
 extern int		sys_nerr;
 extern void	bhappy(void*);
