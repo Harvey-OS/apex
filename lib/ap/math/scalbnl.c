@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2005-2014 Rich Felker, et al.
+ * Copyright (c) 2015-2016 Álvaro Jurado et al.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE.mit file.
+ */
+
 #include "libm.h"
 
 #if LDBL_MANT_DIG == 53 && LDBL_MAX_EXP == 1024
