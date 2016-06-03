@@ -63,7 +63,7 @@ access(const char *name, int mode)
 			if(fd < 0)
 				return -1;
 			close(fd);
-			remove(tname);
+			__sys_remove(tname);
 		}
 		return 0;
 	}

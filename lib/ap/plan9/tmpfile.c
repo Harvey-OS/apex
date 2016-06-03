@@ -15,12 +15,13 @@
 #include "dir.h"
 
 FILE *
-tmpfile(void){
+tmpfile(void)
+{
 	FILE *f;
-	static char name[]="/tmp/tmpfile_XXXXXX";
+	static char name[32];
 	int n;
 
-	snprintf (name, 36, "%x", rand());
+	snprintf(name, sizeof(name), "/tmp/tmpfile_%x", rand());
 
 	n = create(name, 64|2, 0777); /* remove-on-close */
 	if(n==-1){

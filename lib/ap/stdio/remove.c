@@ -11,6 +11,6 @@
  * pANS stdio -- remove
  */
 #include <unistd.h>
-int remove(const char *f){
+int _REMOVE(const char *f){
 	return unlink((char *)f);
 }

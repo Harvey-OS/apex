@@ -79,7 +79,7 @@ unlink(const char *path)
 	}
 	n = 0;
 	if(fd == -1)
-		if((n=remove(path)) < 0)
+		if((n=__sys_remove(path)) < 0)
 			_syserrno();
 	free(db1);
 	return n;
