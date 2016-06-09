@@ -7,20 +7,32 @@
  * in the LICENSE file.
  */
 
-#include "lib.h"
-#include <errno.h>
+#include "stdio_impl.h"
 #include <unistd.h>
+#include <string.h>
 #include "sys9.h"
+#include "lib.h"
+#include "dir.h"
 
-int
-rmdir(const char *path)
+FILE *
+tmpfile(void)
 {
+	FILE *f;
+	static char name[32];
 	int n;
 
-	n = 0;
-	if(__sys_remove(path) < 0) {
+	snprintf(name, sizeof(name), "/tmp/tmpfile_%x", rand());
+
+	n = create(name, 64|2, 0777); /* remove-on-close */
+	if(n==-1){
 		_syserrno();
-		n = -1;
+		return NULL;
 	}
-	return n;
+	_fdinfo[n].flags = FD_ISOPEN;
+	_fdinfo[n].oflags = 2;
+
+	f = fdopen(n, "w+");
+	if (!f) close(n);
+
+	return f;
 }

@@ -82,7 +82,10 @@ extern FILE *const stderr;
 extern "C" {
 #endif
 
-extern int remove(const char *);
+#include <features.h>
+
+extern int _REMOVE(const char *);
+#define remove _REMOVE
 extern int rename(const char *, const char *);
 extern FILE *tmpfile(void);
 extern char *tmpnam(char *);

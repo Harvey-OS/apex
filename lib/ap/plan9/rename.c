@@ -24,7 +24,7 @@ rename(const char *from, const char *to)
 	Dir *d, nd;
 
 	if(access(to, 0) >= 0){
-		if(remove(to) < 0){
+		if(__sys_remove(to) < 0){
 			_syserrno();
 			return -1;
 		}
@@ -73,7 +73,7 @@ rename(const char *from, const char *to)
 		if(n>0)
 			n = 0;
 		if(n == 0) {
-			if(remove(from) < 0){
+			if(__sys_remove(from) < 0){
 				_syserrno();
 				return -1;
 			}

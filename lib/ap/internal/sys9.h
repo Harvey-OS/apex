@@ -101,7 +101,6 @@ extern	int	noted(int);
 extern	int	notify(void(*)(void*, char*));
 extern	int32_t	pread(int, void*, int32_t, int64_t);
 extern	int32_t	pwrite(int, const void*, int32_t, int64_t);
-extern	int	remove(const char*);
 extern	int	rendezvous(uint32_t, uint32_t);
 extern	int	rfork(int);
 extern	int	segattach(int, char*, void*, uint32_t);
@@ -125,6 +124,7 @@ extern	int	__sys_dup(int, int);
 extern	int	__sys_fstat(int, unsigned char*, int);
 extern	int	__sys_open(const char *, int);
 extern	int	__sys_pipe(int*);
+extern	int	__sys_remove(const char*);
 extern	int	__sys_stat(const char*, unsigned char*, int);
 extern	int	__sys_wstat(const char*, unsigned char*, int);
 

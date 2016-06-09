@@ -1,18 +1,16 @@
 /*
- * Copyright (c) 2005-2014 Rich Felker, et al.
- * Copyright (c) 2015-2016 Álvaro Jurado et al.
- *
- * Use of this source code is governed by a MIT-style
- * license that can be found in the LICENSE.mit file.
+ * This file is part of the UCB release of Plan 9. It is subject to the license
+ * terms in the LICENSE file found in the top-level directory of this
+ * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
+ * part of the UCB release of Plan 9, including this file, may be copied,
+ * modified, propagated, or distributed except according to the terms contained
+ * in the LICENSE file.
  */
 
-#include <stdio.h>
-#include <errno.h>
+/*
+ * pANS stdio -- remove
+ */
 #include <unistd.h>
-
-int remove(const char *path)
-{
-	int r = unlink(path);
-	if (r==-EISDIR) r = rmdir(path);
-	return r;
+int _REMOVE(const char *f){
+	return unlink((char *)f);
 }

@@ -7,20 +7,13 @@
  * in the LICENSE file.
  */
 
-#include "lib.h"
-#include <errno.h>
-#include <unistd.h>
 #include "sys9.h"
 
-int
-rmdir(const char *path)
-{
-	int n;
+/* syscall in libc */
+extern	int	remove(const char *);
 
-	n = 0;
-	if(__sys_remove(path) < 0) {
-		_syserrno();
-		n = -1;
-	}
-	return n;
+int
+__sys_remove(const char *c)
+{
+	return remove(c);
 }
