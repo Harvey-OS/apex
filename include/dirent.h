@@ -14,7 +14,15 @@
  */
 #define MAXNAMLEN 255
 
+#include <sys/types.h>
+
+typedef size_t d_ino;
+
 struct	dirent {
+	ino_t d_ino;
+	off_t d_off;
+	unsigned short d_reclen;
+	unsigned char d_type;
 	char	d_name[MAXNAMLEN + 1];
 };
 
@@ -26,6 +34,7 @@ typedef struct _dirdesc {
 	void *dirs;
 	int	dirsize;
 	int	dirloc;
+	volatile int lock[2];
 } DIR;
 
 
@@ -38,6 +47,7 @@ extern "C" {
  */
 DIR		*opendir(const char *);
 struct dirent	*readdir(DIR *);
+int            readdir_r(DIR *__restrict, struct dirent *__restrict, struct dirent **__restrict);
 void		rewinddir(DIR *);
 int		closedir(DIR *);
 
