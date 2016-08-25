@@ -74,9 +74,9 @@ extern "C" {
 #endif
 
 extern int fcntl(int, int, ...);
-extern int _OPEN(const char *, int, ...);
+extern int __open(const char *, int, ...);
+#define open __open
 extern int creat(const char *, mode_t);
-#define open _OPEN
 
 #ifdef __cplusplus
 }

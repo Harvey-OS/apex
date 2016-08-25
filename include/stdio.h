@@ -84,8 +84,8 @@ extern "C" {
 
 #include <features.h>
 
-extern int _REMOVE(const char *);
-#define remove _REMOVE
+extern int __remove(const char *);
+#define remove __remove
 extern int rename(const char *, const char *);
 extern FILE *tmpfile(void);
 extern char *tmpnam(char *);

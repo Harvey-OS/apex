@@ -74,10 +74,11 @@ extern mode_t umask(mode_t);
 extern int mkdir(const char *, mode_t);
 extern int mkfifo(const char *, mode_t);
 extern	int	__stat(char *, struct stat *);
-extern	int _STAT(const char *, struct stat *);
-extern int _FSTAT(int, struct stat *);
-#define stat(c, s) _STAT(c, s)
-#define fstat(i, s) _FSTAT(i, s)
+extern int __stat_ap(const char *, struct stat *);
+extern int __fstat(int, struct stat *);
+#define stat(c, s) __stat_ap(c, s)
+#define fstat(i, s) __fstat(i, s)
+
 extern int chmod(const char *, mode_t);
 
 #ifdef _BSD_EXTENSION

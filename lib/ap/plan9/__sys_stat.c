@@ -11,19 +11,12 @@
 
 /* syscalls in libc */
 extern	int	stat(const char*, unsigned char*, int);
-extern	int	wstat(const char*, unsigned char*, int);
 extern	int	fstat(int, unsigned char*, int);
 
 int
 __sys_stat(const char *c, unsigned char *a, int i)
 {
 	return stat(c, a, i);
-}
-
-int
-__sys_wstat(const char *c, unsigned char *a, int i)
-{
-	return wstat(c, a, i);
 }
 
 int
