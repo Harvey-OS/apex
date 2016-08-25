@@ -58,7 +58,7 @@ _dirwstat(const char *name, Dir *d)
 	if(buf == nil)
 		return -1;
 	convD2M(d, buf, r);
-	r = __sys_wstat(name, buf, r);
+	r = wstat(name, buf, r);
 	free(buf);
 	return r;
 }

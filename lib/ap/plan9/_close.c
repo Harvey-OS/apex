@@ -14,7 +14,7 @@
 #include "sys9.h"
 
 int
-_CLOSE(int d)
+__close(int d)
 {
 	int n;
 	Fdinfo *f;

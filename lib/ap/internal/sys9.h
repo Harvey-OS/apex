@@ -113,6 +113,7 @@ extern	int	semacquire(int32_t*, int);
 extern	int32_t	semrelease(int32_t*, int32_t);
 extern	int	tsemacquire(int32_t*, uint32_t);
 extern	Waitmsg* _WAIT(void);
+extern	int	wstat(const char*, unsigned char*, int);
 
 /*
  * Following libc syscalls are used inside their respective ANSI/POSIX
@@ -126,7 +127,6 @@ extern	int	__sys_open(const char *, int);
 extern	int	__sys_pipe(int*);
 extern	int	__sys_remove(const char*);
 extern	int	__sys_stat(const char*, unsigned char*, int);
-extern	int	__sys_wstat(const char*, unsigned char*, int);
 
 /*
  * atomic

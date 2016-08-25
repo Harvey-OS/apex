@@ -43,7 +43,7 @@ rename(const char *from, const char *to)
 	f = f? f+1 : (char *)from;
 	t = t? t+1 : (char *)to;
 	n = 0;
-	if(f-from==t-to && strncmp(from, to, f-from)==0){
+	if(0 && (f-from==t-to && strncmp(from, to, f-from)==0)){
 		/* from and to are in same directory (we miss some cases) */
 		_nulldir(&nd);
 		nd.name = t;

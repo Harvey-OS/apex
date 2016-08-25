@@ -8,17 +8,11 @@
  */
 
 /*
- * pANS stdio -- rename
+ * pANS stdio -- remove
  */
 
-#include <stdio.h>
 #include <unistd.h>
 
-int rename(const char *old, const char *new){
-	if(link((char *)old, (char *)new)<0) return -1;
-	if(unlink((char *)old)<0){
-		unlink((char *)new);
-		return -1;
-	}
-	return 0;
+int __remove(const char *f){
+	return unlink((char *)f);
 }

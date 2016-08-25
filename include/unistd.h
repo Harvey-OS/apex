@@ -133,7 +133,6 @@ extern int link(const char *, const char *);
 extern char *getcwd(char *, size_t);
 extern int unlink(const char *);
 extern int rmdir(const char *);
-extern int rename(const char *, const char *);
 extern int access(const char *, int);
 extern long pathconf(const char *, int);
 extern long fpathconf(int, int);
@@ -142,13 +141,13 @@ extern int chown(const char *, uid_t, gid_t);
 #endif
 
 /* input and output primitives */
-extern int _PIPE(int *);
-#define pipe _PIPE
-extern int _DUP(int);
-#define dup _DUP
+extern int __pipe(int *);
+#define pipe __pipe
+extern int __dup(int);
+#define dup __dup
 extern int dup2(int, int);
-extern	int	_CLOSE(int);
-#define close _CLOSE
+extern	int	__close(int);
+#define close __close
 extern ssize_t read(int, void *, size_t);
 extern ssize_t write(int, const void *, size_t);
 #ifdef __TYPES_H

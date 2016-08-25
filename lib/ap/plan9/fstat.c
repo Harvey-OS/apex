@@ -15,7 +15,7 @@
 #include "dir.h"
 
 int
-_FSTAT(int fd, struct stat *buf)
+__fstat(int fd, struct stat *buf)
 {
 	Dir *d;
 

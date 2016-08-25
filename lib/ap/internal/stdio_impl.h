@@ -27,7 +27,7 @@
 #define F_APP 128
 
 /* Wrapped in unistd.h for freopen.c */
-#define close _CLOSE
+#define close __close
 
 struct _IO_FILE {
 	unsigned flags;

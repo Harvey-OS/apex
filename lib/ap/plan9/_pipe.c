@@ -13,7 +13,7 @@
 #include "sys9.h"
 
 int
-_PIPE(int fildes[2])
+__pipe(int fildes[2])
 {
 	Fdinfo *fi;
 	int i;

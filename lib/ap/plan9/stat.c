@@ -15,7 +15,7 @@
 #include "dir.h"
 
 int
-_STAT(const char *path, struct stat *buf)
+__stat_ap(const char *path, struct stat *buf)
 {
 	Dir *d;
 
