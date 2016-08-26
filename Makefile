@@ -14,5 +14,4 @@ travis:
 	(cd /tmp/harvey && bash ./bootstrap.sh && ./util/build sys/src/libc/libc.json)
 	mkdir -p $(APEXLIB)
 	@cd $(DIRS) && $(MAKE)
-	@cd cmd/pdksh && $(MAKE)
 	@echo "Done!"
