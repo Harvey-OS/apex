@@ -1,4 +1,3 @@
-#define NPRIVATES 16
 
 .text
 
@@ -12,18 +11,5 @@ _start:
 	leaq	8(%rsp), %rsi
 	movq	environ, %rbx
 	call	main
-
-loop:
-	movq	$_exits, %rdi
-	call	exits
-	jmp	loop
-
-.data
-_exits:
-	.ascii	"main"
-
-
-.globl gettls0
-gettls0:
-	movq %fs:0, %rax
+	call	exit
 	ret
