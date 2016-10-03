@@ -10,6 +10,7 @@
 #define _STDIO_IMPL_H
 
 #include <stdio.h>
+#include <unistd.h>
 #include "libc.h"
 
 #define UNGET 8

@@ -40,9 +40,8 @@ extern void free(void *);
 extern void *malloc(size_t);
 extern void *realloc(void *, size_t);
 extern void abort(void);
-extern int atexit(void (*func)(void));
-//extern int (*_atexit)(void (*func)(void));
-//#define atexit(func) _atexit(func)
+extern int __atexit(void (*func)(void));
+#define atexit __atexit
 extern void exit(int);
 extern char *getenv(const char *);
 extern int system(const char *);

@@ -7,13 +7,17 @@
  * in the LICENSE file.
  */
 
+#include "lib.h"
+#include <unistd.h>
 #include "sys9.h"
 
-/* syscall in libc */
-extern	int	dup(int, int);
-
 int
-__sys_dup(int n, int i)
+__chdir(const char *f)
 {
-	return dup(n, i);
+	int n;
+
+	n = __sys_chdir(f);
+	if(n < 0)
+		_syserrno();
+	return n;
 }

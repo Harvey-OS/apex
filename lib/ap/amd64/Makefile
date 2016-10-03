@@ -4,11 +4,8 @@ TARGET = libap.a
 SRCS =\
 	notetramp.c \
 
-SRCSS =\
-	sigsetjmp.s \
 
 OBJ = ${SRCS:.c=.o}
-OBJS = ${SRCSS:.s=.o}
 
 CFLAGS += -I../internal -D_PLAN9_SOURCE -D_POSIX_SOURCE
 
@@ -18,9 +15,8 @@ all: $(TARGET) clean
 
 %.o:
 	$(CC) $(CFLAGS) -c $(SRCS) || exit 1
-	$(CC) $(CFLAGS) -c $(SRCSS) || exit 1
 
-$(TARGET): $(OBJ) $(OBJS) $(OBJSS)
+$(TARGET): $(OBJ)
 	ar rcs ${APEXLIB}/$@ $^
 
 clean:

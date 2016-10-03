@@ -10,10 +10,10 @@
 #include "sys9.h"
 
 /* syscall in libc */
-extern	int	dup(int, int);
+extern	int32_t	write(int, const void*, int32_t);
 
 int
-__sys_dup(int n, int i)
+__sys_write(int fd, const void* buf, int32_t nbytes)
 {
-	return dup(n, i);
+	return write(fd, buf, nbytes);
 }

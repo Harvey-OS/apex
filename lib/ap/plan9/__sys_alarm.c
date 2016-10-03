@@ -10,10 +10,10 @@
 #include "sys9.h"
 
 /* syscall in libc */
-extern	int	dup(int, int);
+extern	int64_t	alarm(uint64_t);
 
-int
-__sys_dup(int n, int i)
+int64_t
+__sys_alarm(uint64_t u)
 {
-	return dup(n, i);
+	return alarm(u);
 }

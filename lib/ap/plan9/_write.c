@@ -7,13 +7,24 @@
  * in the LICENSE file.
  */
 
+#include <errno.h>
+#include <unistd.h>
+#include "lib.h"
 #include "sys9.h"
 
-/* syscall in libc */
-extern	int	dup(int, int);
-
-int
-__sys_dup(int n, int i)
+ssize_t
+__write(int d, const void *buf, size_t nbytes)
 {
-	return dup(n, i);
+	int n;
+
+	if(d<0 || d>=OPEN_MAX || !(_fdinfo[d].flags&FD_ISOPEN)){
+		errno = EBADF;
+		return -1;
+	}
+	if(_fdinfo[d].oflags&O_APPEND)
+		seek(d, 0, 2);
+	n = __sys_write(d, buf, nbytes);
+	if(n < 0)
+		_syserrno();
+	return n;
 }

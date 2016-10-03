@@ -21,7 +21,7 @@ getpid(void)
 	char pidbuf[15];
 
 	f = __sys_open("#c/pid", 0);
-	n = read(f, pidbuf, sizeof pidbuf);
+	n = __sys_read(f, pidbuf, sizeof pidbuf);
 	if(n < 0)
 		_syserrno();
 	else

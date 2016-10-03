@@ -64,8 +64,8 @@ rename(const char *from, const char *to)
 			_syserrno();
 			n = -1;
 		}
-		while(n>=0 && (n = read(ffd, buf, 8192)) > 0)
-			if(write(tfd, buf, n) != n){
+		while(n>=0 && (n = __sys_read(ffd, buf, 8192)) > 0)
+			if(__sys_write(tfd, buf, n) != n){
 				_syserrno();
 				n = -1;
 			}

@@ -65,17 +65,13 @@ void
 	return oldf;
 }
 
-/* BAD CODE - see /sys/src/ape/lib/ap/$objtype/setjmp.s for real code
 int
 sigsetjmp(sigjmp_buf buf, int savemask)
 {
-	int r;
-
 	buf[0] = savemask;
 	buf[1] = _psigblocked;
 	return setjmp(&buf[2]);
 }
-*/
 
 /*
  * BUG: improper handling of process signal mask
