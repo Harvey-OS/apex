@@ -120,7 +120,7 @@ _notehandler(void *u, char *msg)
 			noted(0); /* NCONT */
 		}
 	}
-	//_doatexits();
+	_doatexits();
 	noted(1); /* NDFLT */
 }
 

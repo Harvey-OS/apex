@@ -15,6 +15,6 @@ int
 pause(void)
 {
 	for(;;)
-		if(sleep(1000*1000) < 0)
+		if(__sys_sleep(1000*1000) < 0)
 			return -1;
 }

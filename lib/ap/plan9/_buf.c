@@ -286,7 +286,7 @@ select(int nfds, fd_set *rfds, fd_set *wfds, fd_set *efds, struct timeval *timeo
 			|| (efds && FD_ANYSET(efds)))) {
 		/* no requested fds */
 		if(t > 0)
-			sleep(t);
+			__sys_sleep(t);
 		return 0;
 	}
 
@@ -406,7 +406,7 @@ _timerproc(void)
 				__sys_close(i);
 		rendezvous(1, 0);
 		for(;;) {
-			sleep(mux->waittime);
+			__sys_sleep(mux->waittime);
 			if(timerreset) {
 				timerreset = 0;
 			} else {
