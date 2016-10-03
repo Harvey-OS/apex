@@ -126,6 +126,7 @@ extern	int	__sys_fstat(int, unsigned char*, int);
 extern	int	__sys_open(const char *, int);
 extern	int	__sys_pipe(int*);
 extern	int	__sys_remove(const char*);
+extern	int	__sys_sleep(int32_t);
 extern	int	__sys_stat(const char*, unsigned char*, int);
 
 /*

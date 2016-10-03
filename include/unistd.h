@@ -101,7 +101,8 @@ extern int execvp(const char *, const char **);
 extern void _exit(int);
 extern unsigned int alarm(unsigned int);
 extern int pause(void);
-extern unsigned int sleep(unsigned int);
+extern unsigned int __sleep(unsigned int);
+#define sleep(u) __sleep(u);
 #ifdef __TYPES_H
 extern pid_t fork(void);
 #endif

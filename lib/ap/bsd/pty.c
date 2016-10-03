@@ -92,7 +92,7 @@ mkserver(void)
 				fd = open(fssrv, O_RDWR);
 				if(fd >= 0)
 					break;
-				sleep(1000);
+				__sys_sleep(1000);
 			}
 		}
 		if(fd < 0)

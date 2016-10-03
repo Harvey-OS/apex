@@ -7,21 +7,13 @@
  * in the LICENSE file.
  */
 
-#include <unistd.h>
-#define	NONEXIT	34
-void (*_atexitfns[NONEXIT])(void);
-void _doatexits(void){
-	int i;
-	void (*f)(void);
-	for(i = NONEXIT-1; i >= 0; i--)
-		if(_atexitfns[i]){
-			f = _atexitfns[i];
-			_atexitfns[i] = 0;	/* self defense against bozos */
-			(*f)();
-		}
-}
-void exit(int status)
+#include "sys9.h"
+
+/* syscall in libc */
+extern	int	sleep(int32_t);
+
+int
+__sys_sleep(int32_t i)
 {
-	_doatexits();
-	_exit(status);
+	return sleep(i);
 }
