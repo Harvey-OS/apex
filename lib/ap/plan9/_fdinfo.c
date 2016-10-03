@@ -158,7 +158,7 @@ _fdinit(char *s, char *se)
 	if(readprocfdinit() == 0)
 		usedproc = 1;
 	else
-		write(2, "FAILED\n", 7);
+		__sys_write(2, "FAILED\n", 7);
 	if(s)
 		sfdinit(usedproc, s, se);
 	if(!s && !usedproc)

@@ -93,13 +93,14 @@ extern "C" {
 
 /* process primitives */
 extern int execl(const char *, const char * , ...);
-extern int execv(const char *, const char **);
+extern int execv(const char *, char *const *);
 extern int execle(const char *, const char *,  ...);
-extern int execve(const char *, const char **, char**);
+extern int execve(const char *, char *const *, char *const *);
 extern int execlp(const char *, const char *, ...);
-extern int execvp(const char *, const char **);
+extern int execvp(const char *, char *const *);
 extern void _exit(int);
-extern unsigned int alarm(unsigned int);
+extern unsigned int __alarm(unsigned int);
+#define alarm __alarm
 extern int pause(void);
 extern unsigned int __sleep(unsigned int);
 #define sleep(u) __sleep(u);
@@ -129,7 +130,8 @@ extern pid_t setsid(void);
 #endif
 
 /* files and directories */
-extern int chdir(const char *);
+extern int __chdir(const char *);
+#define chdir __chdir
 extern int link(const char *, const char *);
 extern char *getcwd(char *, size_t);
 extern int unlink(const char *);
@@ -149,8 +151,10 @@ extern int __dup(int);
 extern int dup2(int, int);
 extern	int	__close(int);
 #define close __close
-extern ssize_t read(int, void *, size_t);
-extern ssize_t write(int, const void *, size_t);
+extern ssize_t __read(int, void *, size_t);
+#define read __read
+extern ssize_t __write(int, const void *, size_t);
+#define write __write
 #ifdef __TYPES_H
 extern int ftruncate(int, off_t);
 extern off_t lseek(int, off_t, int);

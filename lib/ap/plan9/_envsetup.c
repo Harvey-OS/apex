@@ -83,7 +83,7 @@ _envsetup(void)
 		p[n] = '=';
 		strcpy(name+3, d9->name);
 		f = __sys_open(name, O_RDONLY);
-		if(f < 0 || read(f, p+n+1, m) != m)
+		if(f < 0 || __sys_read(f, p+n+1, m) != m)
 			m = 0;
 		__sys_close(f);
 		if(p[n+m] == 0)

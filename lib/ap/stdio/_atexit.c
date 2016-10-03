@@ -7,13 +7,18 @@
  * in the LICENSE file.
  */
 
-#include "sys9.h"
-
-/* syscall in libc */
-extern	int	dup(int, int);
+#include <unistd.h>
+#define	NONEXIT	34
+extern void (*_atexitfns[NONEXIT])(void);
 
 int
-__sys_dup(int n, int i)
+__atexit(void (*f)(void))
 {
-	return dup(n, i);
+	int i;
+	for(i=0; i<NONEXIT; i++)
+		if(!_atexitfns[i]){
+			_atexitfns[i] = f;
+			return(0);
+		}
+	return(1);
 }

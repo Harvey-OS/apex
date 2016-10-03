@@ -1,18 +1,30 @@
 /*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
+ * Copyright (c) 2005-2014 Rich Felker, et al.
+ * Copyright (c) 2015-2016 Álvaro Jurado et al.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE.mit file.
  */
 
 #include <unistd.h>
+#include <stdarg.h>
 
-extern char **environ;
-
-int
-execl(const char *name, const char *arg0, ...)
+int execl(const char *path, const char *argv0, ...)
 {
-	return execve(name, &arg0, environ);
+	int argc;
+	va_list ap;
+	va_start(ap, argv0);
+	for (argc=1; va_arg(ap, const char *); argc++);
+	va_end(ap);
+	{
+		int i;
+		char *argv[argc+1];
+		va_start(ap, argv0);
+		argv[0] = (char *)argv0;
+		for (i=1; i<argc; i++)
+			argv[i] = va_arg(ap, char *);
+		argv[i] = NULL;
+		va_end(ap);
+		return execv(path, argv);
+	}
 }

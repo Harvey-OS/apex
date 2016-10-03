@@ -17,7 +17,7 @@
 extern char **environ;
 
 int
-execve(const char *name, const char *argv[], char *envp[])
+execve(const char *name, char *const argv[], char *const envp[])
 {
 	int n, f, i;
 	char **e, *ss, *se;
@@ -50,13 +50,13 @@ execve(const char *name, const char *argv[], char *envp[])
 			ss = _ultoa(ss, fi->oflags);
 			*ss++ = '\n';
 			if(ss-buf < sizeof(buf)-50){
-				write(f, buf, ss-buf);
+				__sys_write(f, buf, ss-buf);
 				ss = buf;
 			}
 		}
 	}
 	if(ss > buf)
-		write(f, buf, ss-buf);
+		__sys_write(f, buf, ss-buf);
 	__sys_close(f);
 	/*
 	 * To pass _sighdlr[] across exec, set $_sighdlr
@@ -75,7 +75,7 @@ execve(const char *name, const char *argv[], char *envp[])
 				*ss++ = ' ';
 			}
 		}
-		write(f, buf, ss-buf);
+		__sys_write(f, buf, ss-buf);
 		__sys_close(f);
 	}
 	if(envp){
@@ -98,7 +98,7 @@ execve(const char *name, const char *argv[], char *envp[])
 			for(i=0; i < n; i++)
 				if(se[i] == 1)
 					se[i] = 0;
-			write(f, se, n);
+			__sys_write(f, se, n);
 			/* put nulls back */
 			for(i=0; i < n; i++)
 				if(se[i] == 0)

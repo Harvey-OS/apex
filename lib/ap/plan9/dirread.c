@@ -95,7 +95,7 @@ _dirread(int fd, Dir **d)
 	buf = malloc(DIRMAX);
 	if(buf == nil)
 		return -1;
-	ts = read(fd, buf, DIRMAX);
+	ts = __sys_read(fd, buf, DIRMAX);
 	if(ts >= 0)
 		ts = _dirpackage(buf, ts, d);
 	free(buf);
@@ -117,7 +117,7 @@ _dirreadall(int fd, Dir **d)
 			return -1;
 		}
 		buf = nbuf;
-		n = read(fd, buf+ts, DIRMAX);
+		n = __sys_read(fd, buf+ts, DIRMAX);
 		if(n <= 0)
 			break;
 		ts += n;

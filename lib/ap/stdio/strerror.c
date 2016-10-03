@@ -14,43 +14,100 @@
 #include <string.h>
 #include <errno.h>
 
-extern char _plan9err[];
+char *sys_errlist[] = {
+	"Error 0",
+	"Too big",
+	"Access denied",
+	"Try again",
+	"Bad file number",
+	"In use",
+	"No children",
+	"Deadlock",
+	"File exists",
+	"Bad address",
+	"File too large",
+	"Interrupted system call",
+	"Invalid argument",
+	"I/O error",
+	"Is a directory",
+	"Too many open files",
+	"Too many links",
+	"Name too long",
+	"File table overflow",
+	"No such device",
+	"No such file or directory",
+	"Exec format error",
+	"Not enough locks",
+	"Not enough memory",
+	"No space left on device",
+	"No such system call",
+	"Not a directory",
+	"Directory not empty",
+	"Inappropriate ioctl",
+	"No such device or address",
+	"Permission denied",
+	"Broken pipe",
+	"Read-only file system",
+	"Illegal seek",
+	"No such process",
+	"Cross-device link",
 
-#define E(a,b) ((unsigned char)a),
-static const unsigned char errid[] = {
-#include "__strerror.h"
+	/* bsd networking software */
+	"Not a socket",
+	"Protocol not supported",	/* EPROTONOSUPPORT, EPROTOTYPE */
+/*	"Protocol wrong type for socket",*/	/* EPROTOTYPE */
+	"Connection refused",
+	"Address family not supported",
+	"No buffers",
+	"OP not supported",
+	"Address in use",
+	"Destination address required",
+	"Message size",
+	"Protocol option not supported",
+	"Socket option not supported",
+	"Protocol family not supported",	/* EPFNOSUPPORT */
+	"Address not available",
+	"Network down",
+	"Network unreachable",
+	"Network reset",
+	"Connection aborted",
+	"Connected",
+	"Not connected",
+	"Shut down",
+	"Too many references",
+	"Timed out",
+	"Host down",
+	"Host unreachable",
+	"Unknown error",		/* EGREG */
+
+	/* These added in 1003.1b-1993 */
+	"Operation canceled",
+	"Operation in progress"
 };
 
-#undef E
-#define E(a,b) b "\0"
-static const char errmsg[] =
-#include "__strerror.h"
-;
+#define	_IO_nerr	(sizeof sys_errlist/sizeof sys_errlist[0])
+int sys_nerr = _IO_nerr;
+extern char _plan9err[];
 
 char *
-strerror(int e)
+strerror(int n)
 {
-	const char *s;
-	int i;
-
-	if(e == EPLAN9)
+	if(n == EPLAN9)
 		return _plan9err;
+	if(n >= 0 && n < _IO_nerr)
+		return sys_errlist[n];
+	if(n == EDOM)
+		return "Domain error";
+	else if(n == ERANGE)
+		return "Range error";
 	else
-		/* mips has one error code outside of the 8-bit range due to a
-		 * historical typo, so we just remap it. */
-		if (EDQUOT==1133) {
-			if (e==109) e=-1;
-			else if (e==EDQUOT) e=109;
-		}
-		for (i=0; errid[i] && errid[i] != e; i++);
-		for (s=errmsg; i; s++, i--) for (; *s; s++);
-		return (char *)s;
+		return "Unknown error";
 }
 
 char *
-strerror_r(int e, char *buf, int len)
+strerror_r(int n, char *buf, int len)
 {
-	strncpy(buf, strerror(e), len);
+	strncpy(buf, strerror(n), len);
 	buf[len-1] = 0;
 	return buf;
 }

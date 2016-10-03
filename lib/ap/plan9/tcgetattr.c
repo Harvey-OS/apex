@@ -76,7 +76,7 @@ tcgetattr(int fd, struct termios *t)
 		return -1;
 	}
 
-	n = read(fd, buf, 57);
+	n = __sys_read(fd, buf, 57);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -119,7 +119,7 @@ tcsetattr(int fd, int j, const struct termios *t)
 		return -1;
 	}
 
-	n = write(fd, buf, n);
+	n = __sys_write(fd, buf, n);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -148,7 +148,7 @@ tcsetpgrp(int fd, pid_t pgrpid)
 		return -1;
 	}
 
-	n = write(fd, buf, n);
+	n = __sys_write(fd, buf, n);
 	if(n < 0) {
 		_syserrno();
 		return -1;
@@ -171,7 +171,7 @@ tcgetpgrp(int fd)
 		_syserrno();
 		return -1;
 	}
-	n = read(fd, buf, sizeof(buf));
+	n = __sys_read(fd, buf, sizeof(buf));
 	if(n < 0) {
 		_syserrno();
 		return -1;

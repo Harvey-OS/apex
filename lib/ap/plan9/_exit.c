@@ -31,7 +31,7 @@ _finish(int status, char *term)
 	char *cp;
 
 	if(_finishing)
-		exits(exitstatus);
+		_exits(exitstatus);
 	_finishing = 1;
 	if(status){
 		cp = _ultoa(exitstatus, status & 0xFF);
@@ -42,7 +42,7 @@ _finish(int status, char *term)
 	}
 	if(_sessleader)
 		kill(0, SIGTERM);
-	exits(exitstatus);
+	_exits(exitstatus);
 }
 
 /* emulate: return p+sprintf(p, "%uld", v) */

@@ -87,16 +87,15 @@ enum
 
 /* Libc needed syscalls */
 extern	int	await(char*, int);
-extern	int	chdir(const char*);
 extern	int	create(const char*, int, uint32_t);
 extern	int	errstr(char*, uint32_t);
-extern	int	exec(const char*, const char*[]);
-extern	void	exits(char *);
+extern	int	exec(const char*, char* const[]);
+extern	void	_exits(char *);
 extern	int	fd2path(int, char*, int);
 extern	int	fauth(int, char*);
 extern	int	_fsession(int, char*, int);
 extern	int	fwstat(int, unsigned char*, int);
-extern	int	_mount(int, int, const char*, int, const char*);
+extern	int	mount(int, int, const char*, int, const char*);
 extern	int	noted(int);
 extern	int	notify(void(*)(void*, char*));
 extern	int32_t	pread(int, void*, int32_t, int64_t);
@@ -120,14 +119,19 @@ extern	int	wstat(const char*, unsigned char*, int);
  * functions with the same name, so they have been replaced with private
  * calls to real syscalls through new functions to avoid colliding.
  */
+extern	int64_t	__sys_alarm(uint64_t);
+extern	int	__sys_chdir(const char*);
 extern	int	__sys_close(int);
 extern	int	__sys_dup(int, int);
 extern	int	__sys_fstat(int, unsigned char*, int);
 extern	int	__sys_open(const char *, int);
 extern	int	__sys_pipe(int*);
+extern	int32_t	__sys_read(int, void*, int32_t);
 extern	int	__sys_remove(const char*);
 extern	int	__sys_sleep(int32_t);
 extern	int	__sys_stat(const char*, unsigned char*, int);
+extern	int32_t	__sys_write(int, const void*, int32_t);
+
 
 /*
  * atomic

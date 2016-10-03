@@ -173,7 +173,7 @@ _copyproc(int fd, Muxbuf *b)
 		 */
 		nzeros = 0;
 		do {
-			n = read(fd, b->putnext, READMAX);
+			n = __sys_read(fd, b->putnext, READMAX);
 			if(b->fd == -1) {
 				_exit(0);		/* we've been closed */
 			}

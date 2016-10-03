@@ -10,10 +10,10 @@
 #include "sys9.h"
 
 /* syscall in libc */
-extern	int	dup(int, int);
+extern	int	chdir(const char*);
 
 int
-__sys_dup(int n, int i)
+__sys_chdir(const char* c)
 {
-	return dup(n, i);
+	return chdir(c);
 }

@@ -1,33 +1,30 @@
 /*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
+ * Copyright (c) 2005-2014 Rich Felker, et al.
+ * Copyright (c) 2015-2016 Álvaro Jurado et al.
+ *
+ * Use of this source code is governed by a MIT-style
+ * license that can be found in the LICENSE.mit file.
  */
 
 #include <unistd.h>
-#include <string.h>
-#include <sys/limits.h>
+#include <stdarg.h>
 
-/*
- * BUG: instead of looking at PATH env variable,
- * just try prepending /bin/ if name fails...
- */
-
-extern char **environ;
-
-int
-execlp(const char *name, const char *arg0, ...)
+int execlp(const char *file, const char *argv0, ...)
 {
-	int n;
-	char buf[PATH_MAX];
-
-	if((n=execve(name, &arg0, environ)) < 0){
-		strcpy(buf, "/bin/");
-		strcpy(buf+5, name);
-		n = execve(buf, &name+1, environ);
+	int argc;
+	va_list ap;
+	va_start(ap, argv0);
+	for (argc=1; va_arg(ap, const char *); argc++);
+	va_end(ap);
+	{
+		int i;
+		char *argv[argc+1];
+		va_start(ap, argv0);
+		argv[0] = (char *)argv0;
+		for (i=1; i<argc; i++)
+			argv[i] = va_arg(ap, char *);
+		argv[i] = NULL;
+		va_end(ap);
+		return execvp(file, argv);
 	}
-	return n;
 }

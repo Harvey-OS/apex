@@ -67,10 +67,10 @@ static void
 mkserver(void)
 {
 	int fd, i;
-	const char *argv[3]={"ptyfs", 0};
+	char *const argv[3]={"ptyfs", 0};
 
 	fd = open(fssrv, O_RDWR);
-	if(_mount(fd, -1, "/dev", MAFTER, "") < 0) {
+	if(mount(fd, -1, "/dev", MAFTER, "") < 0) {
 		/*
 		 * remove fssrv here, if it exists, to avoid a race
 		 * between the loop in the default case below and the
@@ -86,7 +86,7 @@ mkserver(void)
 			return;
 		case 0:
 			exec("/bin/ape/ptyfs", argv);
-			exits(0);
+			_exits(0);
 		default:
 			for(i = 0; i < 3; i++) {
 				fd = open(fssrv, O_RDWR);
@@ -97,7 +97,7 @@ mkserver(void)
 		}
 		if(fd < 0)
 			return;
-		if(_mount(fd, -1, "/dev", MAFTER, "") < 0)
+		if(mount(fd, -1, "/dev", MAFTER, "") < 0)
 			close(fd);
 	}
 	/* successful _MOUNT closes fd */

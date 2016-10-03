@@ -14,5 +14,5 @@
 unsigned int
 alarm(unsigned seconds)
 {
-	return alarm(seconds*1000);
+	return __sys_alarm(seconds*1000);
 }

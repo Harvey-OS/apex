@@ -11,5 +11,6 @@ _start:
 	leaq	8(%rsp), %rsi
 	movq	environ, %rbx
 	call	main
+	movq	%rax, %rdi
 	call	exit
 	ret

@@ -19,7 +19,7 @@ extern char **environ;
  */
 
 int
-execvp(const char *name, const char **argv)
+execvp(const char *name, char *const argv[])
 {
 	int n;
 	char buf[PATH_MAX];

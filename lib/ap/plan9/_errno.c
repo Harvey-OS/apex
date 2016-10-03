@@ -119,19 +119,15 @@ static struct errmap {
 void
 _syserrno(void)
 {
-	char err[ERRMAX];
 	int i;
 
-	err[0] = 0;
-	errstr(err, sizeof err);
-	strncpy(_plan9err, err, sizeof err);
-	_plan9err[sizeof err-1] = 0;
-	//errno = EPLAN9;
-	for(i = 0; i < NERRMAP; i++){
-		if(strstr(err, map[i].ename) != 0){
-			errno = map[i].errno;
-			break;
-		}
+	if(errstr(_plan9err, sizeof _plan9err) < 0)
+		errno = EINVAL;
+	else{
+		for(i = 0; i < NERRMAP; i++)
+			if(strstr(_plan9err, map[i].ename) != 0)
+				break;
+		errstr(_plan9err, sizeof _plan9err);
+		errno = (i < NERRMAP)? map[i].errno : EINVAL;
 	}
-	errstr(err, sizeof err);
 }
