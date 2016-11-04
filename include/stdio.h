@@ -115,6 +115,8 @@ extern int vsprintf(char *, const char *, va_list);
 extern int vscanf(const char *restrict, va_list);
 extern int vsscanf(const char *restrict, const char *restrict, va_list);
 extern int vfscanf(FILE *, const char *, va_list);
+extern int asprintf(char **, const char *, ...);
+extern int vasprintf(char **, const char *, va_list);
 extern int fgetc(FILE *);
 extern char *fgets(char *, int, FILE *);
 extern int fputc(int, FILE *);

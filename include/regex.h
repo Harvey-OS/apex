@@ -15,7 +15,7 @@ extern "C" {
 
 #include <features.h>
 
-typedef size_t regoff_t;
+typedef int regoff_t;
 
 typedef struct re_pattern_buffer {
 	size_t re_nsub;
