@@ -14,7 +14,7 @@
 /* bsd extensions */
 #include <sys/uio.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>
 #include <netdb.h>
 
 int h_errno;

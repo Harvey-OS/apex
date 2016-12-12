@@ -16,19 +16,21 @@
 /* bsd extensions */
 #include <sys/uio.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>
 
 #define CLASS(x)	(x[0]>>6)
 
-unsigned long
-inet_addr(char *from)
+in_addr_t
+inet_addr(const char *from)
 {
 	int i;
 	char *p;
 	unsigned char to[4];
 	unsigned long x;
- 
-	p = from;
+
+	p = malloc(strlen(from)+1);
+	if (p)
+		strcpy(p, from);
 	memset(to, 0, 4);
 	for(i = 0; i < 4 && *p; i++){
 		to[i] = strtoul(p, &p, 0);

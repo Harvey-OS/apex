@@ -32,6 +32,7 @@ extern "C" {
  */
 
 typedef int socklen_t;
+typedef unsigned short sa_family_t;
 
 /*
  * Types
@@ -119,6 +120,13 @@ struct	linger {
 struct sockaddr {
 	unsigned short	sa_family;	/* address family */
 	char	sa_data[108];
+};
+
+struct sockaddr_storage
+{
+        sa_family_t ss_family;
+        unsigned long __ss_align;
+        char __ss_padding[128-2*sizeof(unsigned long)];
 };
 
 /*

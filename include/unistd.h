@@ -103,7 +103,7 @@ extern unsigned int __alarm(unsigned int);
 #define alarm __alarm
 extern int pause(void);
 extern unsigned int __sleep(unsigned int);
-#define sleep(u) __sleep(u);
+#define sleep(u) __sleep(u)
 #ifdef __TYPES_H
 extern pid_t fork(void);
 #endif
