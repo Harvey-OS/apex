@@ -10,9 +10,9 @@
 #ifndef __SETJMP_H
 #define __SETJMP_H
 
-typedef int jmp_buf[10];
+typedef int jmp_buf[20];
 #ifdef _POSIX_SOURCE
-typedef int sigjmp_buf[10];
+typedef int sigjmp_buf[20];
 #endif
 
 #ifdef __cplusplus
