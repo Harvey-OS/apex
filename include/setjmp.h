@@ -12,13 +12,13 @@
 #include <stdint.h>
 /*
  * jmp_buf contains the following:
- * rbx - 8 bytes
- * r12 to r15 - 24 bytes
- * rbp - 8 bytes
- * rsp - 8 bytes
- * return address - 8 bytes
- * 2 function arguments - 16 bytes
- * total = 80 bytes
+ * rbx - 1 uintptr_t
+ * r12 to r15 - 4 uintptr_t
+ * rbp - 1 uintptr_t
+ * rsp - 1 uintptr_t
+ * return address - 1 uintptr_t
+ * 2 function arguments - 2 uintptr_t
+ * total = 10 uintptr_t
  */
 
 typedef uintptr_t jmp_buf[10];
