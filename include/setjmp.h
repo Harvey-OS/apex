@@ -9,6 +9,7 @@
 
 #ifndef __SETJMP_H
 #define __SETJMP_H
+#include <stdint.h>
 /*
  * jmp_buf contains the following:
  * rbx - 8 bytes
@@ -17,12 +18,12 @@
  * rsp - 8 bytes
  * return address - 8 bytes
  * 2 function arguments - 16 bytes
- * total = 72 bytes
+ * total = 80 bytes
  */
 
-typedef unsigned char jmp_buf[72];
+typedef uintptr_t jmp_buf[10];
 #ifdef _POSIX_SOURCE
-typedef unsigned char sigjmp_buf[72];
+typedef uintptr_t sigjmp_buf[10];
 #endif
 
 #ifdef __cplusplus
