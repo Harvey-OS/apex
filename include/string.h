@@ -18,6 +18,7 @@ extern "C" {
 
 extern void *memcpy(void *, const void *, size_t);
 extern void* memccpy(void*, void*, int, size_t);
+extern void *mempcpy(void *, const void *, size_t);
 extern void *memmove(void *, const void *, size_t);
 extern char *strcpy(char *, const char *);
 extern size_t strlcpy (char *, const char *, size_t);

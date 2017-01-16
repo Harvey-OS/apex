@@ -113,6 +113,11 @@
 #define TCSADRAIN 2
 #define TCSAFLUSH 3
 
+#define TCOOFF 0
+#define TCOON  1
+#define TCIOFF 2
+#define TCION  3
+
 typedef unsigned long tcflag_t;
 typedef unsigned long speed_t;
 typedef unsigned char cc_t;
