@@ -26,9 +26,9 @@ system(const char *s)
 	if(!s)
 		return 1; /* a command interpreter is available */
 	pid = fork();
-	snprintf(cmd, sizeof cmd, "/%s/bin/ape/sh", oty);
+	snprintf(cmd, sizeof cmd, "/bin/rc", oty);
 	if(pid == 0) {
-		execl(cmd, "sh", "-c", s, NULL);
+		execl(cmd, "rc", "-c", s, NULL);
 		_exit(1);
 	}
 	if(pid < 0){
