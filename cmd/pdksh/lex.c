@@ -865,7 +865,7 @@ yyerror(fmt, va_alist)
 	SH_VA_START(va, fmt);
 	shf_vfprintf(shl_out, fmt, va);
 	va_end(va);
-	errorf(null);
+	errorf("%s", null);
 }
 
 /*

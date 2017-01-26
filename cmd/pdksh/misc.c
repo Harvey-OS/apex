@@ -245,7 +245,7 @@ printoptions(verbose)
 		for (i = 0; i < NELEM(options); i++)
 			if (Flag(i) && options[i].name)
 				shprintf(" -o %s", options[i].name);
-		shprintf(newline);
+		shprintf("%s", newline);
 	}
 }
 
@@ -962,7 +962,7 @@ ksh_getopt(argv, go, options)
 				(go->flags & GF_NONAME) ? "" : argv[0],
 				(go->flags & GF_NONAME) ? "" : ": ", c);
 			if (go->flags & GF_ERROR)
-				bi_errorf(null);
+				bi_errorf("%s", null);
 		}
 		return '?';
 	}
@@ -988,7 +988,7 @@ ksh_getopt(argv, go, options)
 				(go->flags & GF_NONAME) ? "" : argv[0],
 				(go->flags & GF_NONAME) ? "" : ": ", c);
 			if (go->flags & GF_ERROR)
-				bi_errorf(null);
+				bi_errorf("%s", null);
 			return '?';
 		}
 		go->p = 0;
@@ -1039,7 +1039,7 @@ print_value_quoted(s)
 	}
 	for (p = s; *p; p++) {
 		if (*p == '\'') {
-			shprintf("'\\'" + 1 - inquote);
+			shprintf("%s", "'\\'" + 1 - inquote);
 			inquote = 0;
 		} else {
 			if (!inquote) {

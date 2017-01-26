@@ -194,7 +194,7 @@ v_evaluate(vp, expr, error_ok)
 		if (i == LAEXPR) {
 			if (error_ok == KSH_RETURN_ERROR)
 				return 0;
-			errorf(null);
+			errorf("%s", null);
 		}
 		unwind(i);
 		/*NOTREACHED*/

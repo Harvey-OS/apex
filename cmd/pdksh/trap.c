@@ -66,7 +66,7 @@ inittraps()
 	Sigact_ign.sa_flags = KSH_SA_FLAGS;
 	Sigact_ign.sa_handler = SIG_IGN;
 	Sigact_trap = Sigact_ign;
-	Sigact_trap.sa_handler = trapsig;
+	Sigact_trap.sa_handler = (void *)trapsig;
 
 	sigtraps[SIGINT].flags |= TF_DFL_INTR | TF_TTY_INTR;
 	sigtraps[SIGQUIT].flags |= TF_DFL_INTR | TF_TTY_INTR;
@@ -427,7 +427,7 @@ setsig(p, f, flags)
 		p->cursig = f;
 		sigemptyset(&sigact.sa_mask);
 		sigact.sa_flags = KSH_SA_FLAGS;
-		sigact.sa_handler = f;
+		sigact.sa_handler = (void *)f;
 		sigaction(p->signal, &sigact, (struct sigaction *) 0);
 	}
 

@@ -153,7 +153,7 @@ execute(t, flags)
 				 */
 				if (tp && tp->type == CSHELL
 				    && (tp->flag & SPEC_BI))
-					errorf(null);
+					errorf("%s", null);
 				/* Deal with FERREXIT, quitenv(), etc. */
 				goto Break;
 			}

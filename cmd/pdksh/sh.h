@@ -25,6 +25,7 @@
 /* Start of common headers */
 
 #include <stdio.h>
+#include <strings.h>
 #include <sys/types.h>
 #include <setjmp.h>
 #ifdef HAVE_STDDEF_H

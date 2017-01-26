@@ -362,7 +362,7 @@ setstr(vq, s, error_ok)
 	if (vq->flag & RDONLY) {
 		warningf(TRUE, "%s: is read only", vq->name);
 		if (!error_ok)
-			errorf(null);
+			errorf("%s", null);
 		return 0;
 	}
 	if (!(vq->flag&INTEGER)) { /* string dest */
@@ -715,7 +715,7 @@ typeset(var, set, clr, field, base)
 			}
 		}
 		if (!ok)
-		    errorf(null);
+		    errorf("%s", null);
 	}
 
 	if (val != NULL) {
