@@ -554,7 +554,7 @@ shell(s, toplevel)
 		  case LSHELL:
 			if (interactive) {
 				if (i == LINTR)
-					shellf(newline);
+					shellf("%s", newline);
 				/* Reset any eof that was read as part of a
 				 * multiline command.
 				 */
@@ -833,13 +833,12 @@ static int
 is_restricted(name)
 	char *name;
 {
-	char *p;
-
 	/* this silly function prevents you running a command called runconf.sh. */
 	/* we don't care about restricted shells, which aren't very restricted anyway */
 	/* and introduce a false sense of security */
 	return 0;
 #ifdef dumbidea
+	char *p;
 	if ((p = ksh_strrchr_dirsep(name)))
 		name = p;
 	/* accepts rsh, rksh, rpdksh, pdrksh, etc. */
@@ -853,6 +852,6 @@ aerror(ap, msg)
 	const char *msg;
 {
 	internal_errorf(1, "alloc: %s", msg);
-	errorf(null); /* this is never executed - keeps gcc quiet */
+	errorf("%s", null); /* this is never executed - keeps gcc quiet */
 	/*NOTREACHED*/
 }
