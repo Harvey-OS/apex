@@ -13,7 +13,7 @@
 
 #ifndef	__EVENT_H_
 #define	__EVENT_H_
-#include "/sys/include/event.h"
+#include_next <event.h>
 
 #endif
 

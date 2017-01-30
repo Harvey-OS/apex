@@ -14,7 +14,7 @@
 #ifndef	__DRAW_H_
 #define	__DRAW_H_
 
-#include <u.h>
+#include <stdint.h>
 #include <fmt.h>
 #include <qlock.h>
 
