@@ -14,5 +14,16 @@ __sigsetjmp:
 	movq	%rsi, 64(%rdi)			/* (sigset_t*)set  */
 	leaq	_psigblocked, %rsi		/* (sigset_t*)oset */
 	movq	%rsi, 72(%rdi)
-	jz	1f
-1:	jmp	setjmp
+	movq    %rbx, 16(%rdi)
+	movq    %r12, 24(%rdi)
+	movq    %r13, 32(%rdi)
+	movq    %r14, 40(%rdi)
+	movq    %r15, 48(%rdi)
+	movq    %rbp, 56(%rdi)
+	popq    %rdx            /* return address */
+	movq    %rsp, 64(%rdi)
+	movq    %rdx, 72(%rdi)
+
+
+	xorl    %eax, %eax      /* return 0 */
+	jmp     *%rdx
