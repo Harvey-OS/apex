@@ -24,5 +24,8 @@ all: $(TARGET) clean
 $(TARGET): $(OBJ)
 	$(CC) --verbose -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 
+install:
+	cp $(TARGET) $(APEXBIN)
+
 clean:
 	rm -f $(OBJ)
