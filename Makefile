@@ -21,4 +21,6 @@ travis:
 	(cd /tmp/harvey && bash ./bootstrap.sh && ./util/build sys/src/libc/libc.json)
 	mkdir -p $(APEXLIB)
 	@cd lib && $(MAKE)
+	@cd cmd && $(MAKE)
+	@cd cmd && $(MAKE) install
 	@echo "Done!"
