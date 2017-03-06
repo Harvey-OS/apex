@@ -1,10 +1,17 @@
 include $(OS).inc
 
-DIRS=lib
+all: lib cmd
 
-all:
+dirs:
 	mkdir -p $(APEXLIB)
-	@cd $(DIRS) && $(MAKE)
+	mkdir -p $(APEXBIN)
+
+cmd: dirs lib
+	$(MAKE) -C cmd
+	$(MAKE) -C cmd install
+
+lib: dirs
+	@cd lib && $(MAKE)
 	@echo "Done!"
 
 # we clone into /tmp/harvey instead of . to make sure a HARVEY path that

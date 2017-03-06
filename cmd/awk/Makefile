@@ -30,5 +30,8 @@ $(OBJ):	awk.h ytab.h proto.h
 $(TARGET): ytab.o $(OBJ)
 	$(CC) --verbose -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) ytab.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 
+install:
+	cp $(TARGET) $(APEXBIN)
+
 clean:
 	rm -f $(OBJ) ytab.o
