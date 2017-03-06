@@ -20,5 +20,5 @@ travis:
 	git clone https://github.com/Harvey-OS/harvey /tmp/harvey
 	(cd /tmp/harvey && bash ./bootstrap.sh && ./util/build sys/src/libc/libc.json)
 	mkdir -p $(APEXLIB)
-	@cd $(DIRS) && $(MAKE)
+	@cd lib && $(MAKE)
 	@echo "Done!"
