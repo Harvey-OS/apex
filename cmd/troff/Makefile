@@ -7,7 +7,7 @@ OBJ = ${SRCS:.c=.o}
 TMACDIR='"sys/lib/tmac/tmac."'
 FONTDIR='"sys/lib/troff/font"'
 NTERMDIR='"sys/lib/troff/term/tab."'
-TEXHYPHENS='"sys/lib/texmf/tex/generic/hyphen/hyphen.tex"'
+TEXHYPHENS='"/sys/lib/texmf/tex/generic/hyphen/hyphen.tex"'
 DWBHOME='"/"'
 TDEVNAME='"utf"'
 NDEVNAME='"utf"'
