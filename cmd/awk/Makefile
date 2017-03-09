@@ -28,7 +28,7 @@ maketab:	ytab.h maketab.c
 $(OBJ):	awk.h ytab.h proto.h
 
 $(TARGET): ytab.o $(OBJ)
-	$(CC) --verbose -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) ytab.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
+	$(LD) -static -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) ytab.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 
 install:
 	cp $(TARGET) $(APEXBIN)
