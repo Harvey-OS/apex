@@ -19,10 +19,10 @@ CFLAGS += -I. -DHAVE_CONFIG_H -D_BSD_SOURCE -DTMACDIR=$(TMACDIR) -DTDEVNAME=$(TD
 all: $(TARGET) clean
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $(SRCS)
+	$(CC) $(CFLAGS) -c $(SRCS) || exit 1
 
 $(TARGET): $(OBJ)
-	$(CC) --verbose -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
+	$(CC) -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc || exit 1
 
 install:
 	cp $(TARGET) $(APEXBIN)
