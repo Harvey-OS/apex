@@ -22,7 +22,7 @@ all: $(TARGET) clean
 	$(CC) $(CFLAGS) -c $(SRCS)
 
 $(TARGET): $(OBJ)
-	$(CC) --verbose -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
+	$(LD) -static -nostdlib -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 
 install:
 	cp $(TARGET) $(APEXBIN)
