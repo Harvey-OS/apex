@@ -9,6 +9,7 @@ dirs:
 cmd: dirs
 	$(MAKE) -C cmd
 	$(MAKE) -C cmd install
+	$(MAKE) -C cmd clean
 
 lib: dirs
 	@cd lib && $(MAKE)

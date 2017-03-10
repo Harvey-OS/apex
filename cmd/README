@@ -1,6 +1,6 @@
 This is an attempt to make the utilities specified in
-POSIX 1002.3 available, assuming /$objtype/ape/bin
-and /lib/rc/ape are bound to /bin before the regular
+POSIX 1002.3 available, assuming /apex/$objtype/bin
+and /apex/rc are bound to /bin before the regular
 bin directories.
 
 Here's a brief description of the status of these commands.
