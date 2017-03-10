@@ -6,7 +6,7 @@ dirs:
 	mkdir -p $(APEXLIB)
 	mkdir -p $(APEXBIN)
 
-cmd: dirs lib
+cmd: dirs
 	$(MAKE) -C cmd
 	$(MAKE) -C cmd install
 

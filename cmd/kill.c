@@ -22,6 +22,7 @@ char *signm[NSIG+1] = { 0,
 "SIGSEGV", "SIGPIPE", "SIGALRM", "SIGTERM", "SIGUR1", "SIGUSR2", /* 8-13 */
 };
 
+int
 main(int argc, char **argv)
 {
 	int signo, pid, res;
