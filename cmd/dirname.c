@@ -11,10 +11,10 @@
 #include <string.h>
 #include <stdio.h>
 
+int
 main(int argc, char **argv)
 {
 	char *f, *s;
-	int n;
 
 	if(argc != 2){
 		fprintf(stderr, "Usage: dirname string\n");
