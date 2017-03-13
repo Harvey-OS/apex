@@ -1,13 +1,13 @@
 include $(APEX)/$(OS).inc
 
-DIRS = troff awk sed
+DIRS = troff awk sed pdksh
 BUILDDIRS=$(DIRS:%=build-%)
 INSTALLDIRS=$(DIRS:%=install-%)
 CLEANDIRS=$(DIRS:%=clean-%)
 
 PROGRAMS = expr uname kill basename dirname
 
-.PHONY: all clean
+.PHONY: $(DIRS) $(PROGRAMS)
 
 all: $(DIRS) $(PROGRAMS)
 
