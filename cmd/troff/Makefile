@@ -16,7 +16,7 @@ CFLAGS += -I. -DHAVE_CONFIG_H -D_BSD_SOURCE -DTMACDIR=$(TMACDIR) -DTDEVNAME=$(TD
 
 .PHONY: all clean
 
-all: $(TARGET) clean
+all: $(TARGET)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS)
@@ -28,4 +28,4 @@ install:
 	cp $(TARGET) $(APEXBIN)
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(TARGET)

@@ -8,7 +8,7 @@ CFLAGS += -I. -DHAVE_CONFIG_H -D_BSD_SOURCE
 
 .PHONY: all clean
 
-all: $(TARGET) clean
+all: $(TARGET)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $(SRCS)
@@ -34,4 +34,4 @@ install:
 	cp $(TARGET) $(APEXBIN)
 
 clean:
-	rm -f $(OBJ) ytab.o
+	rm -f $(OBJ) ytab.o maketab proctab.c $(TARGET)
