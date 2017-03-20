@@ -7,17 +7,10 @@
  * in the LICENSE file.
  */
 
-#include <signal.h>
-#include <errno.h>
+#include <stdio.h>
 
-/*
- * BUG: doesn't work
- */
-
-int
-sigsuspend(const sigset_t *c)
+void panic(char *s)
 {
-	panic("sigsuspend is not implemented");
-	errno = EINVAL;
-	return -1;
+	fprintf(stderr, "panic: %s\n", s);
+	exits(s);
 }
