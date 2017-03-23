@@ -7,10 +7,11 @@
  * in the LICENSE file.
  */
 
+#include "sys9.h"
 #include <stdio.h>
 
 void panic(char *s)
 {
 	fprintf(stderr, "panic: %s\n", s);
-	exits(s);
+	_exits(s);
 }
