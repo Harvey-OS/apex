@@ -1,76 +1,64 @@
 /*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
+ * Copyright (c) 1995, 1996, 1997, 1998, 1999 Kungliga Tekniska Högskolan
+ * (Royal Institute of Technology, Stockholm, Sweden).
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ *
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * 3. Neither the name of the Institute nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE INSTITUTE AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE INSTITUTE OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
  */
 
 #include <stdlib.h>
-#include <sys/types.h>
-#include <unistd.h>
 #include <string.h>
-
-/* bsd extensions */
+#include <sys/types.h>
 #include <sys/uio.h>
-#include <sys/socket.h>
-
-#include "priv.h"
+#include <errno.h>
+#include <unistd.h>
 
 ssize_t
 writev(int fd, const struct iovec *iov, int iovcnt)
 {
-	ssize_t tot = 0;
-	int i, n;
-	char *buf, *t, *e, *f;
+    ssize_t ret;
+    size_t tot = 0;
+    int i;
+    char *buf, *p;
 
-	for(i = 0; i < iovcnt; ++i)
-		tot += iov[i].iov_len;
-	buf = malloc(tot);
-
-	t = buf;
-	e = buf+sizeof(buf);
-	for(;iovcnt ; iov++, iovcnt--){
-		n = iov->iov_len;
-		f = iov->iov_base;
-		while(n > 0){
-			i = e-t;
-			if(n < i){
-				memmove(t, f, n);
-				t += n;
-				break;
-			}
-			memmove(t, f, i);
-			n -= i;
-			f += i;
-			i = write(fd, buf, sizeof(buf));
-			if(i < 0){
-				if(tot > 0){
-					return tot;
-				}else{
-					_syserrno();
-					return -1;
-				}
-			}
-			tot += i;
-			if(i != sizeof(buf)) {
-				return tot;
-			}
-			t = buf;
-		}
-	}
-	i = t - buf;
-	if(i > 0){
-		n = write(fd, buf, i);
-		if(n < 0){
-			if(tot == 0){
-				_syserrno();
-				return -1;
-			}
-		} else
-			tot += n;
-	}
-	free(buf);
-	return tot;
+    for(i = 0; i < iovcnt; ++i)
+	   tot += iov[i].iov_len;
+    buf = malloc(tot);
+    if (tot != 0 && buf == NULL) {
+    	errno = ENOMEM;
+    	return -1;
+    }
+    p = buf;
+    for (i = 0; i < iovcnt; ++i) {
+	   memcpy (p, iov[i].iov_base, iov[i].iov_len);
+	   p += iov[i].iov_len;
+    }
+    ret = write (fd, buf, tot);
+    free (buf);
+    return ret;
 }

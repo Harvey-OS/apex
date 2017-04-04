@@ -29,7 +29,7 @@
 #include "sys9.h"
 #include "priv.h"
 
-extern int	_muxsid;
+extern int64_t	_muxsid;
 extern void	_killmuxsid(void);
 
 /*
@@ -47,6 +47,7 @@ listenproc(Rock *r, int fd)
 	char *p;
 	char listen[Ctlsize];
 	char name[Ctlsize];
+	void *v;
 
 	switch(r->stype){
 	case SOCK_DGRAM:
@@ -89,11 +90,13 @@ listenproc(Rock *r, int fd)
 			_muxsid = getpgrp();
 		} else
 			setpgid(getpid(), _muxsid);
-		rendezvous(2, _muxsid);
+		while(rendezvous(r, (void*)_muxsid) == (void*)~0)
 		break;
 	default:
+		while((v = rendezvous(r, 0)) == (void*)~0)
+			;
+		_muxsid = (int64_t)v;
 		atexit(_killmuxsid);
-		_muxsid = rendezvous(2, 0);
 		close(pfd[1]);
 		close(nfd);
 		return 0;
