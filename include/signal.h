@@ -54,7 +54,7 @@ typedef int sig_atomic_t;
 extern "C" {
 #endif
 
-extern void (*signal(int, void (*)(int)))(int);
+extern void (*signal(int, void (*)()))();
 extern int raise(int);
 
 #ifdef __cplusplus
@@ -65,7 +65,7 @@ extern int raise(int);
 
 typedef long sigset_t;
 struct sigaction {
-	void		(*sa_handler)(int);
+	void		(*sa_handler)();
 	sigset_t	sa_mask;
 	int		sa_flags;
 };

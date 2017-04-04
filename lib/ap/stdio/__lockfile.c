@@ -7,21 +7,31 @@
  */
 
 #include "stdio_impl.h"
+#include <sys/wait.h>
 //#include "pthread_impl.h"
+
+/* Crappy, awaiting pthreads implementation */
 
 int __lockfile(FILE *f)
 {
+	//ORIG
 	//int owner, tid = __pthread_self()->tid;
 	//if (f->lock == tid)
 	//while ((owner = a_cas(&f->lock, 0, tid)))
 	//	__wait(&f->lock, &f->waiters, owner, 1);
-	f->lock = 1;
-	return 0;
+	//return 1;
+	pid_t pid = getpid();
+	if (f->lock == pid)
+		return 0;
+	else
+		f->waiters = 1;
+	return 1;
 }
 
 void __unlockfile(FILE *f)
 {
 	//a_store(&f->lock, 0);
+	f->lock = 0;
 
 	/* The following read is technically invalid under situations
 	 * of self-synchronized destruction. Another thread may have
@@ -33,5 +43,6 @@ void __unlockfile(FILE *f)
 	 * malloc changes, this assumption needs revisiting. */
 
 	//if (f->waiters) __wake(&f->lock, 1, 1);
-	f->lock = 0;
+	if (f->waiters)
+		f->lock = 1;
 }

@@ -54,8 +54,11 @@ _envsetup(void)
 	cnt = 0;
 	strcpy(name, "#e");
 	dfd = __sys_open(name, 0);
-	if(dfd < 0)
-			return;
+	if(dfd < 0){
+		environ = malloc(sizeof(char**));
+		*environ = NULL;
+		return;
+	}
 	name[2] = '/';
 	ps = p = malloc(Envhunk);
 	if(p == 0)

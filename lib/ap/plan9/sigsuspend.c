@@ -41,6 +41,10 @@ int sigsuspend (const sigset_t *set)
 	if (sigprocmask (SIG_SETMASK, nset, &oset) < 0)
 		return -1;
 
+	/*
+	 * We depend here from _envsetup and notify(nothandler)
+	 * for catching the signal which will break te pause
+	 */
 	(void) pause();
 	save = errno;
 

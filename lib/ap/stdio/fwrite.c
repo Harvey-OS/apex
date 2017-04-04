@@ -25,8 +25,7 @@ size_t __fwritex(const unsigned char *restrict s, size_t l, FILE *restrict f)
 				return i;
 			s += i;
 			l -= i;
-		} else
-			f->write(f, s, i); /* BUG! for non '\n' terminated strings */
+		}
 	}
 
 	memcpy(f->wpos, s, l);

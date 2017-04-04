@@ -47,10 +47,10 @@ static struct {
 
 void	(*_sighdlr[MAXSIG+1])(int, char*, Ureg*); /* 0 initialized: SIG_DFL */
 
-/* must match signal.h: extern void (*signal(int, void (*)(int)))(int); */
+/* must match signal.h: extern void (*signal(int, void (*)()))(); */
 //void (*signal(int sig, void (*func)(int, char*, Ureg*)))(int, char*, Ureg*)
 void
-(*signal(int sig, void (*func)(int)))(int)
+(*signal(int sig, void (*func)()))()
 {
 	void(*oldf)(int, char*, Ureg*);
 
