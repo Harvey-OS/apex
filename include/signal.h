@@ -90,7 +90,7 @@ extern int sigaddset(sigset_t *, int);
 extern int sigdelset(sigset_t *, int);
 extern int sigismember(const sigset_t *, int);
 extern int sigaction(int, const struct sigaction *, struct sigaction *);
-extern int sigprocmask(int, sigset_t *, sigset_t *);
+extern int sigprocmask(int, const sigset_t *, sigset_t *);
 extern int sigpending(sigset_t *);
 extern int sigsuspend(const sigset_t *);
 

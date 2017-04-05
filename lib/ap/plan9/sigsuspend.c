@@ -27,10 +27,7 @@
 int sigsuspend (const sigset_t *set)
 {
 	sigset_t oset;
-	sigset_t *nset;
 	int save;
-
-	nset = (sigset_t *)set; // set is const
 
 	if (set == NULL)
 	{
@@ -38,7 +35,7 @@ int sigsuspend (const sigset_t *set)
 		return -1;
 	}
 
-	if (sigprocmask (SIG_SETMASK, nset, &oset) < 0)
+	if (sigprocmask (SIG_SETMASK, set, &oset) < 0)
 		return -1;
 
 	/*
