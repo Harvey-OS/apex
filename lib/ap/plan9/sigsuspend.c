@@ -40,7 +40,7 @@ int sigsuspend (const sigset_t *set)
 
 	/*
 	 * We depend here from _envsetup and notify(nothandler)
-	 * for catching the signal which will break te pause
+	 * for catching the signal which will break the pause
 	 */
 	(void) pause();
 	save = errno;

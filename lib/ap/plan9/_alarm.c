@@ -7,12 +7,11 @@
  * in the LICENSE file.
  */
 
-#include "lib.h"
 #include <unistd.h>
 #include "sys9.h"
 
 unsigned int
-alarm(unsigned seconds)
+__alarm(unsigned seconds)
 {
 	return __sys_alarm(seconds*1000);
 }
