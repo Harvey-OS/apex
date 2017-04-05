@@ -63,7 +63,7 @@ extern int raise(int);
 
 #ifdef _POSIX_SOURCE
 
-typedef long sigset_t;
+typedef unsigned long long sigset_t;
 struct sigaction {
 	void		(*sa_handler)();
 	sigset_t	sa_mask;
