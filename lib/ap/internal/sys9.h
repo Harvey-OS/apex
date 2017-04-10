@@ -98,6 +98,7 @@ extern	int	fwstat(int, unsigned char*, int);
 extern	int	mount(int, int, const char*, int, const char*);
 extern	int	noted(int);
 extern	int	notify(void(*)(void*, char*));
+extern	void panic(char *);
 extern	int32_t	pread(int, void*, int32_t, int64_t);
 extern	int32_t	pwrite(int, const void*, int32_t, int64_t);
 extern	void*	rendezvous(void*, void*);
