@@ -9,11 +9,8 @@
 
 #include "sys9.h"
 
-/* syscall in libc */
-extern	int32_t	read(int, void*, int32_t);
-
 int
 __sys_read(int fd, void* buf, int32_t nbytes)
 {
-	return read(fd, buf, nbytes);
+	return pread(fd, buf, nbytes, ~0LL);
 }
