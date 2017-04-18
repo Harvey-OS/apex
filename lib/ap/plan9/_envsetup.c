@@ -48,6 +48,7 @@ _envsetup(void)
 	static char **emptyenvp = 0;
 
 	environ = emptyenvp;		/* pessimism */
+return;
 
 	nohandle = 0;
 	fdinited = 0;
