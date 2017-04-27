@@ -8,6 +8,7 @@
  */
 
 #include "lib.h"
+#include "sys9.h" // panic
 #include <fcntl.h>
 #include <unistd.h>
 #include <signal.h>
@@ -57,13 +58,21 @@ kill(pid_t pid, int sig)
 		mpid = getpid();
 		if(setpgid(mpid, -pid) == 0) {
 			r = note(mpid, msg, "/proc/%d/notepg");
+			if(r < 0)
+				panic("first r\n");
 			setpgid(mpid, sid);
 		} else {
 			r = -1;
 		}
-	} else if(pid == 0)
+	} else if(pid == 0){
 		r = note(getpid(), msg, "/proc/%d/notepg");
-	else
+		if(r < 0)
+			panic("second r\n");
+		}
+	else {
 		r = note(pid, msg, "/proc/%d/note");
+		if(r < 0)
+			panic("third r\n");
+		}
 	return r;
 }

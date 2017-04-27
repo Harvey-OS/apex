@@ -1,12 +1,3 @@
-/*
- * This file is part of the UCB release of Plan 9. It is subject to the license
- * terms in the LICENSE file found in the top-level directory of this
- * distribution and at http://akaros.cs.berkeley.edu/files/Plan9License. No
- * part of the UCB release of Plan 9, including this file, may be copied,
- * modified, propagated, or distributed except according to the terms contained
- * in the LICENSE file.
- */
- 
 #include <signal.h>
 #include <setjmp.h>
 #include "lib.h"
@@ -31,7 +22,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	Pcstack *p;
 
 	if(nstack >= MAXSIGSTACK)
-		noted(1);	/* nesting too deep; just do system default */
+		noted(NDFLT);	/* nesting too deep; just do system default */
 	p = &pcstack[nstack];
 	p->restorepc = u->ip;
 	p->sig = sig;
@@ -39,7 +30,7 @@ _notetramp(int sig, void (*hdlr)(int, char*, Ureg*), Ureg *u)
 	p->u = u;
 	nstack++;
 	u->ip = (uint64_t) notecont;
-	noted(2);	/* NSAVE: clear note but hold state */
+	noted(NSAVE);	/* clear note but hold state */
 }
 
 static void
@@ -53,7 +44,7 @@ notecont(Ureg *u, char *s)
 	u->ip = p->restorepc;
 	nstack--;
 	(*f)(p->sig, s, u);
-	noted(3);	/* NRSTR */
+	noted(NRSTR);
 }
 
 #define JMPBUFPC 1
@@ -61,30 +52,21 @@ notecont(Ureg *u, char *s)
 
 extern sigset_t	_psigblocked;
 
-typedef struct {
-	sigset_t set;
-	sigset_t blocked;
-	uint64_t jmpbuf[2];
-} sigjmp_buf_amd64;
-
 void
 siglongjmp(sigjmp_buf j, int ret)
 {
 	struct Ureg *u;
-	sigjmp_buf_amd64 *jb;
 
-	jb = (sigjmp_buf_amd64*)j;
-
-	if(jb->set)
-		_psigblocked = jb->blocked;
-	if(nstack == 0 || pcstack[nstack-1].u->sp > jb->jmpbuf[JMPBUFSP])
-		longjmp((void*)jb->jmpbuf, ret);
+	if(j[0])
+		_psigblocked = j[1];
+	if(nstack == 0 || pcstack[nstack-1].u->sp > j[2+JMPBUFSP])
+		longjmp(j+2, ret);
 	u = pcstack[nstack-1].u;
 	nstack--;
 	u->ax = ret;
 	if(ret == 0)
 		u->ax = 1;
-	u->ip = jb->jmpbuf[JMPBUFPC];
-	u->sp = jb->jmpbuf[JMPBUFSP] + 8;
-	noted(3);	/* NRSTR */
+	u->ip = j[2+JMPBUFPC];
+	u->sp = j[2+JMPBUFSP] + 8;
+	noted(NRSTR);
 }

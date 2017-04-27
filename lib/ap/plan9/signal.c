@@ -7,7 +7,6 @@
  * in the LICENSE file.
  */
 
-#include <stdio.h> //For printf warning
 #include "lib.h"
 #include "sys9.h"
 #include <signal.h>
@@ -105,11 +104,11 @@ _notehandler(void *u, char *msg)
 				_notetramp(sigtab[i].num, f, u);
 				/* notetramp is machine-dependent; doesn't return to here */
 			}
-			noted(0); /* NCONT */
+			noted(NCONT);
 		}
 	}
 	_doatexits();
-	noted(1); /* NDFLT */
+	noted(NDFLT);
 }
 
 int
