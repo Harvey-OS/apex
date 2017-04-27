@@ -40,7 +40,11 @@ enum {
 void
 _envsetup(void)
 {
-	int dfd, fdinited, n, nd, m, i, j, f, nohandle, psize, cnt;
+	int dfd;
+	int n, nd, m, i, j, f;
+	int psize, cnt;
+	int nohandle;
+	int fdinited;
 	char *ps, *p;
 	char **pp;
 	char name[NAME_MAX+5];

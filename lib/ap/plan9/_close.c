@@ -24,11 +24,6 @@ __close(int d)
 	if(d<0 || d>=OPEN_MAX || !(f->flags&FD_ISOPEN))
 		errno = EBADF;
 	else{
-		if(f->flags&(FD_BUFFERED|FD_BUFFEREDX)) {
-			if(f->flags&FD_BUFFERED)
-				_closebuf(d);
-			f->flags &= ~FD_BUFFERED;
-		}
 		n = __sys_close(d);
 		if(n < 0)
 			_syserrno();
