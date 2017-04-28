@@ -18,7 +18,8 @@
 ssize_t
 __read(int d, void *buf, size_t nbytes)
 {
-	int n;
+	int n, noblock, isbuf;
+	Fdinfo *f;
 
 	if(d<0 || d>=OPEN_MAX || !(_fdinfo[d].flags&FD_ISOPEN)){
 		errno = EBADF;
@@ -31,9 +32,25 @@ __read(int d, void *buf, size_t nbytes)
 		return -1;
 	}
 
-	n = __sys_read(d, buf, nbytes);
-	if(n < 0)
-		_syserrno();
-
+	f = &_fdinfo[d];
+	noblock = f->oflags&O_NONBLOCK;
+	isbuf = f->flags&(FD_BUFFERED|FD_BUFFEREDX);
+	if(noblock || isbuf){
+		if(f->flags&FD_BUFFEREDX) {
+			errno = EIO;
+			return -1;
+		}
+		if(!isbuf) {
+			if(_startbuf(d) != 0) {
+				errno = EIO;
+				return -1;
+			}
+		}
+		n = _readbuf(d, buf, nbytes, noblock);
+	}else{
+		n = __sys_read(d, buf, nbytes);
+		if(n < 0)
+			_syserrno();
+	}
 	return n;
 }

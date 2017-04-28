@@ -36,7 +36,10 @@ dirtostat(struct stat *s, Dir *d, Fdinfo *fi)
 	s->st_nlink = 1;
 	s->st_uid = 1;
 	s->st_gid = 1;
-	s->st_size = d->length;
+	if(fi && (fi->flags&FD_BUFFERED))
+		s->st_size = fi->buf->n;
+	else
+		s->st_size = d->length;
 	s->st_atime = d->atime;
 	s->st_mtime = d->mtime;
 	s->st_ctime = d->mtime;

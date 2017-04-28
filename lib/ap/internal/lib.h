@@ -42,11 +42,17 @@ typedef struct Fdinfo{
 	uid_t	uid;
 	gid_t	gid;
 	char		*name;
+	/*
+	 * the following is used if flags&FD_BUFFERED
+	 */
+	Muxbuf	*buf;	/* holds buffered data and state */
 } Fdinfo;
 
 /* #define FD_CLOEXEC 1 is in fcntl.h */
 
 #define FD_ISOPEN	0x2
+#define FD_BUFFERED	0x4
+#define FD_BUFFEREDX	0x8
 #define FD_ISTTY	0x20
 
 #define MAXSIG SIGUSR2
@@ -65,6 +71,11 @@ extern void	(*_sighdlr[])(int, char*, Ureg*);
 extern char	*_sigstring(int);
 extern int	_stringsig(char *);
 extern sigset_t	_psigblocked;
+extern int	_startbuf(int);
+extern int	_selbuf(int);
+extern void	_closebuf(int);
+extern int _readbuf(int, void*, int, int);
+extern void	_detachbuf(void);
 extern void	_finish(int, char *);
 extern char	*_ultoa(char *, uint32_t);
 extern void	_notehandler(void *, char *);
