@@ -37,6 +37,10 @@ fcntl(int fd, int cmd, ...)
 		err = EBADF;
 	else switch(cmd){
 		case F_DUPFD:
+			if(fi->flags&(FD_BUFFERED|FD_BUFFEREDX)){
+				err = EGREG;	/* dup of buffered fd not implemented */
+				break;
+			}
 			oflags = fi->oflags;
 			for(i = (arg>0)? arg : 0; i<OPEN_MAX; i++)
 				if(!(_fdinfo[i].flags&FD_ISOPEN))

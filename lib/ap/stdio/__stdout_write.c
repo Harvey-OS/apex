@@ -19,8 +19,9 @@
  */
 static int dummy(FILE *f)
 {
-	if (ioctl(f->fd, FIONREAD, &f->buf_size) == 0)
+	if (ioctl(f->fd, FIONREAD, &f->buf_size))
 		return 0;
+	/* FIONREAD will never return -1 as TIOCGWINSZ */
 	return -1;
 
 }
