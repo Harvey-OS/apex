@@ -30,12 +30,10 @@ typedef unsigned long size_t;
 typedef long ssize_t;
 #endif
 #ifndef NULL
-#ifndef NULL
 #ifdef __cplusplus
-#define NULL 0
+#define NULL 0L
 #else
-#define NULL ((void*)0)
-#endif
+#define NULL ((void *)0)
 #endif
 #endif
 

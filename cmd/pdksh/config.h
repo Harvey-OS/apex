@@ -88,7 +88,7 @@
 /* #undef SHARPBANG */
 
 /* Define if dup2() preserves the close-on-exec flag (ultrix does this) */
-/* #undef DUP2_BROKEN 1 */
+#define DUP2_BROKEN 1
 
 /* Define as the return value of signal handlers (0 or ).  */
 #define RETSIGVAL
@@ -97,13 +97,13 @@
 /* #undef POSIX_SIGNALS */
 
 /* Define if you have BSD4.2 signal routines (sigsetmask(), et. al.) */
-#define BSD42_SIGNALS 1
+//#define BSD42_SIGNALS 1
 
 /* Define if you have BSD4.1 signal routines (sigset(), et. al.) */
-#define BSD41_SIGNALS 1
+//#define BSD41_SIGNALS 1
 
 /* Define if you have v7 signal routines (signal(), signal reset on delivery) */
-#define V7_SIGNALS 1
+//#define V7_SIGNALS 1
 
 /* Define to use the fake posix signal routines (sigact.[ch]) */
 /* #define USE_FAKE_SIGACT 1 */
@@ -125,15 +125,16 @@
 
 /* Define to char if your compiler doesn't like the void keyword */
 /* #define void char */
+#undef void
 
 /* Define to nothing if compiler doesn't like the volatile keyword */
-/* #define volatile */
+#define volatile 
 
 /* Define if C compiler groks function prototypes */
 #define HAVE_PROTOTYPES
 
 /* Define if C compiler groks __attribute__((...)) (const, noreturn, format) */
-#define HAVE_GCC_FUNC_ATTR 1
+//#define HAVE_GCC_FUNC_ATTR 1
 
 /* Define to 32-bit signed integer type if <sys/types.h> doesn't define */
 /*#undef clock_t long */
@@ -168,7 +169,7 @@
 #define HAVE_MEMMOVE
 
 /* Define if you have a bcopy() function in your C library */
-#define HAVE_BCOPY 1
+//#define HAVE_BCOPY 1
 
 /* Define if you have a lstat() function in your C library */
 #define HAVE_LSTAT
@@ -283,10 +284,10 @@
 /* #undef HAVE_SETRLIMIT */
 
 /* Define if you have the sigsetjmp function.  */
-#define HAVE_SIGSETJMP 1
+#define HAVE_SIGSETJMP
 
 /* Define if you have the strcasecmp function.  */
-#define HAVE_STRCASECMP 1
+#define HAVE_STRCASECMP
 
 /* Define if you have the strerror function.  */
 #define HAVE_STRERROR
