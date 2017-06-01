@@ -84,7 +84,7 @@ extern int chmod(const char *, mode_t);
 #ifdef _BSD_EXTENSION
 extern int	lstat(const char *, struct stat *);
 extern int	symlink(const char *, const char *);
-extern int	readlink(const char *, char*, int);
+extern ssize_t	readlink(const char *, char*, size_t);
 #endif
 
 #ifdef __cplusplus
