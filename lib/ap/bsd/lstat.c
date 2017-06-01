@@ -24,8 +24,8 @@ symlink(const char *c, const char *d)
 	return -1;
 }
 
-int
-readlink(const char *c, char *d, int i)
+ssize_t
+readlink(const char *c, char *d, size_t i)
 {
 	errno = EIO;
 	return -1;
