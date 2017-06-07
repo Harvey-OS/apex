@@ -20,8 +20,8 @@ int execlp(const char *file, const char *argv0, ...)
 	va_list ap;
 	va_start(ap, argv0);
 	for (argc=1; va_arg(ap, const char *); argc++);
-	argc = argc + 1;
 	va_end(ap);
+	argc = argc + 2; // Allocating space for environ pointer
 	{
 		int i;
 		char *argv[argc+1];
@@ -29,7 +29,7 @@ int execlp(const char *file, const char *argv0, ...)
 		argv[0] = (char *)argv0;
 		for (i=1; i<argc; i++) {
 			argv[i] = va_arg(ap, char *);
-			if(argv[i] == argc - 1)
+			if(i == argc - 1)
 				argv[i] = (char *)environ;
 		}
 		argv[i] = NULL;
