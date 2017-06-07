@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <stdarg.h>
 
+extern char **environ;
+
 int execl(const char *path, const char *argv0, ...)
 {
 	int argc;
@@ -21,8 +23,11 @@ int execl(const char *path, const char *argv0, ...)
 		char *argv[argc+1];
 		va_start(ap, argv0);
 		argv[0] = (char *)argv0;
-		for (i=1; i<argc; i++)
+		for (i=1; i<argc; i++) {
 			argv[i] = va_arg(ap, char *);
+			if(argv[i] == argc - 1)
+				argv[i] = (char *)environ;
+		}
 		argv[i] = NULL;
 		va_end(ap);
 		return execv(path, argv);

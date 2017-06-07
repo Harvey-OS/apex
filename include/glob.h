@@ -17,6 +17,10 @@ extern "C" {
 #include <sys/types.h>
 #endif
 
+#ifndef __STAT_H
+#include <sys/stat.h>
+#endif
+
 #include <features.h>
 
 typedef struct {
