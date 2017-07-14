@@ -21,7 +21,6 @@ int execle(const char *path, const char *argv0, ...)
 	{
 		int i;
 		char *argv[argc+1];
-		char **envp;
 		va_start(ap, argv0);
 		argv[0] = (char *)argv0;
 		for (i=1; i<=argc; i++)

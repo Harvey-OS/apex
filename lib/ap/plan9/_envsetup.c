@@ -30,7 +30,7 @@
 char **environ;
 int errno;
 uint32_t _clock;
-
+static char name[NAME_MAX+5] = "#e";
 static void sigsetup(char *, char *);
 
 enum {
@@ -47,20 +47,15 @@ _envsetup(void)
 	int fdinited;
 	char *ps, *p;
 	char **pp;
-	char name[NAME_MAX+5];
 	Dir *d9, *d9a;
-	static char **emptyenvp = 0;
-
-	environ = emptyenvp;		/* pessimism */
 
 	nohandle = 0;
 	fdinited = 0;
 	cnt = 0;
-	strcpy(name, "#e");
 	dfd = __sys_open(name, 0);
 	if(dfd < 0){
-		environ = malloc(sizeof(char**));
-		*environ = NULL;
+		static char **emptyenvp = 0;
+		environ = emptyenvp;
 		return;
 	}
 	name[2] = '/';
@@ -73,17 +68,11 @@ _envsetup(void)
 	for(j=0; j<nd; j++){
 		d9 = &d9a[j];
 		n = strlen(d9->name);
-		if(n >= sizeof name - 4)
-			continue;	/* shouldn't be possible */
 		m = d9->length;
 		i = p - ps;
 		if(i+n+1+m+1 > psize) {
 			psize += (n+m+2 < Envhunk)? Envhunk : n+m+2;
 			ps = realloc(ps, psize);
-			if (ps == 0) {
-				free(d9a);
-				return;
-			}
 			p = ps + i;
 		}
 		memcpy(p, d9->name, n);
@@ -112,10 +101,7 @@ _envsetup(void)
 	free(d9a);
 	if(!fdinited)
 		_fdinit(0, 0);
-	pp = malloc((1+cnt)*sizeof(char *));
-	if (pp == 0)
-		return;
-	environ = pp;
+	environ = pp = malloc((1+cnt)*sizeof(char *));
 	p = ps;
 	for(i = 0; i < cnt; i++) {
 		*pp++ = p;
