@@ -11,7 +11,7 @@
 
 extern char **environ;
 
-int execl(const char *path, const char *argv0, ...)
+int _execl(const char *path, const char *argv0, ...)
 {
 	int argc;
 	va_list ap;

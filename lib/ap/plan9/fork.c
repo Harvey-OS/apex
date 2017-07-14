@@ -13,7 +13,7 @@
 #include "sys9.h"
 
 pid_t
-fork(void)
+_fork(void)
 {
 	int n;
 

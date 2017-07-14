@@ -90,7 +90,8 @@ extern "C" {
 #endif
 
 /* process primitives */
-extern int execl(const char *, const char * , ...);
+extern int _execl(const char *, const char * , ...);
+#define execl _execl
 extern int execv(const char *, char *const *);
 extern int execle(const char *, const char *,  ...);
 extern int execve(const char *, char *const *, char *const *);
@@ -103,7 +104,8 @@ extern int pause(void);
 extern unsigned int __sleep(unsigned int);
 #define sleep(u) __sleep(u)
 #ifdef __TYPES_H
-extern pid_t fork(void);
+extern pid_t _fork(void);
+#define fork _fork
 #endif
 
 /* process environment */
