@@ -6,6 +6,8 @@
  * license that can be found in the LICENSE.mit file.
  */
 
+/* TODO locks must be back when APEX had pthreads" */
+
 #include <libintl.h>
 #include <stdlib.h>
 #include <string.h>
@@ -55,7 +57,7 @@ char *bindtextdomain(const char *domainname, const char *dirname)
 		return 0;
 	}
 
-	LOCK(lock);
+	//LOCK(lock);
 
 	for (p=bindings; p; p=p->next) {
 		if (!strcmp(p->domainname, domainname) &&
@@ -67,7 +69,7 @@ char *bindtextdomain(const char *domainname, const char *dirname)
 	if (!p) {
 		p = malloc(sizeof *p + domlen + dirlen + 2);
 		if (!p) {
-			UNLOCK(lock);
+			//UNLOCK(lock);
 			return 0;
 		}
 		p->next = bindings;
@@ -86,7 +88,7 @@ char *bindtextdomain(const char *domainname, const char *dirname)
 			a_store(&q->active, 0);
 	}
 
-	UNLOCK(lock);
+	//UNLOCK(lock);
 	
 	return (char *)p->dirname;
 }
