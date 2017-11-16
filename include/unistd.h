@@ -170,12 +170,14 @@ extern int tcsetpgrp(int, pid_t);
 extern char *getlogin_r(char *, int);
 #endif
 
-/* berkeley specific functions */
-extern int	getopt(int, char* const*, const char*);
-extern int	opterr;
-extern int	optind;
-extern int	optopt;
-extern char	*optarg;
+/* 1003.2-1992 */
+#ifndef _GETOPT_DECLARED
+#define _GETOPT_DECLARED
+int  getopt(int, char * const [], const char *);
+
+extern char *optarg;            /* getopt(3) external variables */
+extern int optind, opterr, optopt;
+#endif /* _GETOPT_DECLARED */
 
 #ifdef __cplusplus
 }
