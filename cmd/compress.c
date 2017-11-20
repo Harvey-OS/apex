@@ -45,15 +45,23 @@
  *		James A. Woods		(decvax!ihnp4!ames!jaw)
  *		Joe Orost		(decvax!vax135!petsd!joe)
  */
+#ifndef _PLAN9_SOURCE
 #define _PLAN9_SOURCE
+#endif
+#ifndef _BSD_EXTENSION
 #define _BSD_EXTENSION
+#endif
+#ifndef _POSIX_SOURCE
 #define _POSIX_SOURCE
+#endif
 
-#include <u.h>
+#define USED(x) ((void)(x))
+
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <stdint.h>
 #include <string.h>
 #include <signal.h>
 #include <utime.h>
@@ -73,7 +81,7 @@ typedef long	count_int;
 
 static char rcs_ident[] = "$Header: compress.c,v 4.0 85/07/30 12:50:00 joe Release $";
 
-uchar magic_header[] = { 0x1F, 0x9D };	/* 1F 9D */
+uint8_t magic_header[] = { 0x1F, 0x9D };	/* 1F 9D */
 
 /* Defines for third byte of header */
 #define BIT_MASK	0x1f
@@ -93,7 +101,7 @@ code_int maxmaxcode = 1 << BITS;	/* should NEVER generate this code */
 #define MAXCODE(n_bits)	((1 << (n_bits)) - 1)
 
 count_int htab[HSIZE];
-ushort codetab[HSIZE];
+uint16_t codetab[HSIZE];
 
 #define htabof(i)	htab[i]
 #define codetabof(i)	codetab[i]
@@ -111,8 +119,8 @@ count_int fsize;
  */
 
 #define tab_prefixof(i)	codetabof(i)
-#define tab_suffixof(i)	((uchar *)(htab))[i]
-#define de_stack		((uchar *)&tab_suffixof(1<<BITS))
+#define tab_suffixof(i)	((uint8_t *)(htab))[i]
+#define de_stack		((uint8_t *)&tab_suffixof(1<<BITS))
 
 code_int free_ent = 0;			/* first unused entry */
 int exit_stat = 0;
@@ -171,6 +179,7 @@ void (*bgnd_flag)(int);
 
 int do_decomp = 0;
 
+int
 main(argc, argv)
 int argc;
 char **argv;
@@ -606,8 +615,8 @@ nomatch:
 
 static char buf[BITS];
 
-uchar lmask[9] = {0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00};
-uchar rmask[9] = {0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff};
+uint8_t lmask[9] = {0xff, 0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80, 0x00};
+uint8_t rmask[9] = {0x00, 0x01, 0x03, 0x07, 0x0f, 0x1f, 0x3f, 0x7f, 0xff};
 
 void
 output( code )
@@ -726,7 +735,7 @@ decompress(void)
 {
 	int finchar;
 	code_int code, oldcode, incode;
-	uchar *stackp;
+	uint8_t *stackp;
 
 	/*
 	* As above, initialize the first 256 entries in the table.
@@ -734,7 +743,7 @@ decompress(void)
 	maxcode = MAXCODE(n_bits = INIT_BITS);
 	for (code = 255; code >= 0; code--) {
 		tab_prefixof(code) = 0;
-		tab_suffixof(code) = (uchar)code;
+		tab_suffixof(code) = (uint8_t)code;
 	}
 	free_ent = (block_compress? FIRST: 256);
 
@@ -784,7 +793,7 @@ decompress(void)
 		 * Generate the new entry.
 		 */
 		if ( (code=free_ent) < maxmaxcode ) {
-			tab_prefixof(code) = (ushort)oldcode;
+			tab_prefixof(code) = (uint16_t)oldcode;
 			tab_suffixof(code) = finchar;
 			free_ent = code+1;
 		}
@@ -813,8 +822,8 @@ getcode()
 	int r_off, bits;
 	code_int code;
 	static int offset = 0, size = 0;
-	static uchar buf[BITS];
-	uchar *bp = buf;
+	static uint8_t buf[BITS];
+	uint8_t *bp = buf;
 
 	if ( clear_flg > 0 || offset >= size || free_ent > maxcode ) {
 		/*
