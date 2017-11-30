@@ -21,7 +21,6 @@ _fork(void)
 	if(n < 0)
 		_syserrno();
 	if(n == 0) {
-		_detachbuf();
 		_sessleader = 0;
 	}
 	return n;
