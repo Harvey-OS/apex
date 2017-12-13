@@ -1,4 +1,4 @@
-![APEX](https://harvey-os.org/img/harvey-printf.png)
+![APEX](https://harvey-os.org/images/harvey-printf.png)
 APEX: the ANSI/POSIX Environment for Harvey OS
 =====
 [![Build Status](https://travis-ci.org/Harvey-OS/apex.svg?branch=master)](https://travis-ci.org/Harvey-OS/apex)
