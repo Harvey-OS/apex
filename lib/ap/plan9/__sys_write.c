@@ -12,5 +12,5 @@
 int
 __sys_write(int fd, const void* buf, int32_t nbytes)
 {
-	return pwrite(fd, buf, nbytes, ~0LL);
+	return pwrite(fd, buf, nbytes, -1LL);
 }

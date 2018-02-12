@@ -12,5 +12,5 @@
 int
 __sys_read(int fd, void* buf, int32_t nbytes)
 {
-	return pread(fd, buf, nbytes, ~0LL);
+	return pread(fd, buf, nbytes, -1LL);
 }
