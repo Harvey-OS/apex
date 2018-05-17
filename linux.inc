@@ -7,7 +7,9 @@ HARVEYLIB=${HARVEY}/${ARCH}/lib
 APEXLIB=${APEX}/${ARCH}/lib
 APEXBIN=${APEX}/${ARCH}/bin
 AS=as
-CC=gcc
+ifndef CC
+    CC=gcc
+endif
 LD=ld
 
 IDIR=${APEX}/include
