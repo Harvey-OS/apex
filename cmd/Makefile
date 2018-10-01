@@ -25,11 +25,11 @@ install: $(DIRS)
 
 $(PROGRAMS):
 	$(CC) $(CFLAGS) -c $@.c
-	$(LD) -static -nostdlib -o $@ $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $@.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
+	$(LD) -static -nostdlib -z noseparated-code -z max-page-size=0x200000 -o $@ $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $@.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 	cp $@ $(APEXBIN)
 	rm -f $@.o $@
 $(MVANDCP):
 	$(CC) $(NCFLAGS) -c $@.c
-	$(LD) -static -nostdlib -e_main -o $@ $@.o -L$(HARVEYLIB) -lc
+	$(LD) -static -nostdlib -e_main -z noseparated-code -z max-page-size=0x200000 -o $@ $@.o -L$(HARVEYLIB) -lc
 	cp $@ $(APEXBIN)
 	rm -f $@.o $@
