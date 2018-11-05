@@ -7,7 +7,7 @@ CLEANDIRS=$(DIRS:%=clean-%)
 
 NIDIR = ${HARVEY}/sys/include
 NIOBJDIR = ${HARVEY}/${ARCH}/include
-NCFLAGS += -O0 -static -mno-red-zone -ffreestanding -fno-builtin -fno-omit-frame-pointer -I$(NIDIR) -I$(NIOBJDIR)
+NCFLAGS += -O0 -static -mno-red-zone -ffreestanding -fno-builtin -fno-omit-frame-pointer -fno-stack-protector -I$(NIDIR) -I$(NIOBJDIR)
 
 PROGRAMS = expr uname kill basename dirname compress
 MVANDCP = mv cp
