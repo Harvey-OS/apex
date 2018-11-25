@@ -27,7 +27,7 @@
  * Also, register the note handler.
  */
 
-char **environ;
+char **__environ;
 int errno;
 uint32_t _clock;
 static char name[NAME_MAX+5] = "#e";
@@ -55,7 +55,7 @@ _envsetup(void)
 	dfd = __sys_open(name, 0);
 	if(dfd < 0){
 		static char **emptyenvp = 0;
-		environ = emptyenvp;
+		__environ = emptyenvp;
 		return;
 	}
 	name[2] = '/';
@@ -101,7 +101,7 @@ _envsetup(void)
 	free(d9a);
 	if(!fdinited)
 		_fdinit(0, 0);
-	environ = pp = malloc((1+cnt)*sizeof(char *));
+	__environ = pp = malloc((1+cnt)*sizeof(char *));
 	p = ps;
 	for(i = 0; i < cnt; i++) {
 		*pp++ = p;

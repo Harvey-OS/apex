@@ -7,8 +7,8 @@ CP = cp
 
 all: crt1.o crti.o crtn.o clean
 
-crt1.o: crt1.S
-	$(CC) $(CFLAGS) -c crt1.S
+crt1.o: crt1.c
+	$(CC) $(CFLAGS) -c crt1.c
 	$(CP) crt1.o $(APEXLIB)/
 
 crti.o: crti.s
