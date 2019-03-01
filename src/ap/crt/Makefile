@@ -5,11 +5,11 @@ CP = cp
 
 .PHONY: all
 
-all: crt1.o crti.o crtn.o clean
+all: crt0.o crti.o crtn.o clean
 
-crt1.o: crt1.c
-	$(CC) $(CFLAGS) -c crt1.c
-	$(CP) crt1.o $(APEXLIB)/
+crt0.o: crt0.c
+	$(CC) $(CFLAGS) -c crt0.c
+	$(CP) crt0.o $(APEXLIB)/
 
 crti.o: crti.s
 	$(CC) $(CFLAGS) -c crti.s
