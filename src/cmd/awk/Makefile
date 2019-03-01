@@ -28,7 +28,7 @@ maketab:	ytab.h maketab.c
 $(OBJ):	awk.h ytab.h proto.h
 
 $(TARGET): ytab.o proctab.c $(OBJ)
-	$(LD) -static -nostdlib -z noseparated-code -z max-page-size=0x200000 -o $(TARGET) $(APEXLIB)/crt1.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) ytab.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
+	$(LD) -static -nostdlib -z noseparated-code -z max-page-size=0x200000 -o $(TARGET) $(APEXLIB)/crt0.o $(APEXLIB)/crti.o $(APEXLIB)/crtn.o $(OBJ) ytab.o -L$(APEXLIB) -L$(HARVEYLIB) -lap -lc
 
 install:
 	cp $(TARGET) $(APEXBIN)
