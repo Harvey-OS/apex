@@ -11,8 +11,7 @@ before_script:
 script:
 - make travis
 compiler:
-- gcc-6
-- gcc-7
+- gcc-8
 - clang
 env:
   global:
