@@ -9,10 +9,10 @@
 
 #include <unistd.h>
 
-extern char **environ;
+extern char **__environ;
 
 int
 execv(const char *name, char *const argv[])
 {
-	return execve(name, argv, environ);
+	return execve(name, argv, __environ);
 }

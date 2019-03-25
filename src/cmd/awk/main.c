@@ -34,7 +34,6 @@ const char	*version = "version 20121220";
 #include "awk.h"
 #include "ytab.h"
 
-extern	char	**environ;
 extern	int	nfields;
 
 int	dbg	= 0;
@@ -167,8 +166,6 @@ int main(int argc, char *argv[])
 	argv[0] = cmdname;	/* put prog name at front of arglist */
 	   dprintf( ("argc=%d, argv[0]=%s\n", argc, argv[0]) );
 	arginit(argc, argv);
-	if (!safe)
-		envinit(environ);
 	yyparse();
 	setlocale(LC_NUMERIC, ""); /* back to whatever it is locally */
 	if (fs)

@@ -11,7 +11,7 @@
 #include <sys/limits.h>
 #include <string.h>
 
-extern char **environ;
+extern char **__environ;
 
 /*
  * BUG: instead of looking at PATH env variable,
@@ -24,10 +24,10 @@ execvp(const char *name, char *const argv[])
 	int n;
 	char buf[PATH_MAX];
 
-	if((n=execve(name, argv, environ)) < 0){
+	if((n=execve(name, argv, __environ)) < 0){
 		strcpy(buf, "/bin/");
 		strcpy(buf+5, name);
-		n = execve(buf, argv, environ);
+		n = execve(buf, argv, __environ);
 	}
 	return n;
 }

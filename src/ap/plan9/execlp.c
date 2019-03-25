@@ -11,7 +11,7 @@
 #include <string.h>
 #include <sys/limits.h>
 
-extern char **environ;
+extern char **__environ;
 
 int execlp(const char *file, const char *argv0, ...)
 {
@@ -30,7 +30,7 @@ int execlp(const char *file, const char *argv0, ...)
 		for (i=1; i<argc; i++) {
 			argv[i] = va_arg(ap, char *);
 			if(i == argc - 1)
-				argv[i] = (char *)environ;
+				argv[i] = (char *)__environ;
 		}
 		argv[i] = NULL;
 		va_end(ap);

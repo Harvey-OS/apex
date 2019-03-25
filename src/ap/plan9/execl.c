@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <stdarg.h>
 
-extern char **environ;
+extern char **__environ;
 
 int _execl(const char *path, const char *argv0, ...)
 {
@@ -27,7 +27,7 @@ int _execl(const char *path, const char *argv0, ...)
 		for (i=1; i<argc; i++) {
 			argv[i] = va_arg(ap, char *);
 			if(i == argc - 1)
-				argv[i] = (char *)environ;
+				argv[i] = (char *)__environ;
 		}
 		argv[i] = NULL;
 		va_end(ap);

@@ -17,7 +17,7 @@
 #include "ksh_stat.h"
 #include "ksh_time.h"
 
-extern char **environ;
+extern char **__environ;
 
 /*
  * global data
@@ -211,8 +211,8 @@ main(argc, argv)
 #endif /* POSIXLY_CORRECT */
 
 	/* import enviroment */
-	if (environ != NULL)
-		for (wp = environ; *wp != NULL; wp++)
+	if (__environ != NULL)
+		for (wp = __environ; *wp != NULL; wp++)
 			typeset(*wp, IMPORT|EXPORT, 0, 0, 0);
 
 	kshpid = procpid = getpid();

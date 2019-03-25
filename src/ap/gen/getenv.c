@@ -9,12 +9,12 @@
 
 #include <stdlib.h>
 
-extern char **environ;
+extern char **__environ;
 
 char *
 getenv(const char *name)
 {
-	char **p = environ;
+	char **p = __environ;
 	char *s1, *s2;
 
 	while (*p != NULL){

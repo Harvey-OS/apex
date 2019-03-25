@@ -14,7 +14,7 @@
 #include <signal.h>
 #include "sys9.h"
 
-extern char **environ;
+extern char **__environ;
 
 int
 execve(const char *name, char *const argv[], char *const envp[])
